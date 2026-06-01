@@ -1,0 +1,24 @@
+# Core scientific stack (Week 1-2 preprocessing)
+numpy>=1.26
+opencv-python>=4.9
+Pillow>=10.0
+matplotlib>=3.8
+pandas>=2.1
+scikit-learn>=1.4
+scikit-image>=0.22
+tqdm>=4.66
+PyYAML>=6.0
+
+# Whole-slide image reading (CATCH .svs/.tiff slides)
+# NOTE: on Windows, also install the OpenSlide binaries and add them to PATH:
+#   https://openslide.org/download/
+openslide-python>=1.3
+tifffile>=2024.1
+
+# Used from Week 3 onward (model development) - listed for reference
+# torch>=2.2
+# torchvision>=0.17
+# segmentation-models-pytorch>=0.3
+# albumentations>=1.4
+# tensorboard>=2.16
+# grad-cam>=1.5

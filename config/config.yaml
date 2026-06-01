@@ -1,0 +1,45 @@
+# =====================================================================
+# Configuration for CATCH preprocessing pipeline (Week 1-2)
+# =====================================================================
+
+project:
+  name: "canine-melanoma-catch"
+  seed: 42
+
+paths:
+  raw_dir: "data/raw"            # CATCH whole-slide images (.svs / .tiff)
+  interim_dir: "data/interim"    # stain-normalised slides
+  processed_dir: "data/processed"
+  patches_dir: "data/processed/patches"
+  figures_dir: "outputs/figures"
+  logs_dir: "outputs/logs"
+
+# ---- Quality assessment thresholds (quality_check.py) ----
+quality:
+  min_width: 256
+  min_height: 256
+  blur_laplacian_min: 50.0       # below this = too blurry -> flag
+  min_tissue_fraction: 0.10      # at least 10% tissue or slide is flagged
+  brightness_low: 25             # near-black slide
+  brightness_high: 245           # washed-out / blank slide
+
+# ---- Macenko stain normalisation (stain_normalization.py) ----
+stain_normalization:
+  io: 240                        # transmitted light intensity
+  alpha: 1                       # percentile for robust angle estimation
+  beta: 0.15                     # OD threshold to drop transparent pixels
+
+# ---- Patch extraction (patch_extraction.py) ----
+patches:
+  patch_size: 256                # pixels (square)
+  stride: 256                    # 256 = non-overlapping tiles
+  magnifications: [5, 10, 20]    # documented target magnifications
+  min_tissue_fraction: 0.50      # keep patch only if >=50% tissue
+  max_patches_per_slide: 2000
+
+# ---- Dataset split (dataset_split.py) ----
+split:
+  train: 0.70
+  val: 0.15
+  test: 0.15
+  stratify: true                 # preserve class distribution
