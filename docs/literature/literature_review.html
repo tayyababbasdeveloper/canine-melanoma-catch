@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literature Review — Canine Melanoma (CATCH) | Weeks 1–2</title>
+<style>
+  :root{
+    --blue:#1F3A6E; --green:#1B7F4B; --row:#EEF2F8; --line:#d6deea;
+    --ink:#1c2430; --muted:#5a6577;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); line-height:1.6; margin:0; background:#f4f6fa;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 22px 80px}
+  header.hero{
+    background:linear-gradient(135deg,#1F3A6E 0%,#2c5298 100%);
+    color:#fff; padding:46px 22px 38px; margin-bottom:34px;
+    box-shadow:0 2px 14px rgba(31,58,110,.25);
+  }
+  header.hero .inner{max-width:1040px; margin:0 auto}
+  header.hero .tag{
+    display:inline-block; background:rgba(255,255,255,.18); color:#fff;
+    font-size:.78rem; letter-spacing:.5px; text-transform:uppercase;
+    padding:5px 12px; border-radius:30px; margin-bottom:14px; font-weight:600;
+  }
+  header.hero h1{margin:0 0 8px; font-size:2rem; font-weight:700}
+  header.hero p{margin:0; opacity:.92; font-size:1.02rem}
+  header.hero .meta{margin-top:16px; font-size:.9rem; opacity:.85}
+  header.hero .meta span{margin-right:18px; display:inline-block}
+
+  h2{
+    color:var(--blue); font-size:1.4rem; margin:42px 0 6px;
+    padding-bottom:8px; border-bottom:3px solid var(--blue);
+  }
+  h2 .num{
+    display:inline-block; background:var(--blue); color:#fff; width:34px;
+    height:34px; line-height:34px; text-align:center; border-radius:8px;
+    font-size:1rem; margin-right:12px; vertical-align:middle;
+  }
+  .sub{color:var(--muted); font-size:.96rem; margin:0 0 18px}
+
+  table{
+    width:100%; border-collapse:collapse; background:#fff; margin:10px 0 8px;
+    border-radius:10px; overflow:hidden; box-shadow:0 1px 6px rgba(28,36,48,.08);
+    font-size:.93rem;
+  }
+  thead th{
+    background:var(--blue); color:#fff; text-align:left; padding:12px 14px;
+    font-weight:600; font-size:.9rem;
+  }
+  tbody td{padding:11px 14px; border-top:1px solid var(--line); vertical-align:top}
+  tbody tr:nth-child(even){background:var(--row)}
+  tbody tr:hover{background:#e3ebf8}
+  td strong, th strong{color:var(--blue)}
+  .ref{white-space:nowrap; font-weight:600; color:var(--ink)}
+
+  .callout{
+    background:#fff; border-left:5px solid var(--green); border-radius:8px;
+    padding:18px 22px; margin:14px 0; box-shadow:0 1px 6px rgba(28,36,48,.08);
+  }
+  .callout.gap{border-left-color:#c0392b}
+  .callout h3{margin:0 0 8px; color:var(--blue); font-size:1.1rem}
+  .callout.gap h3{color:#c0392b}
+  .pill{
+    display:inline-block; background:var(--green); color:#fff; font-size:.72rem;
+    padding:3px 9px; border-radius:20px; margin-left:8px; vertical-align:middle;
+    font-weight:600; letter-spacing:.3px;
+  }
+  footer{
+    text-align:center; color:var(--muted); font-size:.85rem; margin-top:50px;
+    padding-top:22px; border-top:1px solid var(--line);
+  }
+  @media print{
+    body{background:#fff}
+    header.hero{box-shadow:none}
+    tbody tr:hover{background:inherit}
+    table{box-shadow:none; border:1px solid var(--line)}
+  }
+  @media(max-width:640px){
+    header.hero h1{font-size:1.5rem}
+    table{font-size:.84rem}
+    .ref{white-space:normal}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <span class="tag">Foundation Phase · Weeks 1–2</span>
+    <h1>Literature Review</h1>
+    <p>Classification of Malignant Melanoma in Canines — CATCH dataset</p>
+    <div class="meta">
+      <span><strong>Student:</strong> Muhammad Tayyab Abbas</span>
+      <span><strong>Supervisor:</strong> Dr Claire Cashmore</span>
+      <span><strong>Project:</strong> DAIM2025A_088</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="sub">
+    Working notes refining the proposal's background section. For each paper:
+    <strong>method used</strong> + <strong>key finding</strong> +
+    <strong>why it justifies our approach</strong>.
+  </p>
+
+  <!-- A -->
+  <h2><span class="num">A</span>Clinical &amp; comparative-oncology background</h2>
+  <table>
+    <thead><tr><th>Reference</th><th>Method / scope</th><th>Key finding</th><th>Relevance to project</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">Schadendorf et al. (2018), <em>The Lancet</em></td><td>Review of melanoma</td><td>Melanoma = ~5% of skin cancers but ~75% of skin-cancer deaths</td><td>Motivates importance of accurate melanoma detection</td></tr>
+      <tr><td class="ref">Curtin et al. (2005), <em>NEJM</em></td><td>Genetic analysis</td><td>Distinct mutation sets (KIT/NRAS vs BRAF) in UV vs non-UV melanoma</td><td>Justifies studying non-UV pathways</td></tr>
+      <tr><td class="ref">Gillard et al. (2014), <em>Pigment Cell &amp; Melanoma Res.</em></td><td>Canine melanoma genetics</td><td>Canine melanomas model <strong>non-UV</strong> human pathways</td><td>Core justification for canine model</td></tr>
+      <tr><td class="ref">Prouteau &amp; André (2019), <em>Genes</em></td><td>Clinical/histological/genetic comparison</td><td>Strong canine–human melanoma parallels</td><td>Supports comparative-oncology framing</td></tr>
+      <tr><td class="ref">Nishiya et al. (2016), <em>Vet. Sciences</em></td><td>Review</td><td>Oral melanoma most common in dogs, no UV involvement</td><td>Translational relevance</td></tr>
+    </tbody>
+  </table>
+
+  <!-- B -->
+  <h2><span class="num">B</span>The dataset</h2>
+  <table>
+    <thead><tr><th>Reference</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">Fragoso-Garcia et al. (2023), <strong>CATCH</strong>, TCIA</td><td>750 WSIs, expert-annotated, multiple cutaneous tumour subtypes. <strong>Our data source.</strong></td></tr>
+      <tr><td class="ref">Clark et al. (2013), <em>J. Digital Imaging</em></td><td>TCIA infrastructure — how the data is hosted/accessed.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- C -->
+  <h2><span class="num">C</span>Deep learning — classification</h2>
+  <table>
+    <thead><tr><th>Reference</th><th>Method</th><th>Finding</th><th>Why we use it</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">Esteva et al. (2017), <em>Nature</em></td><td>Inception-v3, 129k images</td><td>Dermatologist-level skin-cancer classification, AUC 0.96</td><td>Proof DL matches experts</td></tr>
+      <tr><td class="ref">He et al. (2016), CVPR</td><td><strong>ResNet</strong> (residual connections)</td><td>Trains 150+ layer nets, mitigates vanishing gradient</td><td>Our classifier #1 (ResNet-50)</td></tr>
+      <tr><td class="ref">Tan &amp; Le (2019), ICML</td><td><strong>EfficientNet</strong> (compound scaling)</td><td>SOTA accuracy with fewer params</td><td>Our classifier #2 (EfficientNet-B3)</td></tr>
+      <tr><td class="ref">Hekler et al. (2019), <em>Eur. J. Cancer</em></td><td>ResNet on 695 histo images</td><td>93.1% accuracy, pathologist-level</td><td>Benchmark for melanoma F1 (~90%)</td></tr>
+      <tr><td class="ref">Brinker et al. (2019), <em>Eur. J. Cancer</em></td><td>Inception-v4, 12k dermoscopy</td><td>Beat 136/157 dermatologists, 95% sens.</td><td>Evidence for transfer learning</td></tr>
+      <tr><td class="ref">Aubreville et al. (2020), <em>Sci. Data</em></td><td>Canine histo, patch CNN + aggregation</td><td>&gt;88% accuracy on canine tumours</td><td>Closest veterinary precedent</td></tr>
+    </tbody>
+  </table>
+
+  <!-- D -->
+  <h2><span class="num">D</span>Deep learning — segmentation</h2>
+  <table>
+    <thead><tr><th>Reference</th><th>Method</th><th>Finding</th><th>Why we use it</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">Ronneberger et al. (2015), MICCAI</td><td><strong>U-Net</strong> encoder-decoder + skip connections</td><td>Dice 0.92 with only 30 images</td><td>Our segmentation backbone</td></tr>
+      <tr><td class="ref">Oktay et al. (2018), arXiv</td><td><strong>Attention U-Net</strong> (soft attention gates)</td><td>+3.6% Dice on pancreas</td><td>Variant we compare against</td></tr>
+    </tbody>
+  </table>
+
+  <!-- E -->
+  <h2><span class="num">E</span>Preprocessing &amp; interpretability</h2>
+  <table>
+    <thead><tr><th>Reference</th><th>Method</th><th>Why we use it</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">Macenko et al. (2009), IEEE ISBI</td><td>Stain normalisation in OD space</td><td>Removes colour variation before training <span class="pill">Implemented this fortnight</span></td></tr>
+      <tr><td class="ref">Selvaraju et al. (2017), ICCV</td><td><strong>Grad-CAM</strong></td><td>Will visualise which regions drive classification (interpretability)</td></tr>
+      <tr><td class="ref">Simonyan &amp; Zisserman (2015), ICLR</td><td>VGG</td><td>Context on transfer-learning backbones</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Gap -->
+  <h2><span class="num">!</span>Identified gap (restated)</h2>
+  <div class="callout gap">
+    <h3>Research gap this project fills</h3>
+    <p>Strong canine–human melanoma parallels + a curated dataset (CATCH) exist,
+    <strong>but</strong> few studies apply modern segmentation/classification deep
+    learning specifically to <strong>canine melanoma</strong>. This project fills that
+    gap and tests translational relevance to human non-UV melanoma.</p>
+  </div>
+
+  <!-- Citation -->
+  <h2><span class="num">✓</span>Citation style</h2>
+  <div class="callout">
+    <h3>Harvard (author–date)</h3>
+    <p>Consistent with the proposal. Managed with a <code>.bib</code> file / Zotero
+    for the dissertation.</p>
+  </div>
+
+  <footer>
+    Literature Review Notes · Weeks 1–2 · Foundation Phase<br>
+    Classification of Malignant Melanoma in Canines (CATCH) — University of Hull
+  </footer>
+
+</div>
+</body>
+</html>

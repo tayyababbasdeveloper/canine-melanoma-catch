@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress Report — Weeks 1–2 | Canine Melanoma (CATCH)</title>
+<style>
+  :root{
+    --blue:#1F3A6E; --green:#1B7F4B; --amber:#b7791f; --red:#c0392b;
+    --row:#EEF2F8; --line:#d6deea; --ink:#1c2430; --muted:#5a6577;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); line-height:1.6; margin:0; background:#f4f6fa;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 22px 80px}
+  header.hero{
+    background:linear-gradient(135deg,#1F3A6E 0%,#2c5298 100%);
+    color:#fff; padding:46px 22px 38px; margin-bottom:34px;
+    box-shadow:0 2px 14px rgba(31,58,110,.25);
+  }
+  header.hero .inner{max-width:1040px; margin:0 auto}
+  header.hero .tag{
+    display:inline-block; background:rgba(255,255,255,.18); color:#fff;
+    font-size:.78rem; letter-spacing:.5px; text-transform:uppercase;
+    padding:5px 12px; border-radius:30px; margin-bottom:14px; font-weight:600;
+  }
+  header.hero h1{margin:0 0 8px; font-size:2rem; font-weight:700}
+  header.hero p{margin:0; opacity:.92; font-size:1.02rem}
+  header.hero .meta{margin-top:16px; font-size:.9rem; opacity:.88}
+  header.hero .meta span{margin-right:18px; display:inline-block; margin-bottom:4px}
+
+  h2{
+    color:var(--blue); font-size:1.4rem; margin:42px 0 6px;
+    padding-bottom:8px; border-bottom:3px solid var(--blue);
+  }
+  h2 .num{
+    display:inline-block; background:var(--blue); color:#fff; width:34px;
+    height:34px; line-height:34px; text-align:center; border-radius:8px;
+    font-size:1rem; margin-right:12px; vertical-align:middle;
+  }
+  h3{color:var(--blue); font-size:1.1rem; margin:24px 0 6px}
+  p{margin:10px 0}
+  .sub{color:var(--muted); font-size:.96rem; margin:0 0 18px}
+
+  table{
+    width:100%; border-collapse:collapse; background:#fff; margin:14px 0 8px;
+    border-radius:10px; overflow:hidden; box-shadow:0 1px 6px rgba(28,36,48,.08);
+    font-size:.93rem;
+  }
+  thead th{
+    background:var(--blue); color:#fff; text-align:left; padding:12px 14px;
+    font-weight:600; font-size:.9rem;
+  }
+  tbody td{padding:11px 14px; border-top:1px solid var(--line); vertical-align:top}
+  tbody tr:nth-child(even){background:var(--row)}
+  tbody tr:hover{background:#e3ebf8}
+  td code, p code{background:#eef2f8; padding:1px 6px; border-radius:4px; font-size:.86em}
+
+  ul,ol{margin:10px 0 10px 4px; padding-left:22px}
+  li{margin:6px 0}
+
+  .status{display:inline-block; padding:3px 10px; border-radius:20px;
+    font-size:.78rem; font-weight:600; white-space:nowrap}
+  .s-done{background:#e3f3ea; color:var(--green)}
+  .s-prog{background:#fdf0db; color:var(--amber)}
+  .s-watch{background:#eef2f8; color:var(--blue)}
+
+  .callout{
+    background:#fff; border-left:5px solid var(--green); border-radius:8px;
+    padding:18px 22px; margin:16px 0; box-shadow:0 1px 6px rgba(28,36,48,.08);
+  }
+  .callout h3{margin:0 0 8px}
+  .callout strong{color:var(--green)}
+
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:18px 0}
+  .stat{
+    flex:1 1 150px; background:#fff; border-radius:10px; padding:18px 16px;
+    text-align:center; box-shadow:0 1px 6px rgba(28,36,48,.08);
+    border-top:4px solid var(--green);
+  }
+  .stat .num{font-size:1.9rem; font-weight:700; color:var(--blue); display:block}
+  .stat .lbl{font-size:.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:.4px}
+
+  figure{margin:18px 0; text-align:center}
+  figure img{max-width:100%; border-radius:10px; box-shadow:0 2px 10px rgba(28,36,48,.18)}
+  figcaption{font-size:.86rem; color:var(--muted); margin-top:8px; font-style:italic}
+
+  footer{
+    text-align:center; color:var(--muted); font-size:.85rem; margin-top:50px;
+    padding-top:22px; border-top:1px solid var(--line);
+  }
+  @media print{
+    body{background:#fff}
+    header.hero{box-shadow:none}
+    tbody tr:hover{background:inherit}
+    table,.stat,figure img{box-shadow:none}
+  }
+  @media(max-width:640px){
+    header.hero h1{font-size:1.5rem}
+    table{font-size:.84rem}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <span class="tag">Foundation Phase · First fortnightly meeting</span>
+    <h1>Progress Report — Weeks 1–2</h1>
+    <p>Classification of Malignant Melanoma in Canines — CATCH dataset</p>
+    <div class="meta">
+      <span><strong>Student:</strong> Muhammad Tayyab Abbas</span>
+      <span><strong>Supervisor:</strong> Dr Claire Cashmore</span>
+      <span><strong>Project Code:</strong> DAIM2025A_088</span>
+      <span><strong>Period:</strong> 26 May – 8 June 2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 1 -->
+  <h2><span class="num">1</span>Summary</h2>
+  <p>The Foundation phase is <strong>on schedule</strong>. The computational environment is
+  fully configured, the literature review has been refined, and the data acquisition and
+  preprocessing pipeline (Macenko stain normalisation → patch extraction → stratified
+  split) has been implemented and validated end-to-end. The pipeline was verified on
+  synthetic H&amp;E slides while the CATCH dataset download from TCIA is being finalised;
+  it is ready to run unchanged on the real slides.</p>
+
+  <!-- 2 -->
+  <h2><span class="num">2</span>Planned vs. actual (Gantt)</h2>
+  <table>
+    <thead><tr><th>Gantt task</th><th>Planned weeks</th><th>Status</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Environment Setup &amp; Framework</td><td>W1</td><td><span class="status s-done">✓ Complete</span></td><td><code>.venv</code>, <code>requirements.txt</code>, <code>requirements-lock.txt</code>, <code>setup_env.*</code></td></tr>
+      <tr><td>Literature Review &amp; Refinement</td><td>W1–W2</td><td><span class="status s-done">✓ Complete</span></td><td><code>docs/literature/literature_review_notes.md</code></td></tr>
+      <tr><td>Data Acquisition &amp; Preprocessing</td><td>W1–W3</td><td><span class="status s-prog">🔄 In progress (~60%)</span></td><td>code + QA/split reports + figures</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 3 -->
+  <h2><span class="num">3</span>What was completed</h2>
+
+  <h3>3.1 Environment setup (Week 1)</h3>
+  <ul>
+    <li>Python 3.12 in an <strong>isolated virtual environment</strong> (<code>.venv</code>) so project packages never affect other projects or the global interpreter.</li>
+    <li>Dependencies: OpenCV, scikit-image, scikit-learn, OpenSlide, NumPy, pandas, matplotlib (PyTorch + Albumentations added for Week 3 model development).</li>
+    <li>Reproducible setup: <code>requirements.txt</code>, <code>environment.yml</code>, pinned <code>requirements-lock.txt</code>, and one-command installers (<code>setup_env.ps1</code> / <code>.sh</code>).</li>
+    <li>Git repository with a clean, modular <code>src/</code> package structure.</li>
+  </ul>
+
+  <h3>3.2 Literature review refinement (Weeks 1–2)</h3>
+  <ul>
+    <li>Consolidated the key references underpinning the methodology (U-Net, Attention U-Net, ResNet, EfficientNet, Macenko, Grad-CAM, canine comparative-oncology papers).</li>
+    <li>Method and finding summaries recorded in <code>docs/literature/literature_review_notes.md</code>.</li>
+  </ul>
+
+  <h3>3.3 Data acquisition and preprocessing (Weeks 1–3, in progress)</h3>
+  <p>Implemented and validated the complete preprocessing chain:</p>
+  <ol>
+    <li><strong>Acquisition helper</strong> (<code>download_catch.py</code>) — documents the TCIA / NBIA Data Retriever workflow and verifies downloaded slides.</li>
+    <li><strong>Quality assessment</strong> (<code>quality_check.py</code>) — per-slide checks for size, blur (variance of Laplacian), brightness and tissue fraction; flags/excludes poor slides with a reason.</li>
+    <li><strong>Macenko stain normalisation</strong> (<code>stain_normalization.py</code>) — maps slides onto a common H&amp;E colour appearance to remove scanner/lab variation.</li>
+    <li><strong>Patch extraction</strong> (<code>patch_extraction.py</code>) — tiles slides into 256×256 patches, keeping only tissue-bearing tiles (≥50% tissue).</li>
+    <li><strong>Stratified split</strong> (<code>dataset_split.py</code>) — 70/15/15 train/val/test split preserving class distribution.</li>
+  </ol>
+
+  <div class="callout">
+    <h3>Validation run (synthetic slides)</h3>
+    <p>2 slides → both passed QA → 26 tissue patches extracted → split 18/4/4.
+    Confirms the pipeline runs <strong>end-to-end</strong> and is ready for the real CATCH slides.</p>
+    <div class="stats">
+      <div class="stat"><span class="num">2</span><span class="lbl">Slides processed</span></div>
+      <div class="stat"><span class="num">2 / 2</span><span class="lbl">Passed QA</span></div>
+      <div class="stat"><span class="num">26</span><span class="lbl">Patches extracted</span></div>
+      <div class="stat"><span class="num">18 / 4 / 4</span><span class="lbl">Train / Val / Test</span></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <h2><span class="num">4</span>Artefacts produced</h2>
+  <table>
+    <thead><tr><th>Artefact</th><th>Location</th></tr></thead>
+    <tbody>
+      <tr><td>Before/after stain normalisation figures</td><td><code>outputs/figures/stain_normalization_*.png</code></td></tr>
+      <tr><td>Sample extracted patches (grids)</td><td><code>outputs/figures/patches_*.png</code></td></tr>
+      <tr><td>Quality assessment report</td><td><code>outputs/logs/quality_report.csv</code></td></tr>
+      <tr><td>Train/val/test split summary</td><td><code>outputs/logs/split_summary.json</code></td></tr>
+      <tr><td>Source code (modular package)</td><td><code>src/</code></td></tr>
+    </tbody>
+  </table>
+
+  <figure>
+    <img src="../../outputs/figures/stain_normalization_demo_slide_bluish.png"
+         alt="Macenko stain normalisation before and after">
+    <figcaption>Figure: Macenko stain normalisation (before / after) — bluish slide mapped onto the standard H&amp;E colour appearance.</figcaption>
+  </figure>
+
+  <!-- 5 -->
+  <h2><span class="num">5</span>Risks &amp; issues</h2>
+  <table>
+    <thead><tr><th>Risk</th><th>Status</th><th>Mitigation in place</th></tr></thead>
+    <tbody>
+      <tr><td>CATCH download (TCIA account / large files)</td><td><span class="status s-prog">Active</span></td><td>Pipeline validated on synthetic data; runs unchanged on real slides once downloaded. NBIA Data Retriever workflow documented.</td></tr>
+      <tr><td>GPU resources for upcoming training</td><td><span class="status s-watch">Watching</span></td><td>Google Colab Pro + university HPC identified as fallback.</td></tr>
+      <tr><td>Class imbalance across tumour subtypes</td><td><span class="status s-watch">Anticipated</span></td><td>Stratified split implemented; class-weighted loss + augmentation planned for Week 3+.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 6 -->
+  <h2><span class="num">6</span>Plan for next fortnight (Weeks 3–5)</h2>
+  <ul>
+    <li>Complete CATCH download and run the validated pipeline on all real slides.</li>
+    <li>Finalise patch dataset and class distribution statistics.</li>
+    <li><strong>Begin U-Net segmentation model</strong> (baseline → ResNet-34 encoder), with TensorBoard monitoring of loss convergence.</li>
+  </ul>
+
+  <!-- 7 -->
+  <h2><span class="num">7</span>Questions for supervisor</h2>
+  <ol>
+    <li>Is the QA exclusion threshold (≥10% tissue, blur ≥ 50) appropriate, or should it be agreed with a veterinary pathologist?</li>
+    <li>Confirm the final list of tumour subtypes to include as classification classes.</li>
+    <li>Any preference on patch magnification priority (5×/10×/20×) for the first segmentation experiments?</li>
+  </ol>
+
+  <footer>
+    Progress Report · Weeks 1–2 · Foundation Phase<br>
+    Classification of Malignant Melanoma in Canines (CATCH) — University of Hull
+  </footer>
+
+</div>
+</body>
+</html>
