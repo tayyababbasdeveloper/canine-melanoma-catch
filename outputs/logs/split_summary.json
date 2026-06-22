@@ -1,0 +1,10 @@
+{
+  "total": 26,
+  "train": 18,
+  "val": 4,
+  "test": 4,
+  "class_distribution": {
+    "mast_cell": 14,
+    "melanocytic": 12
+  }
+}

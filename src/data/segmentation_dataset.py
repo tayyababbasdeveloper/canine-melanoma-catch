@@ -16,6 +16,18 @@ import cv2
 import torch
 from torch.utils.data import Dataset
 
+# Project root, so manifests can store PORTABLE relative paths (e.g.
+# "data/processed/seg_patches/images/x.png") that work on any machine after a
+# git pull, instead of machine-specific absolute paths.
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _resolve(p: str) -> str:
+    """Resolve a manifest path: absolute paths are used as-is; relative paths
+    are joined to the project root."""
+    path = Path(p)
+    return str(path if path.is_absolute() else _PROJECT_ROOT / path)
+
 
 class SegmentationPatchDataset(Dataset):
     def __init__(self, manifest, transform=None):
@@ -31,12 +43,12 @@ class SegmentationPatchDataset(Dataset):
     def __getitem__(self, idx: int):
         row = self.df.iloc[idx]
 
-        bgr = cv2.imread(row["image_path"], cv2.IMREAD_COLOR)
+        bgr = cv2.imread(_resolve(row["image_path"]), cv2.IMREAD_COLOR)
         if bgr is None:
             raise IOError(f"Could not read image: {row['image_path']}")
         image = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
 
-        mask = cv2.imread(row["mask_path"], cv2.IMREAD_GRAYSCALE)
+        mask = cv2.imread(_resolve(row["mask_path"]), cv2.IMREAD_GRAYSCALE)
         if mask is None:
             raise IOError(f"Could not read mask: {row['mask_path']}")
         mask = (mask > 127).astype(np.float32)
@@ -63,7 +75,7 @@ class SegmentationPatchDataset(Dataset):
         sample = self.df["mask_path"].head(200)
         fracs = []
         for p in sample:
-            m = cv2.imread(p, cv2.IMREAD_GRAYSCALE)
+            m = cv2.imread(_resolve(p), cv2.IMREAD_GRAYSCALE)
             if m is not None:
                 fracs.append((m > 127).mean())
         return float(np.mean(fracs)) if fracs else 0.0

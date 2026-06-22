@@ -1,0 +1,35 @@
+{
+  "slides": {
+    "train": [
+      "demo_seg_00",
+      "demo_seg_02",
+      "demo_seg_03",
+      "demo_seg_05",
+      "demo_seg_07",
+      "demo_seg_08",
+      "demo_seg_10",
+      "demo_seg_11",
+      "demo_seg_13"
+    ],
+    "val": [
+      "demo_seg_04",
+      "demo_seg_12"
+    ],
+    "test": [
+      "demo_seg_01",
+      "demo_seg_09"
+    ]
+  },
+  "patches": {
+    "train": 408,
+    "val": 57,
+    "test": 151,
+    "total": 616
+  },
+  "magnifications": [
+    5,
+    10,
+    20
+  ],
+  "mean_tumour_frac": 0.0881
+}

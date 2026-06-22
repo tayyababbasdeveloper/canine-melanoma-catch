@@ -1,0 +1,191 @@
+2026-06-02 18:21:44 | INFO    | DEMO mode: generating synthetic H&E slides
+2026-06-02 18:21:45 | INFO    | Processing 2 slide(s)
+2026-06-02 18:21:46 | INFO    |   demo_slide_bluish.png -> 12 patches (label=melanocytic)
+2026-06-02 18:21:48 | INFO    |   demo_slide_pinkish.png -> 14 patches (label=mast_cell)
+2026-06-02 18:21:48 | INFO    | Quality report written: F:\tayyab\canine-melanoma-catch\outputs\logs\quality_report.csv
+2026-06-02 18:21:49 | INFO    | Split: train=18 val=4 test=4 (total=26)
+2026-06-02 18:21:49 | INFO    | DONE. Figures in F:\tayyab\canine-melanoma-catch\outputs\figures, reports in F:\tayyab\canine-melanoma-catch\outputs\logs
+2026-06-02 18:22:59 | INFO    | DEMO mode: generating synthetic H&E slides
+2026-06-02 18:22:59 | INFO    | Processing 2 slide(s)
+2026-06-02 18:23:01 | INFO    |   demo_slide_bluish.png -> 12 patches (label=melanocytic)
+2026-06-02 18:23:02 | INFO    |   demo_slide_pinkish.png -> 14 patches (label=mast_cell)
+2026-06-02 18:23:02 | INFO    | Quality report written: F:\tayyab\canine-melanoma-catch\outputs\logs\quality_report.csv
+2026-06-02 18:23:02 | INFO    | Split: train=18 val=4 test=4 (total=26)
+2026-06-02 18:23:02 | INFO    | DONE. Figures in F:\tayyab\canine-melanoma-catch\outputs\figures, reports in F:\tayyab\canine-melanoma-catch\outputs\logs
+2026-06-21 22:44:44 | INFO    | DEMO mode: generating 6 synthetic slides + masks
+2026-06-21 22:44:49 | INFO    | Found 6 slide/mask pair(s)
+2026-06-21 22:44:49 | INFO    |   demo_seg_00    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 22:44:50 | INFO    |   demo_seg_01    ->    7 patches (mags=[5, 10, 20])
+2026-06-21 22:44:51 | INFO    |   demo_seg_02    ->    9 patches (mags=[5, 10, 20])
+2026-06-21 22:44:51 | INFO    |   demo_seg_03    ->    5 patches (mags=[5, 10, 20])
+2026-06-21 22:44:52 | INFO    |   demo_seg_04    ->    9 patches (mags=[5, 10, 20])
+2026-06-21 22:44:52 | INFO    |   demo_seg_05    ->   10 patches (mags=[5, 10, 20])
+2026-06-21 22:44:52 | INFO    | Total patches: 43
+2026-06-21 22:44:52 | INFO    | Split (patches): train=33 val=7 test=3 | slides 4/1/1
+2026-06-21 22:44:52 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-21 22:46:19 | INFO    | DEMO mode: generating 8 synthetic slides + masks
+2026-06-21 22:46:27 | INFO    | Found 8 slide/mask pair(s)
+2026-06-21 22:46:29 | INFO    |   demo_seg_00    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 22:46:30 | INFO    |   demo_seg_01    ->    4 patches (mags=[5, 10, 20])
+2026-06-21 22:46:32 | INFO    |   demo_seg_02    ->    5 patches (mags=[5, 10, 20])
+2026-06-21 22:46:34 | INFO    |   demo_seg_03    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 22:46:36 | INFO    |   demo_seg_04    ->   58 patches (mags=[5, 10, 20])
+2026-06-21 22:46:37 | INFO    |   demo_seg_05    ->    4 patches (mags=[5, 10, 20])
+2026-06-21 22:46:39 | INFO    |   demo_seg_06    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 22:46:41 | INFO    |   demo_seg_07    ->    6 patches (mags=[5, 10, 20])
+2026-06-21 22:46:41 | INFO    | Total patches: 86
+2026-06-21 22:46:41 | INFO    | Split (patches): train=79 val=4 test=3 | slides 6/1/1
+2026-06-21 22:46:41 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-21 23:03:31 | INFO    | DEMO mode: generating 8 synthetic slides + masks
+2026-06-21 23:03:38 | INFO    | Found 8 slide/mask pair(s)
+2026-06-21 23:03:40 | INFO    |   demo_seg_00    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 23:03:42 | INFO    |   demo_seg_01    ->    4 patches (mags=[5, 10, 20])
+2026-06-21 23:03:43 | INFO    |   demo_seg_02    ->    5 patches (mags=[5, 10, 20])
+2026-06-21 23:03:45 | INFO    |   demo_seg_03    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 23:03:47 | INFO    |   demo_seg_04    ->   58 patches (mags=[5, 10, 20])
+2026-06-21 23:03:48 | INFO    |   demo_seg_05    ->    4 patches (mags=[5, 10, 20])
+2026-06-21 23:03:50 | INFO    |   demo_seg_06    ->    3 patches (mags=[5, 10, 20])
+2026-06-21 23:03:51 | INFO    |   demo_seg_07    ->    6 patches (mags=[5, 10, 20])
+2026-06-21 23:03:51 | INFO    | Total patches: 86
+2026-06-21 23:03:51 | INFO    | Split (patches): train=79 val=4 test=3 | slides 6/1/1
+2026-06-21 23:03:51 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-21 23:04:02 | INFO    | Patches: train=48 val=4 test=3
+2026-06-21 23:04:02 | INFO    | Device: cpu
+2026-06-21 23:04:02 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-21 23:04:02 | INFO    | Tumour pixel fraction ~0.289 -> BCE pos_weight=2.46
+2026-06-21 23:05:46 | INFO    | epoch 01/5 | train 0.7527 | val 0.9261 | dice 0.9757 | iou 0.9526 | lr 9.05e-05 | 101.8s
+2026-06-21 23:07:18 | INFO    | epoch 02/5 | train 0.5988 | val 0.7755 | dice 0.9878 | iou 0.9759 | lr 6.55e-05 | 90.0s
+2026-06-22 10:03:38 | INFO    | DEMO mode: generating 8 synthetic slides + masks
+2026-06-22 10:03:48 | INFO    | Found 8 slide/mask pair(s)
+2026-06-22 10:03:52 | INFO    |   demo_seg_00    ->    3 patches (mags=[5, 10, 20])
+2026-06-22 10:03:53 | INFO    |   demo_seg_01    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 10:03:55 | INFO    |   demo_seg_02    ->    5 patches (mags=[5, 10, 20])
+2026-06-22 10:03:57 | INFO    |   demo_seg_03    ->    3 patches (mags=[5, 10, 20])
+2026-06-22 10:03:59 | INFO    |   demo_seg_04    ->   58 patches (mags=[5, 10, 20])
+2026-06-22 10:04:01 | INFO    |   demo_seg_05    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 10:04:03 | INFO    |   demo_seg_06    ->    3 patches (mags=[5, 10, 20])
+2026-06-22 10:04:05 | INFO    |   demo_seg_07    ->    6 patches (mags=[5, 10, 20])
+2026-06-22 10:04:05 | INFO    | Total patches: 86
+2026-06-22 10:04:05 | INFO    | Split (patches): train=79 val=4 test=3 | slides 6/1/1
+2026-06-22 10:04:05 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-22 10:04:32 | INFO    | Patches: train=48 val=4 test=3
+2026-06-22 10:04:32 | INFO    | Device: cpu
+2026-06-22 10:04:35 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-22 10:04:36 | INFO    | Tumour pixel fraction ~0.289 -> BCE pos_weight=2.46
+2026-06-22 10:13:55 | INFO    | epoch 01/5 | train 0.7610 | val 0.9214 | dice 0.9816 | iou 0.9640 | lr 9.05e-05 | 542.7s
+2026-06-22 10:15:33 | INFO    | epoch 02/5 | train 0.6190 | val 0.7760 | dice 0.9872 | iou 0.9748 | lr 6.55e-05 | 94.4s
+2026-06-22 10:17:12 | INFO    | epoch 03/5 | train 0.5644 | val 0.5438 | dice 0.9897 | iou 0.9798 | lr 3.45e-05 | 97.1s
+2026-06-22 10:19:37 | INFO    | epoch 04/5 | train 0.5573 | val 0.3721 | dice 0.9904 | iou 0.9810 | lr 9.55e-06 | 138.3s
+2026-06-22 10:21:20 | INFO    | epoch 05/5 | train 0.4911 | val 0.2863 | dice 0.9899 | iou 0.9801 | lr 0.00e+00 | 100.4s
+2026-06-22 10:21:21 | INFO    | Best val Dice 0.9904 at epoch 4
+2026-06-22 10:21:37 | INFO    | TEST | dice 0.9850 | iou 0.9705 | pix-acc 0.9777 | hausdorff 73.84
+2026-06-22 10:21:56 | INFO    | Report written: F:\tayyab\outputs\logs\unet_baseline_test_report.json
+2026-06-22 10:23:29 | INFO    | Patches: train=48 val=4 test=3
+2026-06-22 10:23:29 | INFO    | Device: cpu
+2026-06-22 10:24:35 | INFO    | Model: unet (encoder=resnet34, params=24.44M)
+2026-06-22 10:24:35 | INFO    | Tumour pixel fraction ~0.289 -> BCE pos_weight=2.46
+2026-06-22 10:25:15 | INFO    | epoch 01/5 | train 0.7930 | val 0.2684 | dice 0.9178 | iou 0.8557 | lr 9.05e-05 | 40.2s
+2026-06-22 10:25:55 | INFO    | epoch 02/5 | train 0.6264 | val 0.1639 | dice 0.9296 | iou 0.8750 | lr 6.55e-05 | 39.6s
+2026-06-22 10:26:33 | INFO    | epoch 03/5 | train 0.6283 | val 0.1800 | dice 0.9328 | iou 0.8801 | lr 3.45e-05 | 38.3s
+2026-06-22 10:27:11 | INFO    | epoch 04/5 | train 0.5889 | val 0.1402 | dice 0.9443 | iou 0.8989 | lr 9.55e-06 | 37.2s
+2026-06-22 10:27:47 | INFO    | epoch 05/5 | train 0.5574 | val 0.1331 | dice 0.9533 | iou 0.9138 | lr 0.00e+00 | 36.2s
+2026-06-22 10:27:47 | INFO    | Best val Dice 0.9533 at epoch 5
+2026-06-22 10:27:52 | INFO    | TEST | dice 0.9406 | iou 0.8894 | pix-acc 0.9125 | hausdorff 83.68
+2026-06-22 10:27:53 | INFO    | Report written: F:\tayyab\outputs\logs\unet_resnet34_test_report.json
+2026-06-22 10:28:59 | INFO    | DEMO mode: generating 14 synthetic slides + masks
+2026-06-22 10:29:10 | INFO    | Found 14 slide/mask pair(s)
+2026-06-22 10:29:12 | INFO    |   demo_seg_00    ->    2 patches (mags=[5, 10, 20])
+2026-06-22 10:29:13 | INFO    |   demo_seg_01    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 10:29:15 | INFO    |   demo_seg_02    ->    7 patches (mags=[5, 10, 20])
+2026-06-22 10:29:17 | INFO    |   demo_seg_03    ->    2 patches (mags=[5, 10, 20])
+2026-06-22 10:29:19 | INFO    |   demo_seg_04    ->    9 patches (mags=[5, 10, 20])
+2026-06-22 10:29:20 | INFO    |   demo_seg_05    ->    7 patches (mags=[5, 10, 20])
+2026-06-22 10:29:22 | INFO    |   demo_seg_06    ->    3 patches (mags=[5, 10, 20])
+2026-06-22 10:29:23 | INFO    |   demo_seg_07    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 10:29:25 | INFO    |   demo_seg_08    ->    7 patches (mags=[5, 10, 20])
+2026-06-22 10:29:26 | INFO    |   demo_seg_09    ->    2 patches (mags=[5, 10, 20])
+2026-06-22 10:29:28 | INFO    |   demo_seg_10    ->    7 patches (mags=[5, 10, 20])
+2026-06-22 10:29:30 | INFO    |   demo_seg_11    ->    6 patches (mags=[5, 10, 20])
+2026-06-22 10:29:31 | INFO    |   demo_seg_12    ->    7 patches (mags=[5, 10, 20])
+2026-06-22 10:29:33 | INFO    |   demo_seg_13    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 10:29:33 | INFO    | Total patches: 71
+2026-06-22 10:29:33 | INFO    | Split (patches): train=44 val=16 test=11 | slides 10/2/2
+2026-06-22 10:29:33 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-22 10:31:58 | INFO    | DEMO mode: generating 14 synthetic slides + masks
+2026-06-22 10:32:09 | INFO    | Found 14 slide/mask pair(s)
+2026-06-22 10:32:11 | INFO    |   demo_seg_00    ->   44 patches (mags=[5, 10, 20])
+2026-06-22 10:32:13 | INFO    |   demo_seg_01    ->   74 patches (mags=[5, 10, 20])
+2026-06-22 10:32:15 | INFO    |   demo_seg_02    ->   39 patches (mags=[5, 10, 20])
+2026-06-22 10:32:16 | INFO    |   demo_seg_03    ->   72 patches (mags=[5, 10, 20])
+2026-06-22 10:32:18 | INFO    |   demo_seg_04    ->    6 patches (mags=[5, 10, 20])
+2026-06-22 10:32:20 | INFO    |   demo_seg_05    ->   39 patches (mags=[5, 10, 20])
+2026-06-22 10:32:21 | INFO    |   demo_seg_06    ->    0 patches (mags=[5, 10, 20])
+2026-06-22 10:32:23 | INFO    |   demo_seg_07    ->   50 patches (mags=[5, 10, 20])
+2026-06-22 10:32:25 | INFO    |   demo_seg_08    ->   13 patches (mags=[5, 10, 20])
+2026-06-22 10:32:27 | INFO    |   demo_seg_09    ->   77 patches (mags=[5, 10, 20])
+2026-06-22 10:32:28 | INFO    |   demo_seg_10    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 10:32:30 | INFO    |   demo_seg_11    ->   75 patches (mags=[5, 10, 20])
+2026-06-22 10:32:32 | INFO    |   demo_seg_12    ->   51 patches (mags=[5, 10, 20])
+2026-06-22 10:32:34 | INFO    |   demo_seg_13    ->   72 patches (mags=[5, 10, 20])
+2026-06-22 10:32:34 | INFO    | Total patches: 616
+2026-06-22 10:32:34 | INFO    | Split (patches): train=408 val=57 test=151 | slides 9/2/2
+2026-06-22 10:32:34 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-22 10:36:48 | INFO    | Patches: train=24 val=16 test=16
+2026-06-22 10:36:48 | INFO    | Device: cpu
+2026-06-22 10:37:08 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-22 10:37:11 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+2026-06-22 10:50:14 | INFO    | epoch 01/1 | train 1.0476 | val 1.1108 | dice 0.7500 | iou 0.7500 | lr 0.00e+00 | 684.8s
+2026-06-22 10:50:26 | INFO    | Best val Dice 0.7500 at epoch 1
+2026-06-22 10:51:04 | INFO    | TEST | dice 0.7500 | iou 0.7500 | pix-acc 0.9423 | hausdorff nan
+2026-06-22 10:51:40 | INFO    | Report written: F:\tayyab\outputs\logs\_sanity_test_report.json
+2026-06-22 16:34:36 | INFO    | DEMO mode: generating 14 synthetic slides + masks
+2026-06-22 16:34:49 | INFO    | Found 14 slide/mask pair(s)
+2026-06-22 16:34:51 | INFO    |   demo_seg_00    ->   44 patches (mags=[5, 10, 20])
+2026-06-22 16:34:53 | INFO    |   demo_seg_01    ->   74 patches (mags=[5, 10, 20])
+2026-06-22 16:34:55 | INFO    |   demo_seg_02    ->   39 patches (mags=[5, 10, 20])
+2026-06-22 16:34:56 | INFO    |   demo_seg_03    ->   72 patches (mags=[5, 10, 20])
+2026-06-22 16:34:58 | INFO    |   demo_seg_04    ->    6 patches (mags=[5, 10, 20])
+2026-06-22 16:35:00 | INFO    |   demo_seg_05    ->   39 patches (mags=[5, 10, 20])
+2026-06-22 16:35:02 | INFO    |   demo_seg_06    ->    0 patches (mags=[5, 10, 20])
+2026-06-22 16:35:04 | INFO    |   demo_seg_07    ->   50 patches (mags=[5, 10, 20])
+2026-06-22 16:35:05 | INFO    |   demo_seg_08    ->   13 patches (mags=[5, 10, 20])
+2026-06-22 16:35:07 | INFO    |   demo_seg_09    ->   77 patches (mags=[5, 10, 20])
+2026-06-22 16:35:09 | INFO    |   demo_seg_10    ->    4 patches (mags=[5, 10, 20])
+2026-06-22 16:35:10 | INFO    |   demo_seg_11    ->   75 patches (mags=[5, 10, 20])
+2026-06-22 16:35:12 | INFO    |   demo_seg_12    ->   51 patches (mags=[5, 10, 20])
+2026-06-22 16:35:14 | INFO    |   demo_seg_13    ->   72 patches (mags=[5, 10, 20])
+2026-06-22 16:35:14 | INFO    | Total patches: 616
+2026-06-22 16:35:14 | INFO    | Split (patches): train=408 val=57 test=151 | slides 9/2/2
+2026-06-22 16:35:14 | INFO    | DONE. Manifests in F:\tayyab\data\processed\seg_splits
+2026-06-22 16:35:41 | INFO    | Patches: train=100 val=57 test=60
+2026-06-22 16:35:41 | INFO    | Device: cpu
+2026-06-22 16:35:42 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-22 16:35:43 | INFO    | Tumour pixel fraction ~0.092 -> BCE pos_weight=9.90
+2026-06-22 16:42:50 | INFO    | epoch 01/6 | train 0.8553 | val 0.9792 | dice 0.2998 | iou 0.2771 | lr 9.33e-05 | 412.6s
+2026-06-22 16:46:53 | INFO    | epoch 02/6 | train 0.6967 | val 0.6655 | dice 0.2925 | iou 0.2676 | lr 7.50e-05 | 221.7s
+2026-06-22 16:53:13 | INFO    | epoch 03/6 | train 0.6912 | val 0.5946 | dice 0.2942 | iou 0.2695 | lr 5.00e-05 | 379.7s
+2026-06-22 16:57:40 | INFO    | epoch 04/6 | train 0.6612 | val 0.5849 | dice 0.3012 | iou 0.2789 | lr 2.50e-05 | 265.3s
+2026-06-22 17:01:54 | INFO    | epoch 05/6 | train 0.6598 | val 0.5735 | dice 0.2998 | iou 0.2765 | lr 6.70e-06 | 247.5s
+2026-06-22 17:05:30 | INFO    | epoch 06/6 | train 0.6684 | val 0.5621 | dice 0.3351 | iou 0.3215 | lr 0.00e+00 | 216.1s
+2026-06-22 17:05:57 | INFO    | Best val Dice 0.3351 at epoch 6
+2026-06-22 17:07:00 | INFO    | TEST | dice 0.2182 | iou 0.2043 | pix-acc 0.9928 | hausdorff 154.81
+2026-06-22 17:08:18 | INFO    | Report written: F:\tayyab\outputs\logs\unet_baseline_test_report.json
+2026-06-22 17:18:52 | INFO    | Patches: train=100 val=57 test=60
+2026-06-22 17:18:52 | INFO    | Device: cpu
+2026-06-22 17:19:50 | INFO    | Model: unet (encoder=resnet34, params=24.44M)
+2026-06-22 17:19:50 | INFO    | Tumour pixel fraction ~0.092 -> BCE pos_weight=9.90
+2026-06-22 17:21:10 | INFO    | epoch 01/12 | train 0.9287 | val 0.8621 | dice 0.1618 | iou 0.1265 | lr 9.83e-05 | 79.8s
+2026-06-22 17:22:30 | INFO    | epoch 02/12 | train 0.7712 | val 0.8024 | dice 0.1717 | iou 0.1353 | lr 9.33e-05 | 79.7s
+2026-06-22 17:23:47 | INFO    | epoch 03/12 | train 0.7204 | val 0.6556 | dice 0.2120 | iou 0.1746 | lr 8.54e-05 | 76.7s
+2026-06-22 17:25:03 | INFO    | epoch 04/12 | train 0.7071 | val 0.6118 | dice 0.2467 | iou 0.2139 | lr 7.50e-05 | 76.2s
+2026-06-22 17:26:21 | INFO    | epoch 05/12 | train 0.6781 | val 0.5952 | dice 0.2514 | iou 0.2183 | lr 6.29e-05 | 77.1s
+2026-06-22 17:27:37 | INFO    | epoch 06/12 | train 0.6420 | val 0.5746 | dice 0.2551 | iou 0.2212 | lr 5.00e-05 | 76.7s
+2026-06-22 17:28:52 | INFO    | epoch 07/12 | train 0.6572 | val 0.5526 | dice 0.2978 | iou 0.2669 | lr 3.71e-05 | 74.9s
+2026-06-22 17:30:11 | INFO    | epoch 08/12 | train 0.6395 | val 0.5592 | dice 0.2657 | iou 0.2314 | lr 2.50e-05 | 78.5s
+2026-06-22 17:31:25 | INFO    | epoch 09/12 | train 0.6814 | val 0.5462 | dice 0.4437 | iou 0.4135 | lr 1.46e-05 | 74.0s
+2026-06-22 17:32:40 | INFO    | epoch 10/12 | train 0.6510 | val 0.5569 | dice 0.3047 | iou 0.2767 | lr 6.70e-06 | 75.0s
+2026-06-22 17:34:00 | INFO    | epoch 11/12 | train 0.6649 | val 0.5548 | dice 0.2850 | iou 0.2516 | lr 1.70e-06 | 79.8s
+2026-06-22 17:35:18 | INFO    | epoch 12/12 | train 0.6278 | val 0.5614 | dice 0.2686 | iou 0.2365 | lr 0.00e+00 | 77.6s
+2026-06-22 17:35:18 | INFO    | Best val Dice 0.4437 at epoch 9
+2026-06-22 17:35:40 | INFO    | TEST | dice 0.4300 | iou 0.4053 | pix-acc 0.9906 | hausdorff 115.10
+2026-06-22 17:35:42 | INFO    | Report written: F:\tayyab\outputs\logs\unet_resnet34_test_report.json

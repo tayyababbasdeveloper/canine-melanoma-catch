@@ -1,17 +1,20 @@
-# Data — never commit the large CATCH slides or generated patches
+# =====================================================================
+# Data
+# We DO commit the generated demo patches + manifests under data/processed/
+# so results are reproducible after a git pull. We never commit the large raw
+# whole-slide images or interim files (real CATCH slides can be GBs).
+# =====================================================================
 data/raw/*
 data/interim/*
-data/processed/*
 !data/**/.gitkeep
 
-# Outputs (keep folders, ignore generated artefacts)
-outputs/figures/*
-outputs/logs/*
-# trained model weights (.pt) — too large for git
-outputs/checkpoints/*
-# TensorBoard event logs
-outputs/tensorboard/*
-!outputs/**/.gitkeep
+# =====================================================================
+# Outputs
+# These ARE committed (figures, logs, checkpoints, TensorBoard) so a git pull
+# on another machine gives the *identical* results, models and predictions.
+# Large model weights (*.pt) are stored via Git LFS — see .gitattributes.
+# (Nothing under outputs/ is ignored.)
+# =====================================================================
 
 # Python
 __pycache__/

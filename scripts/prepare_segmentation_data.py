@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
 import pandas as pd
 
-from src.utils.config import load_config, ensure_dirs
+from src.utils.config import load_config, ensure_dirs, PROJECT_ROOT
 from src.utils.logger import get_logger
 from src.utils.seed import seed_everything
 from src.utils.demo_segmentation import make_demo_segmentation_slides
@@ -116,8 +116,11 @@ def main():
             mp = patches_dir / "masks" / f"{stem}.png"
             save_rgb(ip, patch)
             save_mask(mp, mpatch)
+            # store PORTABLE relative paths so manifests work after a git pull
+            # on any machine (see SegmentationPatchDataset._resolve)
             rows.append({
-                "image_path": str(ip), "mask_path": str(mp),
+                "image_path": Path(ip).resolve().relative_to(PROJECT_ROOT).as_posix(),
+                "mask_path": Path(mp).resolve().relative_to(PROJECT_ROOT).as_posix(),
                 "slide_id": slide_id, "mag": m,
                 "tumour_frac": round(float((mpatch > 127).mean()
                                            if mpatch.max() > 1 else mpatch.mean()), 4),

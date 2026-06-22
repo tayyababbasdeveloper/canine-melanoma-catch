@@ -1,0 +1,16 @@
+{
+  "run_name": "unet_resnet34",
+  "arch": "unet",
+  "encoder": "resnet34",
+  "device": "cpu",
+  "epochs_ran": 12,
+  "best_epoch": 9,
+  "best_val_dice": 0.4437105155725888,
+  "test_metrics": {
+    "dice": 0.4299893849915233,
+    "iou": 0.40531542688349487,
+    "pixel_acc": 0.9906326293945312,
+    "hausdorff": 115.10337888555583
+  },
+  "params_million": 24.44
+}

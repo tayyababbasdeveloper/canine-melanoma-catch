@@ -1,0 +1,16 @@
+{
+  "run_name": "unet_baseline",
+  "arch": "baseline",
+  "encoder": "resnet34",
+  "device": "cpu",
+  "epochs_ran": 6,
+  "best_epoch": 6,
+  "best_val_dice": 0.33509881734090924,
+  "test_metrics": {
+    "dice": 0.2181983843959526,
+    "iou": 0.2043238693232437,
+    "pixel_acc": 0.9927757263183594,
+    "hausdorff": 154.8146384765201
+  },
+  "params_million": 31.04
+}
