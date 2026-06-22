@@ -63,6 +63,7 @@ The CATCH whole-slide images are **not** committed (large, TCIA-governed); see
 
 ## Documentation
 - **[`SETUP_WINDOWS.md`](SETUP_WINDOWS.md)** — full install & run guide for a new Windows system.
+- **[`WHAT_TO_TRANSFER.md`](WHAT_TO_TRANSFER.md)** — which files to copy to another machine (vs. auto-generated).
 - **`docs/video_guide_weeks1-4.html`** — visual walkthrough of Weeks 1–4 (open in a browser).
 - `docs/Research_Proposal_DAIM2025A_088.html` — the research proposal.
 - `docs/progress_report/` — fortnightly progress reports (Weeks 1–2, 3–4).
