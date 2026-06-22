@@ -29,3 +29,6 @@ env/
 Thumbs.db
 .vscode/
 .idea/
+
+# Archives (e.g. manual transfer zips)
+*.zip

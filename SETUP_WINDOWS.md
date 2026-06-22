@@ -21,6 +21,7 @@ canine-melanoma pipeline (Weeks 1–4). Follow it top to bottom.
 |------|---------|-------|-------|
 | **Python** | 3.10 – 3.14 (3.12 recommended) | https://www.python.org/downloads/ | **Tick "Add python.exe to PATH"** during install |
 | **Git** | latest | https://git-scm.com/download/win | needed to clone the repo |
+| **Git LFS** | latest | https://git-lfs.com | needed to download the trained model files (`.pt`). Install it **before** cloning, then run `git lfs install` |
 | **OpenSlide** (optional) | latest | https://openslide.org/download/ | only needed for REAL `.svs/.tiff` slides; the demo does NOT need it |
 
 Check Python is on PATH (open a new **PowerShell** window):
@@ -35,10 +36,19 @@ PATH checkbox ticked, or use `py --version`.
 ## 2. Get the code
 
 ```powershell
+# install Git LFS once (so the trained .pt models come down with the clone):
+git lfs install
 cd C:\Users\<you>\Documents          # or wherever you keep projects
 git clone https://github.com/Dilawarkhaninfo/canine-melanoma-catch.git
 cd canine-melanoma-catch
+git lfs pull                         # ensures the model files are real (not pointers)
 ```
+
+> The repo now ships with the **trained models, figures, predictions and demo
+> patches** committed (models via Git LFS). So after the clone you already have
+> the **identical results** — you don't have to retrain. If you skipped Git LFS,
+> the `.pt` files will be tiny pointer stubs; install Git LFS and run
+> `git lfs pull` to fetch the real ones.
 
 ---
 
