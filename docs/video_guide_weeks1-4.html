@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Guide — Canine Melanoma Project (Weeks 1–4)</title>
+<style>
+  :root{
+    --p:#2C3E50; --s:#8E44AD; --a:#2980B9; --g:#27AE60; --w:#E67E22; --bg:#F7F9FC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--p);background:var(--bg);line-height:1.7}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+
+  header{background:linear-gradient(135deg,#2C3E50,#8E44AD);color:#fff;padding:54px 22px;text-align:center}
+  header h1{font-size:30px;margin-bottom:8px}
+  header p{font-size:17px;opacity:.92}
+  .pill{display:inline-block;margin-top:16px;background:rgba(255,255,255,.16);
+        border:1px solid rgba(255,255,255,.35);padding:7px 18px;border-radius:22px;font-size:14px}
+
+  h2{font-size:24px;margin:42px 0 6px;color:var(--p);border-bottom:3px solid var(--s);padding-bottom:8px}
+  h2 .wk{font-size:13px;letter-spacing:1px;color:var(--s);display:block;text-transform:uppercase}
+  h3{font-size:18px;margin:26px 0 8px;color:var(--a)}
+  p.lead{font-size:16px;margin:10px 0}
+
+  .analogy{background:#FFF8E1;border-left:5px solid var(--w);padding:16px 20px;border-radius:0 8px 8px 0;margin:18px 0}
+  .analogy b{color:var(--w)}
+
+  /* flow */
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:22px 0;justify-content:center}
+  .node{background:#fff;border:2px solid #e3e8ef;border-radius:12px;padding:14px 16px;width:170px;
+        box-shadow:0 2px 8px rgba(0,0,0,.05);position:relative}
+  .node .n{position:absolute;top:-12px;left:14px;width:24px;height:24px;border-radius:50%;
+           background:var(--s);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .node h4{font-size:14px;color:var(--p);margin:4px 0 5px}
+  .node p{font-size:12px;color:#666;line-height:1.5}
+  .arrow{display:flex;align-items:center;font-size:24px;color:var(--s)}
+  @media(max-width:760px){.arrow{transform:rotate(90deg)}}
+
+  .step{background:#fff;border:1px solid #e7ebf1;border-radius:12px;padding:18px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .step .tag{display:inline-block;background:var(--a);color:#fff;font-size:12px;padding:3px 10px;border-radius:12px;margin-bottom:8px}
+
+  .say{background:#EEF7FF;border-left:5px solid var(--a);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+  .say b{color:var(--a)}
+  .show{background:#1e1e2e;color:#dce3ea;font-family:'Consolas',monospace;font-size:13.5px;
+        padding:12px 16px;border-radius:8px;margin:12px 0;overflow-x:auto;white-space:pre}
+  .show .c{color:#7ee787}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;background:#fff;border-radius:10px;overflow:hidden}
+  th{background:var(--p);color:#fff;padding:10px;text-align:left;font-size:13px}
+  td{padding:10px;border-bottom:1px solid #eef1f5}
+  tr:nth-child(even){background:#fafbfd}
+  .win{color:var(--g);font-weight:700}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+  .card{background:#fff;border:1px solid #e7ebf1;border-top:4px solid var(--a);border-radius:10px;padding:16px}
+  .card.s{border-top-color:var(--s)} .card.g{border-top-color:var(--g)} .card.w{border-top-color:var(--w)}
+  .card h4{font-size:15px;margin-bottom:6px}
+  .card p{font-size:13.5px;color:#555}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+
+  .chk{list-style:none;padding:0;margin:10px 0}
+  .chk li{padding:6px 0 6px 28px;position:relative;font-size:15px}
+  .chk li::before{content:"✓";position:absolute;left:0;color:var(--g);font-weight:700}
+
+  footer{background:var(--p);color:#cdd6e0;text-align:center;padding:28px;margin-top:50px;font-size:13px}
+  .toc{background:#fff;border:1px solid #e7ebf1;border-radius:12px;padding:18px 22px;margin:26px 0}
+  .toc a{color:var(--a);text-decoration:none;display:block;padding:5px 0;border-bottom:1px dotted #dde3ea;font-size:15px}
+  .toc a:hover{color:var(--s)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐶 Classification of Malignant Melanoma in Canines</h1>
+  <p>Video Guide — How the project works, Weeks 1 to 4, step by step</p>
+  <div class="pill">CATCH dataset · U-Net segmentation · Project DAIM2025A_088</div>
+</header>
+
+<div class="wrap">
+
+  <div class="toc">
+    <strong>What this guide covers</strong>
+    <a href="#big">① The big picture — what are we even doing?</a>
+    <a href="#w12">② Weeks 1–2 — Preparing the images (preprocessing)</a>
+    <a href="#w34">③ Weeks 3–4 — Teaching the AI to find tumours (U-Net)</a>
+    <a href="#results">④ The results — did it work?</a>
+    <a href="#demo">⑤ Run it yourself (live demo commands)</a>
+  </div>
+
+  <!-- =============== BIG PICTURE =============== -->
+  <h2 id="big"><span class="wk">Part 1</span>The big picture</h2>
+  <p class="lead">We want a computer to look at a microscope image of a dog's skin and
+  <b>automatically find the cancer (melanoma) regions</b> — the same job a
+  veterinary pathologist does by eye.</p>
+
+  <div class="analogy">
+    <b>Simple analogy 🧠</b> — Think of teaching a child with flashcards. First you
+    <i>prepare clean, consistent flashcards</i> (Weeks 1–2). Then you
+    <i>show the child thousands of examples</i> until it learns to point at the tumour
+    (Weeks 3–4). That's exactly the two halves of this project.
+  </div>
+
+  <div class="say">
+    🎬 <b>Say this in the video:</b> "Dog skin cancer looks a lot like human non-UV
+    melanoma. There's a public dataset of 750 expert-labelled dog tumour slides
+    called CATCH. Our goal is to train an AI to segment — to outline — the tumour
+    regions automatically."
+  </div>
+
+  <!-- =============== WEEKS 1-2 =============== -->
+  <h2 id="w12"><span class="wk">Part 2 · Weeks 1–2</span>Preparing the images</h2>
+  <p class="lead">A microscope slide is a <b>huge</b> image with messy colours. Before
+  any AI can learn, we clean and cut it into bite-sized pieces. Five steps:</p>
+
+  <div class="flow">
+    <div class="node"><span class="n">1</span><h4>Whole slide</h4><p>One giant microscope image of dog skin</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">2</span><h4>Quality check</h4><p>Throw away blurry / empty / too-dark slides</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">3</span><h4>Stain normalise</h4><p>Make all slides the same H&amp;E colour</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">4</span><h4>Cut to patches</h4><p>256×256 tiles, keep only tissue</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">5</span><h4>Split</h4><p>70% train / 15% val / 15% test</p></div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 2 · Quality check</span>
+    <p>The computer measures each slide's <b>sharpness</b>, <b>brightness</b> and how
+    much actual <b>tissue</b> it contains. Bad slides are flagged and excluded with a
+    written reason — so we only train on good data.</p>
+    <div class="say">🎬 <b>Say:</b> "Garbage in, garbage out — so we automatically reject blurry or empty slides first."</div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 3 · Stain normalisation (Macenko)</span>
+    <p>Different labs and scanners make the same tissue look pink, purple or blue.
+    The <b>Macenko method</b> re-colours every slide to one standard look, so the AI
+    learns shapes and patterns — not the colour of a particular scanner.</p>
+    <div class="say">🎬 <b>Say:</b> "This is like applying the same colour filter to every photo so lighting differences don't confuse the model."</div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 4 · Patch extraction (multi-magnification)</span>
+    <p>The slide is too big for any AI, so we cut it into small <b>256×256 squares</b>.
+    We do this at <b>three zoom levels (5×, 10×, 20×)</b> so the model sees both the
+    fine detail and the big picture. Empty/background tiles are dropped.</p>
+    <div class="say">🎬 <b>Say:</b> "We tile the slide like a chessboard and keep only the squares that actually contain tissue — at three different zoom levels."</div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 5 · Stratified split</span>
+    <p>The patches are divided into three groups: <b>train</b> (to learn from),
+    <b>validation</b> (to tune), and <b>test</b> (a final unseen exam). The split is at
+    the <b>slide level</b> so no slide leaks between groups — that would be cheating.</p>
+  </div>
+
+  <ul class="chk">
+    <li><b>Result of Weeks 1–2:</b> a clean, colour-consistent, tiled dataset ready for training.</li>
+    <li>One command to reproduce it: <code>python scripts\run_week1_2_pipeline.py --demo</code></li>
+  </ul>
+
+  <!-- =============== WEEKS 3-4 =============== -->
+  <h2 id="w34"><span class="wk">Part 3 · Weeks 3–4</span>Teaching the AI to find tumours</h2>
+  <p class="lead">Now we train a <b>U-Net</b> — a neural network shaped like a "U" that
+  is the standard tool for medical image segmentation. It takes a patch in and
+  outputs a <b>mask</b>: which pixels are tumour.</p>
+
+  <div class="flow">
+    <div class="node"><span class="n">1</span><h4>Patch + mask</h4><p>Image and its true tumour outline</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">2</span><h4>Augment</h4><p>Flip / rotate / jitter for variety</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">3</span><h4>U-Net</h4><p>Predicts a tumour mask</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">4</span><h4>Learn</h4><p>Compare to truth, adjust, repeat</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="n">5</span><h4>Evaluate</h4><p>Score on unseen test patches</p></div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 2 · Data augmentation</span>
+    <p>We randomly flip, rotate and colour-jitter the training patches. This shows the
+    model many <b>variations</b> of each example so it generalises instead of memorising.</p>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 3 · The U-Net — two versions</span>
+    <p>Following the project plan, we train <b>two</b> models to compare:</p>
+    <div class="grid">
+      <div class="card s"><h4>① Baseline U-Net</h4><p>Built from scratch, learns everything from zero. Our reference point.</p></div>
+      <div class="card g"><h4>② U-Net + ResNet-34</h4><p>Starts from a network already trained on millions of images (ImageNet) — "transfer learning". Should learn faster and better.</p></div>
+    </div>
+    <div class="say">🎬 <b>Say:</b> "We compare learning from scratch versus starting from a model that already knows what edges and textures look like."</div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 4 · How learning works</span>
+    <p>For each patch the model guesses a mask, we measure how wrong it is with a
+    <b>loss</b> (a mix of "BCE" and "Dice"), and the model nudges itself to do better.
+    We repeat this for many <b>epochs</b> (passes over the data). We watch the loss go
+    <b>down</b> and the accuracy go <b>up</b> live in <b>TensorBoard</b>.</p>
+    <div class="say">🎬 <b>Say:</b> "Every round, the model gets a score for how close its outline is to the real one, and corrects itself. We literally watch it get smarter on a graph."</div>
+  </div>
+
+  <div class="step">
+    <span class="tag">Step 5 · Evaluation metrics</span>
+    <p>On unseen test patches we measure overlap between predicted and true tumour:</p>
+    <ul class="chk">
+      <li><b>Dice score</b> — the headline metric (1.0 = perfect overlap).</li>
+      <li><b>IoU</b> — another overlap measure.</li>
+      <li><b>Pixel accuracy</b> &amp; <b>Hausdorff distance</b> — supporting checks.</li>
+    </ul>
+    <div class="say">🎬 <b>Say:</b> "Dice is just: how much does my predicted outline overlap the real one? Higher is better."</div>
+  </div>
+
+  <!-- =============== RESULTS =============== -->
+  <h2 id="results"><span class="wk">Part 4</span>The results — did it work?</h2>
+  <p class="lead">On our demo dataset, the transfer-learning model clearly won — with
+  <b>fewer</b> parameters:</p>
+
+  <table>
+    <tr><th>Model</th><th>Size</th><th>Dice (overlap)</th><th>IoU</th><th>Verdict</th></tr>
+    <tr><td>Baseline U-Net (from scratch)</td><td>31 M</td><td>0.218</td><td>0.204</td><td>reference</td></tr>
+    <tr><td><b>U-Net + ResNet-34</b> (transfer learning)</td><td>24 M</td><td class="win">0.430</td><td class="win">0.405</td><td class="win">~2× better ✓</td></tr>
+  </table>
+
+  <div class="say">
+    🎬 <b>Say this:</b> "The pretrained ResNet-34 version scored about double the Dice
+    of the from-scratch model, using fewer parameters — exactly what our proposal
+    predicted. Both models converged correctly. These numbers are from synthetic test
+    data that proves the whole pipeline works; the real CATCH slides come next."
+  </div>
+
+  <div class="analogy">
+    <b>Important honesty note 📌</b> — these scores are from <i>synthetic</i> (computer-made)
+    slides used to prove the machinery runs end-to-end while the real dataset download
+    is finalised. The exact numbers will change on real data; the proposal target is
+    Dice &gt; 0.85.
+  </div>
+
+  <!-- =============== DEMO =============== -->
+  <h2 id="demo"><span class="wk">Part 5</span>Run it yourself (live demo)</h2>
+  <p class="lead">Great clips to record for the video — show the terminal running:</p>
+
+  <h3>① Set up (one time)</h3>
+  <div class="show"><span class="c"># clone and install everything</span>
+git clone https://github.com/Dilawarkhaninfo/canine-melanoma-catch.git
+cd canine-melanoma-catch
+powershell -ExecutionPolicy Bypass -File scripts\setup_env.ps1
+.\.venv\Scripts\Activate.ps1</div>
+
+  <h3>② Weeks 1–2 — preprocessing</h3>
+  <div class="show"><span class="c"># clean + tile the (demo) slides</span>
+python scripts\run_week1_2_pipeline.py --demo</div>
+
+  <h3>③ Weeks 3–4 — train the U-Net</h3>
+  <div class="show"><span class="c"># fast check (a few minutes)</span>
+python scripts\run_week3_4_pipeline.py --demo --quick
+
+<span class="c"># watch it learn live</span>
+tensorboard --logdir outputs\tensorboard</div>
+
+  <h3>④ Show the outputs</h3>
+  <p>Open these to show the results on screen:</p>
+  <ul class="chk">
+    <li><code>outputs\figures\unet_resnet34_predictions.png</code> — image | true mask | AI's mask</li>
+    <li><code>outputs\figures\unet_resnet34_curves.png</code> — the learning graph</li>
+    <li><code>outputs\logs\week3_4_comparison.json</code> — the score table</li>
+    <li><code>docs\progress_report\Progress_Report_Week3-4.docx</code> — the written report</li>
+  </ul>
+
+  <div class="grid">
+    <div class="card"><h4>🎬 Suggested video length</h4><p>5–7 minutes: 1 min big picture, 2 min Weeks 1–2, 3 min Weeks 3–4, 1 min results.</p></div>
+    <div class="card g"><h4>🎬 Suggested flow</h4><p>Big picture → show a slide → run preprocessing → run training → open the prediction image → show the score table.</p></div>
+  </div>
+
+</div>
+
+<footer>
+  Classification of Malignant Melanoma in Canines · Weeks 1–4 Video Guide<br>
+  Muhammad Tayyab Abbas · University of Hull · Project DAIM2025A_088
+</footer>
+
+</body>
+</html>

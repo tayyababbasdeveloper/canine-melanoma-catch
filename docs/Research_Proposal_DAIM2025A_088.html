@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Proposal - Classification of Malignant Melanoma in Canines</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+        :root {
+            --primary: #2C3E50;
+            --secondary: #8E44AD;
+            --accent: #2980B9;
+            --warm: #E74C3C;
+            --soft-bg: #F8F9FA;
+            --text: #2C3E50;
+            --light-border: #E8E8E8;
+            --highlight: #F39C12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', 'Segoe UI', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 12pt;
+            background: #fff;
+        }
+
+        /* Print Styles */
+        @media print {
+            body { font-size: 11pt; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+            .cover-page { page-break-after: always; }
+        }
+
+        /* Cover Page */
+        .cover-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent), var(--secondary));
+        }
+
+        .cover-page::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent), var(--secondary));
+        }
+
+        .university-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+        }
+
+        .university-logo svg {
+            width: 70px;
+            height: 70px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28pt;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            max-width: 700px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Lora', serif;
+            font-size: 14pt;
+            color: var(--secondary);
+            margin-bottom: 40px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .cover-meta {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--secondary);
+            text-align: left;
+            min-width: 450px;
+        }
+
+        .cover-meta-row {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cover-meta-row:last-child {
+            border-bottom: none;
+        }
+
+        .cover-meta-label {
+            font-weight: 600;
+            color: var(--secondary);
+            min-width: 180px;
+            font-size: 10.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cover-meta-value {
+            color: var(--text);
+            font-size: 11pt;
+        }
+
+        .word-count-badge {
+            margin-top: 30px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 11pt;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content Container */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-top: 45px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--secondary);
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 11pt;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18pt;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Sub-sections */
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 13pt;
+            color: var(--secondary);
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent);
+        }
+
+        h4 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 11.5pt;
+            color: var(--primary);
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 14px;
+            text-align: justify;
+            font-size: 11.5pt;
+            line-height: 1.85;
+        }
+
+        /* Aims Box */
+        .aims-box {
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0e8ff 100%);
+            border: 1px solid #d4c4e8;
+            border-radius: 10px;
+            padding: 25px 30px;
+            margin: 20px 0;
+        }
+
+        .aims-box h4 {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 12pt;
+        }
+
+        .aim-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+
+        .aim-number {
+            background: var(--secondary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .aim-text {
+            font-size: 11pt;
+            line-height: 1.7;
+        }
+
+        /* Citation Style */
+        .citation {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 10.5pt;
+        }
+
+        /* Methodology Flow */
+        .method-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+            justify-content: center;
+        }
+
+        .method-step {
+            background: white;
+            border: 2px solid var(--light-border);
+            border-radius: 10px;
+            padding: 18px 20px;
+            width: calc(50% - 10px);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .method-step:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.1);
+        }
+
+        .method-step-num {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9pt;
+            font-weight: 700;
+        }
+
+        .method-step-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 10.5pt;
+            margin-bottom: 5px;
+        }
+
+        .method-step-desc {
+            font-size: 9.5pt;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Gantt Chart */
+        .gantt-container {
+            margin: 25px 0;
+            overflow-x: auto;
+        }
+
+        .gantt-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+
+        .gantt-table th {
+            background: var(--primary);
+            color: white;
+            padding: 8px 6px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 8.5pt;
+        }
+
+        .gantt-table td {
+            border: 1px solid #e0e0e0;
+            padding: 6px 8px;
+            font-size: 9pt;
+        }
+
+        .gantt-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .gantt-task {
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .gantt-bar {
+            height: 18px;
+            border-radius: 9px;
+            min-width: 100%;
+        }
+
+        .bar-phase1 { background: linear-gradient(90deg, #8E44AD, #9B59B6); }
+        .bar-phase2 { background: linear-gradient(90deg, #2980B9, #3498DB); }
+        .bar-phase3 { background: linear-gradient(90deg, #27AE60, #2ECC71); }
+        .bar-phase4 { background: linear-gradient(90deg, #E74C3C, #E67E22); }
+        .bar-phase5 { background: linear-gradient(90deg, #F39C12, #F1C40F); }
+        .bar-milestone { background: linear-gradient(90deg, #2C3E50, #34495E); }
+
+        /* Risk Table */
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+
+        .risk-table th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 9.5pt;
+            font-weight: 600;
+        }
+
+        .risk-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 9.5pt;
+            vertical-align: top;
+        }
+
+        .risk-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .risk-high { color: #E74C3C; font-weight: 700; }
+        .risk-med { color: #F39C12; font-weight: 700; }
+        .risk-low { color: #27AE60; font-weight: 700; }
+
+        /* Outcome Cards */
+        .outcome-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .outcome-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e8e8e8;
+            border-top: 4px solid var(--accent);
+        }
+
+        .outcome-card.primary {
+            border-top-color: var(--secondary);
+        }
+
+        .outcome-card-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 10.5pt;
+            margin-bottom: 8px;
+        }
+
+        .outcome-card-text {
+            font-size: 9.5pt;
+            color: #555;
+            line-height: 1.65;
+        }
+
+        /* Charts Container */
+        .chart-container {
+            margin: 25px auto;
+            text-align: center;
+        }
+
+        .chart-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 12pt;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .chart-caption {
+            font-size: 9pt;
+            color: #888;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        /* References */
+        .references-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .references-list li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            font-size: 10pt;
+            line-height: 1.7;
+            border-bottom: 1px solid #f5f5f5;
+            text-align: left;
+        }
+
+        .references-list li::before {
+            content: attr(data-ref);
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 9pt;
+        }
+
+        /* Figure styling */
+        .figure {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .figure-caption {
+            font-size: 9.5pt;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .figure-number {
+            font-weight: 700;
+            color: var(--primary);
+            font-style: normal;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: #FFF8E1;
+            border-left: 4px solid var(--highlight);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 10.5pt;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--soft-bg);
+            border-radius: 10px;
+            padding: 25px 30px;
+            margin: 30px 0;
+        }
+
+        .toc-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 14pt;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dotted #ccc;
+            font-size: 10.5pt;
+        }
+
+        .toc-item-section {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            margin: 40px 0;
+        }
+
+        /* Justified text helper */
+        .justified {
+            text-align: justify;
+            hyphens: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<div class="cover-page">
+    <div class="university-logo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none"/>
+            <path d="M30 70 L50 25 L70 70" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="37" y1="55" x2="63" y2="55" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="50" cy="18" r="4" fill="white"/>
+        </svg>
+    </div>
+
+    <div class="cover-title">Classification of Malignant Melanoma in Canines</div>
+    <div class="cover-subtitle">A Research Proposal for Segmentation and Classification Using the CATCH Dataset</div>
+
+    <div class="cover-meta">
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Module</span>
+            <span class="cover-meta-value">771765 &mdash; Research and Application in AI and Data Science</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Programme</span>
+            <span class="cover-meta-value">MSc Artificial Intelligence and Data Science</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Project Code</span>
+            <span class="cover-meta-value">DAIM2025A_088</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Student Name</span>
+            <span class="cover-meta-value">Muhammad Tayyab Abbas</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Student Email</span>
+            <span class="cover-meta-value">M.ABBAS14-2024@hull.ac.uk</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Supervisor</span>
+            <span class="cover-meta-value">Dr Claire Cashmore (c.cashmore@hull.ac.uk)</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">Submission Date</span>
+            <span class="cover-meta-value">30th April 2026</span>
+        </div>
+        <div class="cover-meta-row">
+            <span class="cover-meta-label">University</span>
+            <span class="cover-meta-value">University of Hull</span>
+        </div>
+    </div>
+
+    <div class="word-count-badge">Word Count: 2,948 words</div>
+</div>
+
+<!-- ==================== TABLE OF CONTENTS ==================== -->
+<div class="content">
+    <div class="toc">
+        <div class="toc-title">Table of Contents</div>
+        <div class="toc-item">
+            <span><span class="toc-item-section">Section A</span> &mdash; Aims and Objectives</span>
+            <span>3</span>
+        </div>
+        <div class="toc-item">
+            <span><span class="toc-item-section">Section B</span> &mdash; Background and Literature Review</span>
+            <span>3</span>
+        </div>
+        <div class="toc-item">
+            <span><span class="toc-item-section">Section C</span> &mdash; Research Description and Anticipated Outcomes</span>
+            <span>7</span>
+        </div>
+        <div class="toc-item">
+            <span><span class="toc-item-section">Section D</span> &mdash; Timeline, Tasks, and Risk Assessment</span>
+            <span>11</span>
+        </div>
+        <div class="toc-item">
+            <span><span class="toc-item-section">References</span></span>
+            <span>14</span>
+        </div>
+    </div>
+
+    <!-- ==================== SECTION A: AIMS & OBJECTIVES ==================== -->
+    <div class="section-header">
+        <span class="section-number">Section A</span>
+        <span class="section-title">Aims and Objectives</span>
+    </div>
+
+    <p>
+        The principal aim of this research is to develop and evaluate deep learning-based approaches for the automated classification of malignant melanoma in canine cutaneous histopathology images, utilising the CAnine CuTaneous Cancer Histology (CATCH) dataset <span class="citation">(Fragoso-Garcia et al., 2023)</span>. This work seeks to contribute toward the broader understanding of melanoma pathology across species, given the well-documented histological parallels between canine and human melanomas <span class="citation">(Gillard et al., 2014)</span>.
+    </p>
+
+    <div class="aims-box">
+        <h4>Specific Objectives</h4>
+        <div class="aim-item">
+            <div class="aim-number">1</div>
+            <div class="aim-text">To perform semantic segmentation of canine cutaneous tumour regions within whole-slide histopathology images using a U-Net architecture with transfer learning.</div>
+        </div>
+        <div class="aim-item">
+            <div class="aim-number">2</div>
+            <div class="aim-text">To develop and train convolutional neural network (CNN) classifiers, including ResNet-50 and EfficientNet-B3, for the multi-class classification of canine cutaneous tumour subtypes.</div>
+        </div>
+        <div class="aim-item">
+            <div class="aim-number">3</div>
+            <div class="aim-text">To evaluate model performance through rigorous quantitative metrics (accuracy, F1-score, precision, recall, and AUC-ROC) and qualitative assessment of segmentation outputs.</div>
+        </div>
+        <div class="aim-item">
+            <div class="aim-number">4</div>
+            <div class="aim-text">To analyse the clinical relevance of classification outcomes in the context of comparative oncology, examining whether findings may inform non-UV-induced melanoma research in humans.</div>
+        </div>
+    </div>
+
+    <!-- ==================== SECTION B: BACKGROUND ==================== -->
+    <div class="section-header" style="margin-top: 50px;">
+        <span class="section-number">Section B</span>
+        <span class="section-title">Background and Literature Review</span>
+    </div>
+
+    <h3>2.1 Malignant Melanoma: Clinical Context</h3>
+
+    <p>
+        Malignant melanoma is a highly aggressive neoplasm arising from melanocytes, pigment-producing cells found across diverse anatomical regions. In humans, melanoma accounts for approximately 5% of all skin cancers, yet it is responsible for a disproportionate 75% of skin cancer-related mortality <span class="citation">(Schadendorf et al., 2018)</span>. The major subtypes include cutaneous melanoma (both UV-induced and non-UV-induced), acral melanoma, mucosal melanoma, and ocular melanoma. Each subtype demonstrates distinct epidemiological patterns, histopathological features, genetic profiles, and prognostic outcomes <span class="citation">(Shain and Bastian, 2016)</span>.
+    </p>
+
+    <p>
+        Cutaneous melanoma predominates in fair-skinned populations and is strongly associated with ultraviolet (UV) radiation exposure. However, non-UV-induced melanomas&mdash;including mucosal and acral subtypes&mdash;present a distinct molecular landscape characterised by different driver mutations, notably in the <em>KIT</em> and <em>NRAS</em> oncogenes rather than the <em>BRAF</em> mutations commonly observed in UV-associated melanomas <span class="citation">(Curtin et al., 2005)</span>. Understanding these non-UV pathways is paramount for developing targeted therapeutic strategies.
+    </p>
+
+    <h3>2.2 Canine Melanoma as a Comparative Oncology Model</h3>
+
+    <p>
+        Canine malignant melanomas share substantial histological and molecular similarities with their human counterparts, particularly the non-UV-induced variants <span class="citation">(Gillard et al., 2014)</span>. Oral melanoma, the most prevalent form in dogs, occurs naturally without UV radiation involvement, offering a valuable translational model for investigating non-UV melanoma biology. Certain breeds&mdash;including Scottish Terriers, Golden Retrievers, Poodles, and Cocker Spaniels&mdash;exhibit a heightened genetic predisposition, suggesting heritable risk factors that may parallel human familial melanoma susceptibility <span class="citation">(Nishiya et al., 2016)</span>.
+    </p>
+
+    <p>
+        The comparative oncology framework posits that studying spontaneously occurring cancers in companion animals can yield insights directly transferable to human medicine. Canine tumours progress through similar stages, share equivalent histological grades, and respond to analogous treatment modalities, making them an ethically advantageous and scientifically rigorous model for preclinical investigation <span class="citation">(Prouteau and André, 2019)</span>.
+    </p>
+
+    <h3>2.3 The CATCH Dataset</h3>
+
+    <p>
+        The CAnine CuTaneous Cancer Histology (CATCH) dataset, curated by Fragoso-Garcia et al. <span class="citation">(2023)</span>, comprises 750 whole-slide images of canine cutaneous tumours, representing a diverse array of histological subtypes. The dataset was developed to facilitate computational pathology research and includes expert-annotated tumour region delineations. Available through The Cancer Imaging Archive <span class="citation">(Clark et al., 2013)</span>, the CATCH dataset provides a standardised benchmark for the development and validation of segmentation and classification algorithms.
+    </p>
+
+    <p>
+        Each sample within the dataset has been meticulously reviewed by board-certified veterinary pathologists, ensuring diagnostic accuracy. The diversity of tumour subtypes represented&mdash;including melanocytic tumours, mast cell tumours, squamous cell carcinomas, and others&mdash;offers a challenging multi-class classification problem that mirrors the complexity encountered in clinical diagnostic workflows.
+    </p>
+
+    <h3>2.4 Deep Learning in Histopathology Image Analysis</h3>
+
+    <p>
+        The application of deep learning to histopathological image analysis has demonstrated transformative potential across multiple cancer types. Convolutional neural networks (CNNs) have achieved diagnostic performance comparable to, and in some instances surpassing, that of expert pathologists <span class="citation">(Esteva et al., 2017)</span>. Architectures such as ResNet <span class="citation">(He et al., 2016)</span>, VGG <span class="citation">(Simonyan and Zisserman, 2015)</span>, and EfficientNet <span class="citation">(Tan and Le, 2019)</span> have been extensively employed for classification tasks, leveraging transfer learning from large-scale natural image datasets such as ImageNet to overcome the limited sample sizes common in medical imaging.
+    </p>
+
+    <p>
+        For semantic segmentation&mdash;the pixel-level delineation of tumour regions&mdash;the U-Net architecture has emerged as a standard framework in biomedical image analysis <span class="citation">(Ronneberger et al., 2015)</span>. Its encoder-decoder structure with skip connections enables precise localisation while maintaining contextual understanding. Variants such as Attention U-Net <span class="citation">(Oktay et al., 2018)</span> have further enhanced segmentation performance by incorporating attention mechanisms that selectively emphasise relevant spatial features.
+    </p>
+
+    <p>
+        Recent studies have applied these architectures specifically to dermatopathology, with promising results. Hekler et al. <span class="citation">(2019)</span> demonstrated that a CNN-based classifier could distinguish melanoma from nevi in human histopathology images with accuracy exceeding 90%. Similarly, Brinker et al. <span class="citation">(2019)</span> showed that ensemble approaches combining multiple CNN architectures yielded robust classification performance across heterogeneous datasets. However, relatively few studies have applied such methods to veterinary histopathology, representing a notable research gap that this project intends to address.
+    </p>
+
+    <h3>2.5 Addressing the Research Gap</h3>
+
+    <p>
+        Despite the established parallels between canine and human melanomas, computational approaches to canine cutaneous tumour classification remain markedly underexplored. The availability of the CATCH dataset presents a timely opportunity to apply state-of-the-art deep learning methods to this domain. By developing accurate segmentation and classification models for canine cutaneous tumours, this research may contribute to both veterinary diagnostic practice and the broader comparative oncology agenda, potentially illuminating pathways relevant to non-UV melanoma in humans.
+    </p>
+
+    <!-- PIE CHART: Research Focus Distribution -->
+    <div class="chart-container">
+        <div class="chart-title">Figure 1: Distribution of Research Focus Areas</div>
+        <svg width="420" height="320" viewBox="0 0 420 320">
+            <!-- Pie Chart -->
+            <g transform="translate(160, 160)">
+                <!-- Segmentation: 30% -->
+                <path d="M0,-120 A120,120 0 0,1 103.92,-60 L0,0 Z" fill="#8E44AD" opacity="0.9"/>
+                <text x="55" y="-75" fill="white" font-size="11" font-weight="600" text-anchor="middle">30%</text>
+
+                <!-- Classification: 30% -->
+                <path d="M103.92,-60 A120,120 0 0,1 103.92,60 L0,0 Z" fill="#2980B9" opacity="0.9"/>
+                <text x="85" y="10" fill="white" font-size="11" font-weight="600" text-anchor="middle">30%</text>
+
+                <!-- Evaluation: 20% -->
+                <path d="M103.92,60 A120,120 0 0,1 -41.04,112.76 L0,0 Z" fill="#27AE60" opacity="0.9"/>
+                <text x="40" y="80" fill="white" font-size="11" font-weight="600" text-anchor="middle">20%</text>
+
+                <!-- Literature Review: 12% -->
+                <path d="M-41.04,112.76 A120,120 0 0,1 -108.76,-50.84 L0,0 Z" fill="#E74C3C" opacity="0.9"/>
+                <text x="-70" y="50" fill="white" font-size="11" font-weight="600" text-anchor="middle">12%</text>
+
+                <!-- Data Preparation: 8% -->
+                <path d="M-108.76,-50.84 A120,120 0 0,1 0,-120 L0,0 Z" fill="#F39C12" opacity="0.9"/>
+                <text x="-55" y="-60" fill="white" font-size="10" font-weight="600" text-anchor="middle">8%</text>
+            </g>
+
+            <!-- Legend -->
+            <g transform="translate(300, 70)">
+                <rect x="0" y="0" width="14" height="14" rx="3" fill="#8E44AD"/>
+                <text x="20" y="12" font-size="10" fill="#333">Segmentation (30%)</text>
+
+                <rect x="0" y="28" width="14" height="14" rx="3" fill="#2980B9"/>
+                <text x="20" y="40" font-size="10" fill="#333">Classification (30%)</text>
+
+                <rect x="0" y="56" width="14" height="14" rx="3" fill="#27AE60"/>
+                <text x="20" y="68" font-size="10" fill="#333">Evaluation (20%)</text>
+
+                <rect x="0" y="84" width="14" height="14" rx="3" fill="#E74C3C"/>
+                <text x="20" y="96" font-size="10" fill="#333">Literature Review (12%)</text>
+
+                <rect x="0" y="112" width="14" height="14" rx="3" fill="#F39C12"/>
+                <text x="20" y="124" font-size="10" fill="#333">Data Preparation (8%)</text>
+            </g>
+        </svg>
+        <div class="chart-caption">Figure 1: Proportional allocation of research effort across the five principal focus areas of the proposed study.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== SECTION C: RESEARCH DESCRIPTION ==================== -->
+    <div class="section-header">
+        <span class="section-number">Section C</span>
+        <span class="section-title">Research Description and Anticipated Outcomes</span>
+    </div>
+
+    <h3>3.1 Proposed Methodology</h3>
+
+    <p>
+        The proposed research follows a structured pipeline encompassing data acquisition and preprocessing, model development for both segmentation and classification tasks, systematic evaluation, and comparative analysis. Each phase has been designed to align with established best practices in computational pathology while addressing the specific characteristics of the CATCH dataset.
+    </p>
+
+    <!-- Methodology Flow Diagram -->
+    <div class="figure">
+        <div class="chart-title">Figure 2: Research Methodology Pipeline</div>
+        <svg width="700" height="140" viewBox="0 0 700 140">
+            <!-- Step 1 -->
+            <rect x="10" y="30" width="120" height="80" rx="10" fill="#8E44AD" opacity="0.9"/>
+            <text x="70" y="62" fill="white" font-size="10" font-weight="600" text-anchor="middle">Data</text>
+            <text x="70" y="78" fill="white" font-size="10" font-weight="600" text-anchor="middle">Acquisition &</text>
+            <text x="70" y="94" fill="white" font-size="10" font-weight="600" text-anchor="middle">Preprocessing</text>
+
+            <!-- Arrow 1 -->
+            <polygon points="135,70 155,60 155,80" fill="#8E44AD"/>
+
+            <!-- Step 2 -->
+            <rect x="160" y="30" width="120" height="80" rx="10" fill="#2980B9" opacity="0.9"/>
+            <text x="220" y="62" fill="white" font-size="10" font-weight="600" text-anchor="middle">Segmentation</text>
+            <text x="220" y="78" fill="white" font-size="10" font-weight="600" text-anchor="middle">(U-Net /</text>
+            <text x="220" y="94" fill="white" font-size="10" font-weight="600" text-anchor="middle">Attention U-Net)</text>
+
+            <!-- Arrow 2 -->
+            <polygon points="285,70 305,60 305,80" fill="#2980B9"/>
+
+            <!-- Step 3 -->
+            <rect x="310" y="30" width="120" height="80" rx="10" fill="#27AE60" opacity="0.9"/>
+            <text x="370" y="62" fill="white" font-size="10" font-weight="600" text-anchor="middle">Classification</text>
+            <text x="370" y="78" fill="white" font-size="10" font-weight="600" text-anchor="middle">(ResNet-50 /</text>
+            <text x="370" y="94" fill="white" font-size="10" font-weight="600" text-anchor="middle">EfficientNet-B3)</text>
+
+            <!-- Arrow 3 -->
+            <polygon points="435,70 455,60 455,80" fill="#27AE60"/>
+
+            <!-- Step 4 -->
+            <rect x="460" y="30" width="120" height="80" rx="10" fill="#E74C3C" opacity="0.9"/>
+            <text x="520" y="62" fill="white" font-size="10" font-weight="600" text-anchor="middle">Evaluation &</text>
+            <text x="520" y="78" fill="white" font-size="10" font-weight="600" text-anchor="middle">Performance</text>
+            <text x="520" y="94" fill="white" font-size="10" font-weight="600" text-anchor="middle">Analysis</text>
+
+            <!-- Arrow 4 -->
+            <polygon points="585,70 605,60 605,80" fill="#E74C3C"/>
+
+            <!-- Step 5 -->
+            <rect x="610" y="30" width="80" height="80" rx="10" fill="#F39C12" opacity="0.9"/>
+            <text x="650" y="65" fill="white" font-size="10" font-weight="600" text-anchor="middle">Comparative</text>
+            <text x="650" y="82" fill="white" font-size="10" font-weight="600" text-anchor="middle">Analysis</text>
+        </svg>
+        <div class="chart-caption">Figure 2: Sequential stages of the proposed research methodology, from data acquisition through to comparative analysis.</div>
+    </div>
+
+    <h4>3.1.1 Data Acquisition and Preprocessing</h4>
+    <p>
+        The CATCH dataset will be obtained from The Cancer Imaging Archive (TCIA). Preprocessing will involve standardising image dimensions, applying stain normalisation using the Macenko method <span class="citation">(Macenko et al., 2009)</span> to mitigate inter-slide colour variability, and performing patch extraction at multiple magnification levels (5&times;, 10&times;, 20&times;). Data augmentation strategies&mdash;including rotation, horizontal and vertical flipping, elastic deformation, and colour jittering&mdash;will be employed to enhance model generalisation and address class imbalance. The dataset will be partitioned into training (70%), validation (15%), and test (15%) subsets using stratified sampling to preserve class distributions.
+    </p>
+
+    <h4>3.1.2 Segmentation Pipeline</h4>
+    <p>
+        Tumour region segmentation will be performed using a U-Net architecture <span class="citation">(Ronneberger et al., 2015)</span> with a ResNet-34 encoder pretrained on ImageNet. The encoder will extract hierarchical feature representations, while the decoder will reconstruct spatial resolution through transposed convolutions and skip connections. An Attention U-Net variant <span class="citation">(Oktay et al., 2018)</span> will also be implemented to assess the impact of attention gating on segmentation precision. Both models will be trained using a composite loss function combining binary cross-entropy and Dice loss, optimised with the Adam optimiser at an initial learning rate of 1&times;10<sup>-4</sup> with cosine annealing scheduling.
+    </p>
+
+    <h4>3.1.3 Classification Pipeline</h4>
+    <p>
+        Two classification architectures will be evaluated: ResNet-50 <span class="citation">(He et al., 2016)</span> and EfficientNet-B3 <span class="citation">(Tan and Le, 2019)</span>. Both models will be initialised with ImageNet-pretrained weights and fine-tuned on the CATCH dataset. A progressive unfreezing strategy will be adopted, initially training only the classification head before gradually unfreezing deeper convolutional layers. The models will be trained using cross-entropy loss with label smoothing (factor = 0.1) and optimised using AdamW with weight decay regularisation. Hyperparameter tuning will be conducted through systematic grid search over learning rates, batch sizes, and dropout rates.
+    </p>
+
+    <h4>3.1.4 Evaluation Framework</h4>
+    <p>
+        Segmentation performance will be assessed using the Dice Similarity Coefficient (DSC), Intersection over Union (IoU), pixel-wise accuracy, and Hausdorff distance. Classification performance will be evaluated through accuracy, macro-averaged precision, recall, F1-score, and area under the receiver operating characteristic curve (AUC-ROC). Confusion matrices will provide granular insights into per-class performance, while Grad-CAM visualisations <span class="citation">(Selvaraju et al., 2017)</span> will offer interpretability by highlighting the image regions most influential to classification decisions. Five-fold cross-validation will ensure robust and generalisable performance estimates.
+    </p>
+
+    <h3>3.2 Anticipated Outcomes</h3>
+
+    <p>
+        Based upon the reviewed literature and the characteristics of the CATCH dataset, the following outcomes are anticipated:
+    </p>
+
+    <div class="outcome-grid">
+        <div class="outcome-card primary">
+            <div class="outcome-card-title">Outcome 1: Segmentation Accuracy</div>
+            <div class="outcome-card-text">The U-Net models are expected to achieve a Dice Similarity Coefficient (DSC) exceeding 0.85 for tumour region delineation, consistent with performance benchmarks reported in comparable histopathology segmentation studies <span class="citation">(Ronneberger et al., 2015)</span>. The Attention U-Net variant is anticipated to yield modest improvements, particularly for smaller or irregularly shaped tumour regions.</div>
+        </div>
+        <div class="outcome-card">
+            <div class="outcome-card-title">Outcome 2: Classification Performance</div>
+            <div class="outcome-card-text">Transfer learning-based classifiers are expected to achieve multi-class classification accuracy of 85&ndash;92%, with EfficientNet-B3 anticipated to demonstrate superior efficiency owing to its compound scaling strategy. Melanocytic tumours specifically are expected to be classified with an F1-score exceeding 0.88, given their distinct histological features.</div>
+        </div>
+        <div class="outcome-card primary">
+            <div class="outcome-card-title">Outcome 3: Model Interpretability</div>
+            <div class="outcome-card-text">Grad-CAM visualisations are expected to reveal that the classification models attend to histologically meaningful features&mdash;such as melanin pigmentation patterns, nuclear morphology, and tissue architecture&mdash;thereby validating the clinical relevance of the learned representations.</div>
+        </div>
+        <div class="outcome-card">
+            <div class="outcome-card-title">Outcome 4: Comparative Oncology Insights</div>
+            <div class="outcome-card-text">The classification patterns observed may illuminate morphological features shared between canine cutaneous melanomas and human non-UV-induced melanomas, providing preliminary computational evidence for cross-species translational pathology research.</div>
+        </div>
+    </div>
+
+    <h3>3.3 Justification for the Research Approach</h3>
+
+    <p>
+        The selection of U-Net for segmentation is grounded in its established efficacy in biomedical imaging contexts, where its skip-connection architecture demonstrates particular strength in preserving fine-grained spatial detail essential for accurate tumour delineation <span class="citation">(Ronneberger et al., 2015)</span>. The inclusion of Attention U-Net provides a controlled comparison to evaluate whether attention mechanisms yield statistically significant improvements in the specific context of canine cutaneous histopathology.
+    </p>
+
+    <p>
+        ResNet-50 was selected for its proven track record in medical image classification and its residual learning framework, which mitigates the vanishing gradient problem in deep networks <span class="citation">(He et al., 2016)</span>. EfficientNet-B3 was chosen as a complementary architecture due to its superior parameter efficiency, achieved through compound scaling of network width, depth, and resolution <span class="citation">(Tan and Le, 2019)</span>. Evaluating both architectures enables a rigorous comparison of classification approaches with differing computational profiles.
+    </p>
+
+    <p>
+        Transfer learning is justified by the relatively modest size of the CATCH dataset (750 samples). Fine-tuning ImageNet-pretrained models has been shown to substantially outperform training from scratch in medical imaging settings with limited data availability <span class="citation">(Esteva et al., 2017)</span>. The progressive unfreezing strategy further safeguards against catastrophic forgetting of learned feature representations.
+    </p>
+
+    <!-- Bar Chart: Expected Performance -->
+    <div class="chart-container">
+        <div class="chart-title">Figure 3: Anticipated Model Performance Benchmarks</div>
+        <svg width="500" height="280" viewBox="0 0 500 280">
+            <!-- Axes -->
+            <line x1="80" y1="20" x2="80" y2="220" stroke="#ccc" stroke-width="1"/>
+            <line x1="80" y1="220" x2="470" y2="220" stroke="#ccc" stroke-width="1"/>
+
+            <!-- Y-axis labels -->
+            <text x="70" y="225" font-size="9" fill="#666" text-anchor="end">0%</text>
+            <text x="70" y="175" font-size="9" fill="#666" text-anchor="end">25%</text>
+            <text x="70" y="125" font-size="9" fill="#666" text-anchor="end">50%</text>
+            <text x="70" y="75" font-size="9" fill="#666" text-anchor="end">75%</text>
+            <text x="70" y="30" font-size="9" fill="#666" text-anchor="end">100%</text>
+
+            <!-- Grid lines -->
+            <line x1="80" y1="170" x2="470" y2="170" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="80" y1="120" x2="470" y2="120" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="80" y1="70" x2="470" y2="70" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="80" y1="20" x2="470" y2="20" stroke="#f0f0f0" stroke-width="1"/>
+
+            <!-- U-Net DSC: 87% -->
+            <rect x="100" y="46" width="50" height="174" rx="4" fill="#8E44AD" opacity="0.85"/>
+            <text x="125" y="40" font-size="10" fill="#8E44AD" font-weight="600" text-anchor="middle">87%</text>
+            <text x="125" y="245" font-size="8" fill="#555" text-anchor="middle">U-Net</text>
+            <text x="125" y="256" font-size="8" fill="#555" text-anchor="middle">DSC</text>
+
+            <!-- Attention U-Net DSC: 89% -->
+            <rect x="170" y="42" width="50" height="178" rx="4" fill="#9B59B6" opacity="0.85"/>
+            <text x="195" y="36" font-size="10" fill="#9B59B6" font-weight="600" text-anchor="middle">89%</text>
+            <text x="195" y="245" font-size="8" fill="#555" text-anchor="middle">Attn U-Net</text>
+            <text x="195" y="256" font-size="8" fill="#555" text-anchor="middle">DSC</text>
+
+            <!-- ResNet-50 Accuracy: 88% -->
+            <rect x="260" y="44" width="50" height="176" rx="4" fill="#2980B9" opacity="0.85"/>
+            <text x="285" y="38" font-size="10" fill="#2980B9" font-weight="600" text-anchor="middle">88%</text>
+            <text x="285" y="245" font-size="8" fill="#555" text-anchor="middle">ResNet-50</text>
+            <text x="285" y="256" font-size="8" fill="#555" text-anchor="middle">Accuracy</text>
+
+            <!-- EfficientNet-B3 Accuracy: 91% -->
+            <rect x="330" y="38" width="50" height="182" rx="4" fill="#3498DB" opacity="0.85"/>
+            <text x="355" y="32" font-size="10" fill="#3498DB" font-weight="600" text-anchor="middle">91%</text>
+            <text x="355" y="245" font-size="8" fill="#555" text-anchor="middle">EfficientNet</text>
+            <text x="355" y="256" font-size="8" fill="#555" text-anchor="middle">Accuracy</text>
+
+            <!-- F1-Score (Melanoma): 90% -->
+            <rect x="420" y="40" width="50" height="180" rx="4" fill="#27AE60" opacity="0.85"/>
+            <text x="445" y="34" font-size="10" fill="#27AE60" font-weight="600" text-anchor="middle">90%</text>
+            <text x="445" y="245" font-size="8" fill="#555" text-anchor="middle">Melanoma</text>
+            <text x="445" y="256" font-size="8" fill="#555" text-anchor="middle">F1-Score</text>
+
+            <!-- Y-axis label -->
+            <text x="15" y="130" font-size="10" fill="#666" text-anchor="middle" transform="rotate(-90, 15, 130)">Performance (%)</text>
+        </svg>
+        <div class="chart-caption">Figure 3: Projected performance metrics for the proposed segmentation and classification models based on comparable studies in the literature.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== SECTION D: TIMELINE ==================== -->
+    <div class="section-header">
+        <span class="section-number">Section D</span>
+        <span class="section-title">Timeline, Tasks, and Risk Assessment</span>
+    </div>
+
+    <h3>4.1 Project Timeline (Gantt Chart)</h3>
+
+    <p>
+        The research will be conducted over a twelve-week period commencing on 26th May 2026 and concluding on 14th August 2026, with the final submission scheduled for 17th August 2026. The timeline has been structured to accommodate iterative model development cycles while incorporating contingency provisions for potential delays.
+    </p>
+
+    <!-- Gantt Chart -->
+    <div class="gantt-container">
+        <div class="chart-title" style="margin-bottom: 15px;">Figure 4: Project Gantt Chart (Weeks 1&ndash;12)</div>
+        <table class="gantt-table">
+            <thead>
+                <tr>
+                    <th style="min-width: 180px; text-align: left;">Task</th>
+                    <th>W1</th>
+                    <th>W2</th>
+                    <th>W3</th>
+                    <th>W4</th>
+                    <th>W5</th>
+                    <th>W6</th>
+                    <th>W7</th>
+                    <th>W8</th>
+                    <th>W9</th>
+                    <th>W10</th>
+                    <th>W11</th>
+                    <th>W12</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="gantt-task">Literature Review &amp; Refinement</td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Data Acquisition &amp; Preprocessing</td>
+                    <td><div class="gantt-bar bar-phase2"></div></td>
+                    <td><div class="gantt-bar bar-phase2"></div></td>
+                    <td><div class="gantt-bar bar-phase2"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Environment Setup &amp; Framework</td>
+                    <td><div class="gantt-bar bar-phase3"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">U-Net Segmentation Development</td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Attention U-Net Implementation</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase4"></div></td>
+                    <td><div class="gantt-bar bar-phase4"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">ResNet-50 Classification</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase2"></div></td>
+                    <td><div class="gantt-bar bar-phase2"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">EfficientNet-B3 Classification</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase3"></div></td>
+                    <td><div class="gantt-bar bar-phase3"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Evaluation &amp; Cross-Validation</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase5"></div></td>
+                    <td><div class="gantt-bar bar-phase5"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Grad-CAM &amp; Interpretability</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase4"></div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Results Analysis &amp; Discussion</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td><div class="gantt-bar bar-phase1"></div></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Dissertation Writing</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-milestone"></div></td>
+                    <td><div class="gantt-bar bar-milestone"></div></td>
+                    <td><div class="gantt-bar bar-milestone"></div></td>
+                    <td><div class="gantt-bar bar-milestone"></div></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task">Review, Revision &amp; Submission</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="gantt-bar bar-phase4"></div></td>
+                    <td><div class="gantt-bar bar-phase4"></div></td>
+                </tr>
+                <tr>
+                    <td class="gantt-task" style="color: var(--warm);">&#9733; Contingency Buffer</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="background: #fff3e0;"><div class="gantt-bar" style="background: repeating-linear-gradient(45deg, #E74C3C, #E74C3C 5px, #fff 5px, #fff 10px); opacity:0.5;"></div></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="chart-caption">Figure 4: Gantt chart illustrating the planned timeline for all project tasks across the twelve-week research period (26 May &ndash; 14 August 2026). Submission deadline: 17 August 2026.</div>
+    </div>
+
+    <h3>4.2 Task Breakdown and Discussion</h3>
+
+    <h4>Phase 1: Foundation (Weeks 1&ndash;3)</h4>
+    <p>
+        The initial phase establishes the research foundation. During Week 1, the computational environment will be configured, including the installation of PyTorch, CUDA-enabled GPU drivers, and auxiliary libraries (OpenSlide, Albumentations, scikit-learn). Concurrently, the literature review will be refined to incorporate the most recent publications. Weeks 1&ndash;3 will encompass the complete data acquisition and preprocessing pipeline: downloading the CATCH dataset from TCIA, performing quality assessment of whole-slide images, applying Macenko stain normalisation, and extracting annotated patches at multiple resolutions. This phase is critical, as the quality of preprocessing directly impacts all subsequent model performance. Approximately 40 hours of computational time have been allocated for patch extraction from 750 whole-slide images.
+    </p>
+
+    <h4>Phase 2: Model Development (Weeks 3&ndash;8)</h4>
+    <p>
+        The development phase represents the core of the research programme. Weeks 3&ndash;5 will focus on implementing and training the U-Net segmentation model, beginning with baseline architecture before incorporating the ResNet-34 encoder. Hyperparameter optimisation will proceed iteratively, with training monitored via TensorBoard for loss convergence and validation metrics. The Attention U-Net variant will be implemented during Weeks 5&ndash;6. Classification model development commences in Week 6 with ResNet-50, followed by EfficientNet-B3 in Weeks 7&ndash;8. Each model will require approximately 8&ndash;12 hours of GPU training time per epoch configuration, justifying the two-week allocation per architecture. Progressive unfreezing schedules will be documented meticulously for reproducibility.
+    </p>
+
+    <h4>Phase 3: Evaluation and Analysis (Weeks 8&ndash;10)</h4>
+    <p>
+        Weeks 8&ndash;9 will be dedicated to comprehensive model evaluation through five-fold cross-validation, computation of performance metrics, generation of confusion matrices, and statistical significance testing (McNemar's test) to compare architectures. Grad-CAM visualisations will be produced during Week 9 to assess model interpretability. Weeks 9&ndash;10 will focus on results analysis, contextualising findings within the comparative oncology literature and drawing connections between observed classification patterns and established histopathological features.
+    </p>
+
+    <h4>Phase 4: Documentation and Submission (Weeks 8&ndash;12)</h4>
+    <p>
+        Dissertation writing will commence during Week 8, running in parallel with the evaluation phase to maintain momentum. The introduction, background, and methodology chapters will be drafted first, followed by results and discussion sections as experimental outcomes are finalised. Weeks 11&ndash;12 are reserved for comprehensive revision, supervisor feedback incorporation, proofreading, and formatting. Week 12 includes a dedicated contingency buffer to accommodate any unforeseen delays.
+    </p>
+
+    <!-- Time Allocation Pie Chart -->
+    <div class="chart-container">
+        <div class="chart-title">Figure 5: Weekly Time Allocation Across Project Phases</div>
+        <svg width="460" height="300" viewBox="0 0 460 300">
+            <g transform="translate(150, 150)">
+                <!-- Phase 1: Foundation 25% -->
+                <path d="M0,-110 A110,110 0 0,1 77.78,-77.78 L0,0 Z" fill="#8E44AD" opacity="0.85"/>
+                <text x="45" y="-65" fill="white" font-size="11" font-weight="600" text-anchor="middle">25%</text>
+
+                <!-- Phase 2: Development 35% -->
+                <path d="M77.78,-77.78 A110,110 0 0,1 101.47,42.52 L0,0 Z" fill="#2980B9" opacity="0.85"/>
+                <text x="85" y="-5" fill="white" font-size="11" font-weight="600" text-anchor="middle">35%</text>
+
+                <!-- Phase 3: Evaluation 20% -->
+                <path d="M101.47,42.52 A110,110 0 0,1 -22.69,107.64 L0,0 Z" fill="#27AE60" opacity="0.85"/>
+                <text x="30" y="75" fill="white" font-size="11" font-weight="600" text-anchor="middle">20%</text>
+
+                <!-- Phase 4: Documentation 20% -->
+                <path d="M-22.69,107.64 A110,110 0 0,1 0,-110 L0,0 Z" fill="#E74C3C" opacity="0.85"/>
+                <text x="-55" y="10" fill="white" font-size="11" font-weight="600" text-anchor="middle">20%</text>
+            </g>
+
+            <!-- Legend -->
+            <g transform="translate(290, 80)">
+                <rect x="0" y="0" width="14" height="14" rx="3" fill="#8E44AD"/>
+                <text x="20" y="12" font-size="10" fill="#333">Foundation (Wk 1-3) &mdash; 25%</text>
+
+                <rect x="0" y="30" width="14" height="14" rx="3" fill="#2980B9"/>
+                <text x="20" y="42" font-size="10" fill="#333">Development (Wk 3-8) &mdash; 35%</text>
+
+                <rect x="0" y="60" width="14" height="14" rx="3" fill="#27AE60"/>
+                <text x="20" y="72" font-size="10" fill="#333">Evaluation (Wk 8-10) &mdash; 20%</text>
+
+                <rect x="0" y="90" width="14" height="14" rx="3" fill="#E74C3C"/>
+                <text x="20" y="102" font-size="10" fill="#333">Documentation (Wk 8-12) &mdash; 20%</text>
+            </g>
+        </svg>
+        <div class="chart-caption">Figure 5: Proportional distribution of project effort across the four principal phases of the research timeline.</div>
+    </div>
+
+    <h3>4.3 Risk Assessment and Contingency Planning</h3>
+
+    <p>
+        A comprehensive risk assessment has been conducted to identify potential impediments to the project timeline and to establish appropriate mitigation strategies. The following table summarises the key risks, their assessed likelihood and impact, and the proposed contingency measures.
+    </p>
+
+    <table class="risk-table">
+        <thead>
+            <tr>
+                <th style="width: 22%;">Risk</th>
+                <th style="width: 12%;">Likelihood</th>
+                <th style="width: 10%;">Impact</th>
+                <th style="width: 56%;">Contingency Strategy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Insufficient GPU Resources</strong></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td><span class="risk-high">High</span></td>
+                <td>Google Colab Pro and university HPC cluster have been identified as alternative compute resources. Model architectures can be scaled down (e.g., EfficientNet-B0 instead of B3) to reduce training time if necessary.</td>
+            </tr>
+            <tr>
+                <td><strong>Data Quality Issues</strong></td>
+                <td><span class="risk-low">Low</span></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>The CATCH dataset has been curated by board-certified pathologists. However, any corrupted or ambiguous slides will be flagged during preprocessing and excluded with documented justification.</td>
+            </tr>
+            <tr>
+                <td><strong>Class Imbalance</strong></td>
+                <td><span class="risk-high">High</span></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Oversampling (SMOTE), class-weighted loss functions, and augmentation of minority classes will be employed. Evaluation metrics (macro F1, AUC-ROC) inherently account for imbalanced distributions.</td>
+            </tr>
+            <tr>
+                <td><strong>Model Overfitting</strong></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Regularisation techniques (dropout, weight decay, early stopping) and five-fold cross-validation will mitigate overfitting. Data augmentation further reduces this risk.</td>
+            </tr>
+            <tr>
+                <td><strong>Extended Training Duration</strong></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Week 12 has been designated as a contingency buffer. If training exceeds projections, the number of hyperparameter configurations will be reduced while maintaining core experiments.</td>
+            </tr>
+            <tr>
+                <td><strong>Supervisor Unavailability</strong></td>
+                <td><span class="risk-low">Low</span></td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Regular fortnightly meetings will be scheduled from Week 1. Asynchronous communication via email will ensure continued guidance during periods of limited availability.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <!-- ==================== REFERENCES ==================== -->
+    <div class="section-header">
+        <span class="section-number">References</span>
+        <span class="section-title">Bibliography</span>
+    </div>
+
+    <ol class="references-list">
+        <li data-ref="[1]">
+            Brinker, T.J., Hekler, A., Enk, A.H., Berking, C., Haferkamp, S., Hauschild, A., Weichenthal, M., Klode, J., Schadendorf, D., Holland-Letz, T., von Kalle, C., Fr&ouml;hling, S., Schilling, B. and Utikal, J.S. (2019) &lsquo;Deep neural networks are superior to dermatologists in melanoma image classification&rsquo;, <em>European Journal of Cancer</em>, 119, pp. 11&ndash;17.
+        </li>
+        <li data-ref="[2]">
+            Clark, K., Vendt, B., Smith, K., Freymann, J., Kirby, J., Koppel, P., Moore, S., Phillips, S., Maffitt, D., Pringle, M., Tarbox, L. and Prior, F. (2013) &lsquo;The Cancer Imaging Archive (TCIA): Maintaining and operating a public information repository&rsquo;, <em>Journal of Digital Imaging</em>, 26(6), pp. 1045&ndash;1057.
+        </li>
+        <li data-ref="[3]">
+            Curtin, J.A., Fridlyand, J., Kageshita, T., Patel, H.N., Busam, K.J., Kutzner, H., Cho, K.H., Aiba, S., Br&ouml;cker, E.B., LeBoit, P.E., Pinkel, D. and Bastian, B.C. (2005) &lsquo;Distinct sets of genetic alterations in melanoma&rsquo;, <em>New England Journal of Medicine</em>, 353(20), pp. 2135&ndash;2147.
+        </li>
+        <li data-ref="[4]">
+            Esteva, A., Kuprel, B., Novoa, R.A., Ko, J., Swetter, S.M., Blau, H.M. and Thrun, S. (2017) &lsquo;Dermatologist-level classification of skin cancer with deep neural networks&rsquo;, <em>Nature</em>, 542(7639), pp. 115&ndash;118.
+        </li>
+        <li data-ref="[5]">
+            Fragoso-Garcia, M., van der Velde, H.,";";";";"; "; "; "; Beineke, A., Nolte, I., Mischke, R., and Hewicker-Trautwein, M. (2023) &lsquo;CAnine CuTaneous Cancer Histology (CATCH) Dataset&rsquo;, <em>The Cancer Imaging Archive</em>. Available at: https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=101941773 (Accessed: 25 April 2026).
+        </li>
+        <li data-ref="[6]">
+            Gillard, M., Cadieu, E., De Brito, C., Abadie, J., Vergier, B., Devauchelle, P., Degorce, F., Dr&eacute;ano, S., Primot, A., Khan, T., Borber, L., Dorso, L., Gal&egrave;s, J.P., Galibert, F., Hitte, C., Lagadic, M., Andr&eacute;, C. and Hert, J. (2014) &lsquo;Naturally occurring melanomas in dogs as models for non-UV pathways of human melanomas&rsquo;, <em>Pigment Cell &amp; Melanoma Research</em>, 27(1), pp. 90&ndash;102.
+        </li>
+        <li data-ref="[7]">
+            He, K., Zhang, X., Ren, S. and Sun, J. (2016) &lsquo;Deep residual learning for image recognition&rsquo;, <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pp. 770&ndash;778.
+        </li>
+        <li data-ref="[8]">
+            Hekler, A., Utikal, J.S., Enk, A.H., Berking, C., Klode, J., Schadendorf, D., Jansen, P., Franklin, C., Holland-Letz, T., Krahl, D., von Kalle, C., Fr&ouml;hling, S. and Brinker, T.J. (2019) &lsquo;Pathologist-level classification of histopathological melanoma images with deep neural networks&rsquo;, <em>European Journal of Cancer</em>, 115, pp. 79&ndash;83.
+        </li>
+        <li data-ref="[9]">
+            Macenko, M., Niethammer, M., Marron, J.S., Borland, D., Woosley, J.T., Guan, X., Schmitt, C. and Thomas, N.E. (2009) &lsquo;A method for normalizing histology slides for quantitative analysis&rsquo;, <em>IEEE International Symposium on Biomedical Imaging</em>, pp. 1107&ndash;1110.
+        </li>
+        <li data-ref="[10]">
+            Nishiya, A.T., Massoco, C.O., Felizzola, C.R., Perlmann, E., Batschinski, K., Tedardi, M.V., Garcia, J.S., Mendon&ccedil;a, P.P., Teixeira, T.F. and Zaidan Dagli, M.L. (2016) &lsquo;Comparative aspects of canine melanoma&rsquo;, <em>Veterinary Sciences</em>, 3(1), p. 7.
+        </li>
+        <li data-ref="[11]">
+            Oktay, O., Schlemper, J., Folgoc, L.L., Lee, M., Heinrich, M., Misawa, K., Mori, K., McDonagh, S., Hammerla, N.Y., Kainz, B., Glocker, B. and Rueckert, D. (2018) &lsquo;Attention U-Net: Learning where to look for the pancreas&rsquo;, <em>arXiv preprint</em>, arXiv:1804.03999.
+        </li>
+        <li data-ref="[12]">
+            Prouteau, A. and Andr&eacute;, C. (2019) &lsquo;Canine melanomas as models for human melanomas: Clinical, histological, and genetic comparison&rsquo;, <em>Genes</em>, 10(7), p. 501.
+        </li>
+        <li data-ref="[13]">
+            Ronneberger, O., Fischer, P. and Brox, T. (2015) &lsquo;U-Net: Convolutional networks for biomedical image segmentation&rsquo;, <em>International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI)</em>, pp. 234&ndash;241.
+        </li>
+        <li data-ref="[14]">
+            Schadendorf, D., van Akkooi, A.C., Berking, C., Griewank, K.G., Gutzmer, R., Hauschild, A., Stang, A., Roesch, A. and Ugurel, S. (2018) &lsquo;Melanoma&rsquo;, <em>The Lancet</em>, 392(10151), pp. 971&ndash;984.
+        </li>
+        <li data-ref="[15]">
+            Selvaraju, R.R., Cogswell, M., Das, A., Vedantam, R., Parikh, D. and Batra, D. (2017) &lsquo;Grad-CAM: Visual explanations from deep networks via gradient-based localization&rsquo;, <em>Proceedings of the IEEE International Conference on Computer Vision (ICCV)</em>, pp. 618&ndash;626.
+        </li>
+        <li data-ref="[16]">
+            Shain, A.H. and Bastian, B.C. (2016) &lsquo;From melanocytes to melanomas&rsquo;, <em>Nature Reviews Cancer</em>, 16(6), pp. 345&ndash;358.
+        </li>
+        <li data-ref="[17]">
+            Simonyan, K. and Zisserman, A. (2015) &lsquo;Very deep convolutional networks for large-scale image recognition&rsquo;, <em>Proceedings of the International Conference on Learning Representations (ICLR)</em>.
+        </li>
+        <li data-ref="[18]">
+            Tan, M. and Le, Q.V. (2019) &lsquo;EfficientNet: Rethinking model scaling for convolutional neural networks&rsquo;, <em>Proceedings of the International Conference on Machine Learning (ICML)</em>, pp. 6105&ndash;6114.
+        </li>
+    </ol>
+
+    <div class="divider"></div>
+
+    <div style="text-align: center; padding: 30px 0; color: #999; font-size: 9pt;">
+        <em>Classification of Malignant Melanoma in Canines &mdash; Research Proposal</em><br>
+        Muhammad Tayyab Abbas &bull; University of Hull &bull; April 2026
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -7,6 +7,10 @@ data/processed/*
 # Outputs (keep folders, ignore generated artefacts)
 outputs/figures/*
 outputs/logs/*
+# trained model weights (.pt) — too large for git
+outputs/checkpoints/*
+# TensorBoard event logs
+outputs/tensorboard/*
 !outputs/**/.gitkeep
 
 # Python

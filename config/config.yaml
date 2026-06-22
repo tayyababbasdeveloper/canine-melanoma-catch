@@ -43,3 +43,56 @@ split:
   val: 0.15
   test: 0.15
   stratify: true                 # preserve class distribution
+
+# ---- Multi-magnification patch extraction (patch_extraction.py) ----
+# Proposal section 3.1.1: patches at multiple magnification levels.
+# base_magnification = the magnification of the source slide (20x for CATCH 0.25 um/px).
+# Lower magnifications are produced by downsampling (factor = base / target).
+magnification:
+  base: 20                       # source slide magnification
+  levels: [5, 10, 20]            # target magnifications to extract
+
+# ---- Data augmentation (data/augmentation.py) ----
+# Proposal section 3.1.1: rotation, flips, elastic deformation, colour jitter.
+augmentation:
+  enabled: true
+  horizontal_flip: 0.5
+  vertical_flip: 0.5
+  rotate90: 0.5
+  elastic_deform: 0.25
+  brightness_contrast: 0.3
+  hue_saturation: 0.3            # colour jitter (H&E stain variation)
+  gauss_noise: 0.2
+
+# ---- U-Net segmentation (models/unet.py, training/trainer.py) ----
+# Proposal section 3.1.2: U-Net + ResNet-34 encoder, BCE+Dice loss, Adam lr=1e-4,
+# cosine annealing. Section 3.1.4: Dice/IoU/pixel-acc/Hausdorff evaluation.
+segmentation:
+  arch: "unet"                   # "unet" (smp + encoder) or "baseline" (from scratch)
+  encoder: "resnet34"            # ImageNet-pretrained encoder
+  encoder_weights: "imagenet"    # falls back to None (random) if offline
+  in_channels: 3
+  classes: 1                     # binary tumour vs background
+  patch_size: 256
+
+  # ---- training ----
+  epochs: 40
+  batch_size: 8
+  lr: 0.0001                     # 1e-4 (proposal)
+  weight_decay: 0.0001
+  scheduler: "cosine"            # cosine annealing
+  loss: "bce_dice"               # composite BCE + Dice
+  bce_weight: 0.5
+  dice_weight: 0.5
+  early_stopping_patience: 10
+  num_workers: 0                 # 0 is safe on Windows
+  device: "auto"                 # "auto" -> cuda if available else cpu
+  amp: true                      # mixed precision when on GPU
+
+  # ---- split (slide-level, to prevent patch leakage between subsets) ----
+  split_by_slide: true
+  paths:
+    seg_patches_dir: "data/processed/seg_patches"
+    seg_splits_dir: "data/processed/seg_splits"
+    checkpoints_dir: "outputs/checkpoints"
+    tensorboard_dir: "outputs/tensorboard"
