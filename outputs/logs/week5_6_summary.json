@@ -1,19 +1,31 @@
 {
   "segmentation_3way": {
     "unet_baseline": {
-      "test_dice": 0.2181983843959526,
-      "test_iou": 0.2043238693232437,
-      "params_million": 31.04
+      "test_dice": 0.8421936748254577,
+      "test_iou": 0.7274046241704444,
+      "test_pixel_acc": 0.9813652038574219,
+      "test_hausdorff": 111.27160744834156,
+      "params_million": 31.04,
+      "best_epoch": 2,
+      "epochs_ran": 2
     },
     "unet_resnet34": {
-      "test_dice": 0.4299893849915233,
-      "test_iou": 0.40531542688349487,
-      "params_million": 24.44
+      "test_dice": 0.22490787319306121,
+      "test_iou": 0.12670208480830428,
+      "test_pixel_acc": 0.5340983072916666,
+      "test_hausdorff": 218.52679612474458,
+      "params_million": 24.44,
+      "best_epoch": 2,
+      "epochs_ran": 2
     },
     "unet_attention": {
-      "test_dice": 0.9204226294167476,
-      "test_iou": 0.9058031632722552,
-      "params_million": 31.39
+      "test_dice": 0.9645898031316485,
+      "test_iou": 0.9316016068309556,
+      "test_pixel_acc": 0.9942062377929688,
+      "test_hausdorff": 113.31661144979854,
+      "params_million": 31.39,
+      "best_epoch": 2,
+      "epochs_ran": 2
     }
   },
   "classification_resnet50": {

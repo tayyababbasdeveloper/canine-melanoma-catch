@@ -1,0 +1,82 @@
+[Mon Jun 29 17:08:35 PST 2026] STEP 1/6 prepare segmentation data
+2026-06-29 17:08:41 | INFO    | DEMO mode: generating 14 synthetic slides + masks
+2026-06-29 17:09:05 | INFO    |   demo_seg_00    ->   44 patches (mags=[5, 10, 20])
+2026-06-29 17:09:09 | INFO    |   demo_seg_01    ->   74 patches (mags=[5, 10, 20])
+2026-06-29 17:09:13 | INFO    |   demo_seg_02    ->   39 patches (mags=[5, 10, 20])
+2026-06-29 17:09:16 | INFO    |   demo_seg_03    ->   72 patches (mags=[5, 10, 20])
+2026-06-29 17:09:20 | INFO    |   demo_seg_04    ->    6 patches (mags=[5, 10, 20])
+2026-06-29 17:09:23 | INFO    |   demo_seg_05    ->   39 patches (mags=[5, 10, 20])
+2026-06-29 17:09:26 | INFO    |   demo_seg_06    ->    0 patches (mags=[5, 10, 20])
+2026-06-29 17:09:30 | INFO    |   demo_seg_07    ->   50 patches (mags=[5, 10, 20])
+2026-06-29 17:09:33 | INFO    |   demo_seg_08    ->   13 patches (mags=[5, 10, 20])
+2026-06-29 17:09:36 | INFO    |   demo_seg_09    ->   77 patches (mags=[5, 10, 20])
+2026-06-29 17:09:41 | INFO    |   demo_seg_10    ->    4 patches (mags=[5, 10, 20])
+2026-06-29 17:09:45 | INFO    |   demo_seg_11    ->   75 patches (mags=[5, 10, 20])
+2026-06-29 17:09:48 | INFO    |   demo_seg_12    ->   51 patches (mags=[5, 10, 20])
+2026-06-29 17:09:52 | INFO    |   demo_seg_13    ->   72 patches (mags=[5, 10, 20])
+2026-06-29 17:09:52 | INFO    | Total patches: 616
+2026-06-29 17:09:52 | INFO    | Split (patches): train=408 val=57 test=151 | slides 9/2/2
+2026-06-29 17:09:52 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\seg_splits
+[Mon Jun 29 17:09:54 PST 2026] STEP 2/6 train baseline U-Net
+2026-06-29 17:10:04 | INFO    | Patches: train=24 val=12 test=12
+2026-06-29 17:10:04 | INFO    | Device: cpu
+2026-06-29 17:10:05 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-29 17:10:05 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+2026-06-29 17:16:34 | INFO    | epoch 01/2 | train 1.0839 | val 1.0241 | dice 0.0000 | iou 0.0000 | lr 5.00e-05 | 385.7s
+2026-06-29 17:23:10 | INFO    | epoch 02/2 | train 0.8453 | val 1.0215 | dice 0.7744 | iou 0.6318 | lr 0.00e+00 | 394.5s
+2026-06-29 17:23:11 | INFO    | Best val Dice 0.7744 at epoch 2
+2026-06-29 17:23:43 | INFO    | TEST | dice 0.8422 | iou 0.7274 | pix-acc 0.9814 | hausdorff 111.27
+2026-06-29 17:23:59 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_baseline_test_report.json
+  baseline exit=0
+[Mon Jun 29 17:24:05 PST 2026] STEP 3/6 train ResNet-34 U-Net
+2026-06-29 17:24:14 | INFO    | Patches: train=24 val=12 test=12
+2026-06-29 17:24:14 | INFO    | Device: cpu
+2026-06-29 17:24:21 | INFO    | Model: unet (encoder=resnet34, params=24.44M)
+2026-06-29 17:24:21 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+2026-06-29 17:25:01 | INFO    | epoch 01/2 | train 1.0213 | val 0.9894 | dice 0.1748 | iou 0.0958 | lr 5.00e-05 | 40.1s
+2026-06-29 17:25:38 | INFO    | epoch 02/2 | train 0.9245 | val 0.8869 | dice 0.2511 | iou 0.1435 | lr 0.00e+00 | 36.6s
+2026-06-29 17:25:39 | INFO    | Best val Dice 0.2511 at epoch 2
+2026-06-29 17:25:48 | INFO    | TEST | dice 0.2249 | iou 0.1267 | pix-acc 0.5341 | hausdorff 218.53
+2026-06-29 17:25:54 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_resnet34_test_report.json
+  resnet34 exit=0
+[Mon Jun 29 17:25:56 PST 2026] STEP 4/6 train Attention U-Net
+2026-06-29 17:26:03 | INFO    | Patches: train=24 val=12 test=12
+2026-06-29 17:26:03 | INFO    | Device: cpu
+2026-06-29 17:26:03 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:26:03 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+  attention exit=139
+[Mon Jun 29 17:28:48 PST 2026] STEP 5/6 prepare classification data
+2026-06-29 17:28:55 | INFO    | DEMO mode: generating 4 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-29 17:29:02 | INFO    | Classes (subtype mode): {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-29 17:29:03 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-29 17:29:05 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-29 17:29:06 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-29 17:29:07 | INFO    |   melanocytic_03     [melanocytic] -> 34 patches
+2026-06-29 17:29:08 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-29 17:29:10 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-29 17:29:11 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-29 17:29:12 | INFO    |   mast_cell_03       [mast_cell] -> 10 patches
+2026-06-29 17:29:13 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-29 17:29:14 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-29 17:29:16 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-29 17:29:17 | INFO    |   squamous_cell_03   [squamous_cell] -> 33 patches
+2026-06-29 17:29:17 | INFO    | Total patches: 301
+2026-06-29 17:29:17 | INFO    | Split (patches): train=148 val=80 test=73
+2026-06-29 17:29:17 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\cls_splits
+[Mon Jun 29 17:29:17 PST 2026] STEP 6/6 train ResNet-50 classifier
+2026-06-29 17:29:30 | INFO    | Classes: ['mast_cell', 'melanocytic', 'squamous_cell']
+2026-06-29 17:29:30 | INFO    | Patches: train=119 val=80 test=73
+2026-06-29 17:29:30 | INFO    | Device: cpu
+Downloading: "https://download.pytorch.org/models/resnet50-11ad3fa6.pth" to C:\Users\Admin/.cache\torch\hub\checkpoints\resnet50-11ad3fa6.pth
+  0%|          | 0.00/97.8M [00:00<?, ?B/s]  1%|1         | 1.00M/97.8M [00:00<00:09, 10.5MB/s]  2%|2         | 2.25M/97.8M [00:00<00:08, 11.8MB/s]  4%|3         | 3.75M/97.8M [00:00<00:07, 13.2MB/s]  5%|5         | 5.12M/97.8M [00:00<00:07, 13.4MB/s]  7%|6         | 6.62M/97.8M [00:00<00:06, 14.0MB/s]  8%|8         | 8.12M/97.8M [00:00<00:06, 14.4MB/s] 10%|9         | 9.50M/97.8M [00:00<00:07, 11.7MB/s] 12%|#1        | 11.4M/97.8M [00:00<00:07, 12.7MB/s] 14%|#3        | 13.6M/97.8M [00:01<00:05, 15.5MB/s] 16%|#5        | 15.2M/97.8M [00:01<00:06, 13.7MB/s] 17%|#7        | 16.8M/97.8M [00:01<00:06, 13.8MB/s] 19%|#8        | 18.2M/97.8M [00:01<00:05, 14.1MB/s] 20%|##        | 19.8M/97.8M [00:01<00:05, 14.3MB/s] 22%|##1       | 21.2M/97.8M [00:01<00:05, 14.3MB/s] 23%|##3       | 22.8M/97.8M [00:01<00:05, 14.2MB/s] 25%|##4       | 24.2M/97.8M [00:01<00:05, 14.4MB/s] 26%|##6       | 25.8M/97.8M [00:01<00:05, 14.3MB/s] 28%|##7       | 27.1M/97.8M [00:02<00:05, 13.8MB/s] 29%|##9       | 28.5M/97.8M [00:02<00:05, 13.9MB/s] 31%|###       | 30.0M/97.8M [00:02<00:04, 14.3MB/s] 32%|###2      | 31.5M/97.8M [00:02<00:05, 12.6MB/s] 35%|###4      | 33.8M/97.8M [00:02<00:04, 15.3MB/s] 36%|###6      | 35.4M/97.8M [00:02<00:04, 15.2MB/s] 38%|###7      | 36.9M/97.8M [00:02<00:04, 15.2MB/s] 39%|###9      | 38.4M/97.8M [00:02<00:04, 15.3MB/s] 41%|####      | 39.9M/97.8M [00:02<00:04, 13.8MB/s] 42%|####2     | 41.4M/97.8M [00:03<00:04, 14.1MB/s] 44%|####3     | 42.9M/97.8M [00:03<00:04, 14.0MB/s] 45%|####5     | 44.2M/97.8M [00:03<00:04, 13.1MB/s] 47%|####6     | 45.6M/97.8M [00:03<00:04, 11.0MB/s] 49%|####9     | 48.2M/97.8M [00:03<00:03, 14.9MB/s] 51%|#####1    | 49.9M/97.8M [00:03<00:03, 13.3MB/s] 53%|#####3    | 51.9M/97.8M [00:03<00:03, 14.6MB/s] 55%|#####4    | 53.5M/97.8M [00:04<00:03, 12.8MB/s] 57%|#####6    | 55.5M/97.8M [00:04<00:03, 13.3MB/s] 59%|#####8    | 57.5M/97.8M [00:04<00:02, 14.8MB/s] 60%|######    | 59.1M/97.8M [00:04<00:02, 14.9MB/s] 62%|######1   | 60.6M/97.8M [00:04<00:02, 13.6MB/s] 64%|######3   | 62.1M/97.8M [00:04<00:02, 13.9MB/s] 65%|######5   | 63.6M/97.8M [00:04<00:02, 14.3MB/s] 67%|######6   | 65.1M/97.8M [00:04<00:02, 14.4MB/s] 68%|######8   | 66.6M/97.8M [00:05<00:02, 14.6MB/s] 70%|######9   | 68.1M/97.8M [00:05<00:02, 14.4MB/s] 71%|#######1  | 69.6M/97.8M [00:05<00:02, 14.4MB/s] 73%|#######2  | 71.1M/97.8M [00:05<00:01, 14.6MB/s] 74%|#######4  | 72.6M/97.8M [00:05<00:01, 14.6MB/s] 76%|#######5  | 74.1M/97.8M [00:05<00:01, 14.8MB/s] 77%|#######7  | 75.6M/97.8M [00:05<00:01, 15.0MB/s] 79%|#######8  | 77.1M/97.8M [00:05<00:01, 14.9MB/s] 80%|########  | 78.6M/97.8M [00:05<00:01, 11.3MB/s] 84%|########3 | 81.8M/97.8M [00:06<00:01, 16.3MB/s] 86%|########5 | 83.6M/97.8M [00:06<00:01, 14.8MB/s] 87%|########7 | 85.5M/97.8M [00:06<00:00, 15.9MB/s] 89%|########9 | 87.2M/97.8M [00:06<00:00, 15.7MB/s] 91%|######### | 88.9M/97.8M [00:06<00:00, 15.5MB/s] 93%|#########2| 90.5M/97.8M [00:06<00:00, 15.1MB/s] 94%|#########4| 92.0M/97.8M [00:06<00:00, 13.2MB/s] 96%|#########5| 93.5M/97.8M [00:06<00:00, 13.5MB/s] 97%|#########7| 94.9M/97.8M [00:07<00:00, 12.1MB/s] 99%|#########9| 96.9M/97.8M [00:07<00:00, 14.1MB/s]100%|##########| 97.8M/97.8M [00:07<00:00, 14.1MB/s]
+2026-06-29 17:29:38 | INFO    | Model: resnet50 (trainable head params=23514179)
+2026-06-29 17:29:38 | INFO    | Class weights (imbalance handling): [1.02, 0.99, 0.99]
+2026-06-29 17:30:44 | INFO    | epoch 01/3 | loss 1.0375 | val acc 0.650 | val f1 0.685 | auc 0.812 | 65.6s
+2026-06-29 17:31:49 | INFO    | epoch 02/3 | loss 0.9663 | val acc 0.812 | val f1 0.833 | auc 0.923 | 65.1s
+2026-06-29 17:31:49 | INFO    |   unfroze to stage 1 (14970883 trainable params)
+2026-06-29 17:33:06 | INFO    | epoch 03/3 | loss 0.8197 | val acc 1.000 | val f1 1.000 | auc 1.000 | 76.7s
+2026-06-29 17:33:06 | INFO    | Best val macro-F1 1.0000 at epoch 3
+2026-06-29 17:33:30 | INFO    | TEST | acc 1.000 | macro-F1 1.000 | precision 1.000 | recall 1.000 | auc 1.000
+2026-06-29 17:33:31 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\cls_resnet50_test_report.json
+  classifier exit=0
+[Mon Jun 29 17:33:33 PST 2026] DONE retrain

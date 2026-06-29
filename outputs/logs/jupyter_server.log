@@ -1,0 +1,29 @@
+[W 2026-06-29 18:16:58.468 ServerApp] ServerApp.token config is deprecated in 2.0. Use IdentityProvider.token.
+[I 2026-06-29 18:16:59.144 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2026-06-29 18:16:59.151 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2026-06-29 18:16:59.157 ServerApp] jupyterlab | extension was successfully linked.
+[I 2026-06-29 18:16:59.163 ServerApp] notebook | extension was successfully linked.
+[I 2026-06-29 18:17:00.040 ServerApp] notebook_shim | extension was successfully linked.
+[I 2026-06-29 18:17:00.164 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2026-06-29 18:17:00.168 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2026-06-29 18:17:00.169 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2026-06-29 18:17:00.182 LabApp] JupyterLab extension loaded from C:\Users\Admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\jupyterlab
+[I 2026-06-29 18:17:00.182 LabApp] JupyterLab application directory is C:\Users\Admin\AppData\Local\Programs\Python\Python312\share\jupyter\lab
+[I 2026-06-29 18:17:00.183 LabApp] Extension Manager is 'pypi'.
+[I 2026-06-29 18:17:00.781 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2026-06-29 18:17:00.791 ServerApp] notebook | extension was successfully loaded.
+[I 2026-06-29 18:17:00.796 ServerApp] Serving notebooks from local directory: E:/Project/canine-melanoma-catch
+[I 2026-06-29 18:17:00.796 ServerApp] Jupyter Server 2.14.2 is running at:
+[I 2026-06-29 18:17:00.796 ServerApp] http://localhost:8889/lab?token=...
+[I 2026-06-29 18:17:00.796 ServerApp]     http://127.0.0.1:8889/lab?token=...
+[I 2026-06-29 18:17:00.797 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 2026-06-29 18:17:03.396 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[I 2026-06-29 18:17:38.160 LabApp] Build is up to date
+[W 2026-06-29 18:17:38.340 ServerApp] Notebook notebooks/CATCH_Melanoma_Project.ipynb is not trusted
+[I 2026-06-29 18:17:41.830 ServerApp] Kernel started: 99b56c89-7bfb-4b12-ab0b-5eedbc57ccf5
+[I 2026-06-29 18:17:44.181 ServerApp] Connecting to kernel 99b56c89-7bfb-4b12-ab0b-5eedbc57ccf5.
+[I 2026-06-29 18:17:44.217 ServerApp] Connecting to kernel 99b56c89-7bfb-4b12-ab0b-5eedbc57ccf5.
+[I 2026-06-29 18:17:44.440 ServerApp] Connecting to kernel 99b56c89-7bfb-4b12-ab0b-5eedbc57ccf5.
+[W 2026-06-29 18:17:44.525 ServerApp] Got events for closed stream <zmq.eventloop.zmqstream.ZMQStream object at 0x0000020116C701A0>
+[I 2026-06-29 18:19:38.588 ServerApp] Saving file at /notebooks/CATCH_Melanoma_Project.ipynb
+[W 2026-06-29 18:19:38.589 ServerApp] Notebook notebooks/CATCH_Melanoma_Project.ipynb is not trusted

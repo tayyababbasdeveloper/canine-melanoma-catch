@@ -1,0 +1,9 @@
+2026-06-29 17:59:22 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:59:22 | INFO    | Device: cpu
+2026-06-29 17:59:23 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:59:23 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 18:01:48 | INFO    | epoch 01/2 | train 0.9695 | val 0.9690 | dice 0.7278 | iou 0.5721 | lr 5.00e-05 | 141.6s
+2026-06-29 18:04:01 | INFO    | epoch 02/2 | train 0.8155 | val 0.9271 | dice 0.9588 | iou 0.9209 | lr 0.00e+00 | 132.5s
+2026-06-29 18:04:02 | INFO    | Best val Dice 0.9588 at epoch 2
+2026-06-29 18:04:25 | INFO    | TEST | dice 0.9646 | iou 0.9316 | pix-acc 0.9942 | hausdorff 113.32
+2026-06-29 18:04:42 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_attention_test_report.json

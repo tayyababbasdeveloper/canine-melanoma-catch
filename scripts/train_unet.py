@@ -52,6 +52,24 @@ def main():
     ensure_dirs(cfg)
     seed_everything(cfg["project"]["seed"])
 
+    # On this Windows CPU box a duplicate Intel OpenMP runtime makes the larger
+    # from-scratch models (esp. the Attention U-Net) segfault (exit 0xC0000005).
+    # Pinning torch to a single thread in-process removes the thread contention
+    # that triggers it. Harmless elsewhere; GPU runs are unaffected.
+    import torch
+    try:
+        torch.set_num_threads(1)
+        torch.set_num_interop_threads(1)
+    except Exception:
+        pass
+    # The "segfault" on this box is actually a native out-of-memory: the larger
+    # from-scratch models (esp. the Attention U-Net, whose gates add full-res
+    # intermediate activations) exceed available RAM at the configured batch size
+    # and the duplicate-OpenMP allocator crashes instead of raising cleanly.
+    # Pinning to one thread (above) avoids the contention; keep MKL-DNN ENABLED
+    # (disabling it forces an im2col path that needs far MORE memory) and use a
+    # small batch size (CLI --batch-size) to stay within RAM.
+
     seg = cfg["segmentation"]
     if args.arch:        seg["arch"] = args.arch
     if args.epochs:      seg["epochs"] = args.epochs

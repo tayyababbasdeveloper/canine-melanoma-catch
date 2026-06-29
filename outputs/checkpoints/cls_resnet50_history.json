@@ -2,97 +2,34 @@
   "run_name": "cls_resnet50",
   "best_epoch": 3,
   "best_val_f1": 1.0,
-  "epochs_ran": 10,
-  "best_checkpoint": "F:\\tayyab\\outputs\\checkpoints\\cls_resnet50_best.pt",
+  "epochs_ran": 3,
+  "best_checkpoint": "E:\\Project\\canine-melanoma-catch\\outputs\\checkpoints\\cls_resnet50_best.pt",
   "history": [
     {
       "epoch": 1,
-      "train_loss": 1.0433841892406701,
-      "val_accuracy": 0.7222222222222222,
-      "val_precision": 0.48210456869536533,
-      "val_recall": 0.6375180375180375,
-      "val_f1": 0.5489944373127942,
-      "val_auc_roc": 0.8691941603861109
+      "train_loss": 1.0375302559187431,
+      "val_accuracy": 0.65,
+      "val_precision": 0.7333333333333334,
+      "val_recall": 0.6840206577048682,
+      "val_f1": 0.684566237396426,
+      "val_auc_roc": 0.812287151382896
     },
     {
       "epoch": 2,
-      "train_loss": 0.8983485516178551,
-      "val_accuracy": 0.9555555555555556,
-      "val_precision": 0.963963963963964,
-      "val_recall": 0.9393939393939394,
-      "val_f1": 0.9476190476190477,
-      "val_auc_roc": 1.0
+      "train_loss": 0.966303806345002,
+      "val_accuracy": 0.8125,
+      "val_precision": 0.8695121951219512,
+      "val_recall": 0.8466810966810967,
+      "val_f1": 0.8331966092425486,
+      "val_auc_roc": 0.9234750178899115
     },
     {
       "epoch": 3,
-      "train_loss": 0.5265472970510784,
+      "train_loss": 0.819707171255801,
       "val_accuracy": 1.0,
       "val_precision": 1.0,
       "val_recall": 1.0,
       "val_f1": 1.0,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 4,
-      "train_loss": 0.36038016189228406,
-      "val_accuracy": 1.0,
-      "val_precision": 1.0,
-      "val_recall": 1.0,
-      "val_f1": 1.0,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 5,
-      "train_loss": 0.3686536194034741,
-      "val_accuracy": 0.9333333333333333,
-      "val_precision": 0.9285714285714285,
-      "val_recall": 0.942857142857143,
-      "val_f1": 0.92875,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 6,
-      "train_loss": 0.3404705073844873,
-      "val_accuracy": 0.9888888888888889,
-      "val_precision": 0.9855072463768115,
-      "val_recall": 0.9904761904761905,
-      "val_f1": 0.9877616747181964,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 7,
-      "train_loss": 0.33360209619029285,
-      "val_accuracy": 1.0,
-      "val_precision": 1.0,
-      "val_recall": 1.0,
-      "val_f1": 1.0,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 8,
-      "train_loss": 0.32900401450800554,
-      "val_accuracy": 1.0,
-      "val_precision": 1.0,
-      "val_recall": 1.0,
-      "val_f1": 1.0,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 9,
-      "train_loss": 0.33029284317527663,
-      "val_accuracy": 1.0,
-      "val_precision": 1.0,
-      "val_recall": 1.0,
-      "val_f1": 1.0,
-      "val_auc_roc": 1.0
-    },
-    {
-      "epoch": 10,
-      "train_loss": 0.3308403235303158,
-      "val_accuracy": 0.9888888888888889,
-      "val_precision": 0.9855072463768115,
-      "val_recall": 0.9904761904761905,
-      "val_f1": 0.9877616747181964,
       "val_auc_roc": 1.0
     }
   ]

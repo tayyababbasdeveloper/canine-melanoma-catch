@@ -31,17 +31,101 @@ from src.utils.demo_classification import make_demo_classification_slides, CLASS
 from src.preprocessing.image_io import load_image_rgb, save_rgb, STD_EXTENSIONS
 from src.preprocessing.stain_normalization import MacenkoNormalizer
 from src.preprocessing.patch_extraction import extract_patches
+from src.preprocessing.wsi import WSI_EXTENSIONS, open_slide, iter_tiles, tile_geometry
+from src.preprocessing.catch_annotations import (
+    find_annotation_file, load_annotations, rasterise_tile_mask)
+from src.preprocessing.tissue import tissue_mask
 
 
-def _list_labeled(input_dir: Path):
-    """Pair data/raw/cls_images/<label>_<n>.png with its label (prefix)."""
-    img_dir = input_dir / "cls_images"
+def _label_from_path(p: Path, subtypes: set[str]) -> str:
+    """Subtype label for a slide. Prefers a parent folder that names a CATCH
+    subtype (the recommended real layout, ``data/raw/<Subtype>/slide.svs``); else
+    falls back to the demo filename convention ``<label>_<n>.ext``.
+    """
+    for parent in p.parents:
+        if parent.name in subtypes:
+            return parent.name
+    return p.stem.rsplit("_", 1)[0]
+
+
+def _list_labeled(input_dir: Path, subtypes: set[str]):
+    """Label demo/real PNG slides. Looks in ``cls_images/`` first, then anywhere
+    a subtype folder is found (real CATCH may put .svs directly under data/raw/)."""
+    search = (input_dir / "cls_images") if (input_dir / "cls_images").exists() else input_dir
     pairs = []
-    for p in sorted(img_dir.rglob("*")):
-        if p.suffix.lower() in STD_EXTENSIONS:
-            label = p.stem.rsplit("_", 1)[0]
-            pairs.append((p, label))
+    for p in sorted(search.rglob("*")):
+        if p.suffix.lower() in STD_EXTENSIONS and p.parent.name != "masks":
+            pairs.append((p, _label_from_path(p, subtypes)))
     return pairs
+
+
+def _list_wsi_labeled(input_dir: Path, subtypes: set[str]):
+    """Real CATCH .svs slides labelled by their subtype folder."""
+    return [(p, _label_from_path(p, subtypes))
+            for p in sorted(input_dir.rglob("*"))
+            if p.suffix.lower() in WSI_EXTENSIONS and "demo" not in p.stem]
+
+
+def _process_real_wsi_classification(wsi_pairs, cfg, normalizer, patches_dir,
+                                     label_idx, logger):
+    """Extract TUMOUR-region tiles from real CATCH WSIs for subtype classification.
+
+    Implements the project's two-stage plan on real data: the polygon annotations
+    select the tumour tiles (the role the U-Net plays at inference time), and each
+    tumour tile inherits its slide's subtype label. Returns manifest rows.
+    """
+    catch = cfg["catch"]
+    c = cfg["classification"]
+    ann_path = find_annotation_file(cfg["paths"]["raw_dir"],
+                                    catch["coco_annotation_glob"]
+                                    + catch["sqlite_annotation_glob"])
+    per_slide = (load_annotations(ann_path, catch["tumour_annotation_classes"])
+                 if ann_path else {})
+    if ann_path:
+        logger.info("Using annotations for tumour-tile selection: %s", ann_path)
+    else:
+        logger.warning("No annotations found — keeping all tissue tiles instead of "
+                       "tumour-only tiles.")
+
+    read_mag = catch["wsi_read_magnification"]
+    base_mag = catch["wsi_base_magnification"]
+    min_tf = cfg["patches"]["min_tissue_fraction"]
+    max_p = cfg["patches"]["max_patches_per_slide"]
+    tumour_tile_frac = 0.25  # tile counts as tumour if >=25% of pixels are tumour
+
+    rows = []
+    for sp, label in wsi_pairs:
+        slide_id = sp.stem
+        polys = per_slide.get(slide_id, [])
+        slide = open_slide(sp)
+        geom = tile_geometry(slide, c["patch_size"], read_mag, base_mag)
+        span0 = geom["span0"]
+        n = 0
+        for (x0, y0, patch) in iter_tiles(slide, patch_size=c["patch_size"],
+                                          read_magnification=read_mag,
+                                          base_magnification=base_mag):
+            if tissue_mask(patch).mean() < min_tf:
+                continue
+            if polys is not None and per_slide:  # tumour-only selection
+                m = rasterise_tile_mask(polys, x0, y0, span0, c["patch_size"])
+                if m.mean() < tumour_tile_frac:
+                    continue
+            try:
+                patch_n = normalizer.normalize(patch)
+            except Exception:
+                patch_n = patch
+            stem = f"{slide_id}_y{y0}_x{x0}"
+            ip = patches_dir / label / f"{stem}.png"
+            save_rgb(ip, patch_n)
+            rows.append({
+                "image_path": Path(ip).resolve().relative_to(PROJECT_ROOT).as_posix(),
+                "label": label, "label_idx": label_idx[label], "slide_id": slide_id,
+            })
+            n += 1
+            if n >= max_p:
+                break
+        logger.info("  %-22s [%s] -> %d tumour tiles", slide_id, label, n)
+    return rows
 
 
 def main():
@@ -61,25 +145,39 @@ def main():
     patches_dir.mkdir(parents=True, exist_ok=True)
     splits_dir.mkdir(parents=True, exist_ok=True)
 
+    subtypes = set(cfg["catch"]["subtypes"])
+    normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
+    input_dir = Path(args.input) if args.input else Path(cfg["paths"]["raw_dir"])
+
     if args.demo:
         logger.info("DEMO mode: generating %d slides/class for %s",
                     args.slides_per_class, list(CLASSES))
         pairs = make_demo_classification_slides(
             cfg["paths"]["raw_dir"], slides_per_class=args.slides_per_class)
+        wsi_pairs = []
     else:
-        input_dir = Path(args.input) if args.input else Path(cfg["paths"]["raw_dir"])
-        pairs = _list_labeled(input_dir)
-    if not pairs:
-        logger.error("No labelled slides found. Use --demo or populate "
-                     "data/raw/cls_images/<label>_*.png")
+        # REAL data: prefer whole-slide .svs (labelled by subtype folder); fall
+        # back to pre-rendered PNGs.
+        wsi_pairs = _list_wsi_labeled(input_dir, subtypes)
+        pairs = [] if wsi_pairs else _list_labeled(input_dir, subtypes)
+
+    if not pairs and not wsi_pairs:
+        logger.error("No labelled slides found. Use --demo, or place real CATCH "
+                     "slides under data/raw/<Subtype>/*.svs "
+                     "(python -m src.data_acquisition.download_catch).")
         return
 
-    classes = sorted({lbl for _, lbl in pairs})
+    classes = sorted({lbl for _, lbl in (pairs + wsi_pairs)})
     label_idx = {lbl: i for i, lbl in enumerate(classes)}
-    logger.info("Classes: %s", label_idx)
+    logger.info("Classes (%s mode): %s", c.get("mode", "subtype"), label_idx)
 
-    normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
     rows = []
+
+    # ---- real WSIs: keep tumour-region tiles, label by subtype ----
+    if wsi_pairs:
+        rows = _process_real_wsi_classification(
+            wsi_pairs, cfg, normalizer, patches_dir, label_idx, logger)
+
     for img_path, label in pairs:
         slide_id = Path(img_path).stem
         original = load_image_rgb(img_path)
@@ -107,6 +205,9 @@ def main():
             n += 1
         logger.info("  %-18s [%s] -> %d patches", slide_id, label, n)
 
+    if not rows:
+        logger.error("No patches extracted — nothing to split.")
+        return
     df = pd.DataFrame(rows)
     df.to_csv(patches_dir / "manifest.csv", index=False)
     logger.info("Total patches: %d", len(df))

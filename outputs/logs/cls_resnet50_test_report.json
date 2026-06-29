@@ -7,7 +7,7 @@
     "melanocytic",
     "squamous_cell"
   ],
-  "epochs_ran": 10,
+  "epochs_ran": 3,
   "best_epoch": 3,
   "test_metrics": {
     "accuracy": 1.0,
@@ -24,13 +24,13 @@
     ],
     [
       0,
-      25,
+      33,
       0
     ],
     [
       0,
       0,
-      33
+      35
     ]
   ]
 }

@@ -92,7 +92,9 @@ def build_docx(out_path: Path):
         "classification track began: a ResNet-50 classifier (ImageNet transfer "
         "learning, progressive unfreezing, label-smoothing) was trained and "
         "evaluated with accuracy, macro-F1, AUC-ROC and a confusion matrix. All "
-        "validated on synthetic data; the code runs unchanged on real CATCH slides.")
+        "validated on synthetic data; the pipeline was also made real-data-ready "
+        "(native .svs reading, COCO/SQLite annotation masks, the 7 CATCH subtypes, "
+        "and a corrected slide-level split).")
 
     heading("2. Planned vs. actual (Gantt)", 1)
     table([["Gantt task", "Planned", "Status"],

@@ -4,7 +4,8 @@
   "val": 4,
   "test": 4,
   "class_distribution": {
-    "mast_cell": 14,
-    "melanocytic": 12
-  }
+    "demo_pinkish": 14,
+    "demo_bluish": 12
+  },
+  "split_level": "patch"
 }

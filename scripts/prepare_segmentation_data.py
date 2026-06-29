@@ -35,6 +35,10 @@ from src.preprocessing.stain_normalization import MacenkoNormalizer
 from src.preprocessing.patch_extraction import (
     extract_multimag_with_mask, save_mask)
 from src.preprocessing.image_io import save_rgb
+from src.preprocessing.wsi import WSI_EXTENSIONS, open_slide, iter_tiles, tile_geometry
+from src.preprocessing.catch_annotations import (
+    find_annotation_file, load_annotations, rasterise_tile_mask)
+from src.preprocessing.tissue import tissue_mask
 
 
 def _list_pairs(input_dir: Path):
@@ -51,6 +55,77 @@ def _list_pairs(input_dir: Path):
         if mp:
             pairs.append((ip, mp))
     return pairs
+
+
+def _list_wsi(input_dir: Path):
+    """Real CATCH .svs slides (excludes the demo PNG/mask folders)."""
+    return sorted(p for p in input_dir.rglob("*")
+                  if p.suffix.lower() in WSI_EXTENSIONS
+                  and p.parent.name not in ("masks",)
+                  and "demo" not in p.stem)
+
+
+def _process_real_wsis(slides, cfg, normalizer, patches_dir, logger):
+    """Tile real CATCH WSIs and rasterise tumour masks from the annotations.
+
+    Returns the manifest rows (same schema as the demo path). Masks come from the
+    COCO/SQLite polygons; tiles with no tissue are skipped exactly as in the demo.
+    """
+    catch = cfg["catch"]
+    ann_path = find_annotation_file(cfg["paths"]["raw_dir"],
+                                    catch["coco_annotation_glob"]
+                                    + catch["sqlite_annotation_glob"])
+    if ann_path is None:
+        logger.error("No CATCH annotation file (COCO .json / .sqlite) under %s — "
+                     "cannot build segmentation masks. See download_catch.",
+                     cfg["paths"]["raw_dir"])
+        return []
+    logger.info("Using annotations: %s", ann_path)
+    per_slide = load_annotations(ann_path, catch["tumour_annotation_classes"])
+
+    seg = cfg["segmentation"]
+    levels = cfg["magnification"]["levels"]
+    min_tf = cfg["patches"]["min_tissue_fraction"]
+    max_p = cfg["patches"]["max_patches_per_slide"]
+    rows = []
+    for sp in slides:
+        slide_id = sp.stem
+        polys = per_slide.get(slide_id, [])
+        if not polys:
+            logger.warning("  %-22s no annotations matched by stem — skipped", slide_id)
+            continue
+        slide = open_slide(sp)
+        n_slide = 0
+        for mag in levels:
+            geom = tile_geometry(slide, seg["patch_size"], mag,
+                                 catch["wsi_base_magnification"])
+            span0 = geom["span0"]
+            for (x0, y0, patch) in iter_tiles(
+                    slide, patch_size=seg["patch_size"], read_magnification=mag,
+                    base_magnification=catch["wsi_base_magnification"]):
+                if tissue_mask(patch).mean() < min_tf:
+                    continue
+                mpatch = rasterise_tile_mask(polys, x0, y0, span0, seg["patch_size"])
+                try:
+                    patch_n = normalizer.normalize(patch)
+                except Exception:
+                    patch_n = patch
+                stem = f"{slide_id}_m{mag}_y{y0}_x{x0}"
+                ip = patches_dir / "images" / f"{stem}.png"
+                mp = patches_dir / "masks" / f"{stem}.png"
+                save_rgb(ip, patch_n)
+                save_mask(mp, mpatch)
+                rows.append({
+                    "image_path": Path(ip).resolve().relative_to(PROJECT_ROOT).as_posix(),
+                    "mask_path": Path(mp).resolve().relative_to(PROJECT_ROOT).as_posix(),
+                    "slide_id": slide_id, "mag": mag,
+                    "tumour_frac": round(float(mpatch.mean()), 4),
+                })
+                n_slide += 1
+                if n_slide >= max_p:
+                    break
+        logger.info("  %-22s -> %4d patches (mags=%s)", slide_id, n_slide, levels)
+    return rows
 
 
 def main():
@@ -72,22 +147,34 @@ def main():
     (patches_dir / "masks").mkdir(parents=True, exist_ok=True)
     splits_dir.mkdir(parents=True, exist_ok=True)
 
+    normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
+    mag = cfg["magnification"]
+    rows = []
+
     # ---- 1. slide+mask pairs ----
+    input_dir = Path(args.input) if args.input else Path(cfg["paths"]["raw_dir"])
     if args.demo:
         logger.info("DEMO mode: generating %d synthetic slides + masks", args.n_slides)
         pairs = make_demo_segmentation_slides(cfg["paths"]["raw_dir"], args.n_slides)
     else:
-        input_dir = Path(args.input) if args.input else Path(cfg["paths"]["raw_dir"])
-        pairs = _list_pairs(input_dir)
-    if not pairs:
-        logger.error("No (image, mask) pairs found. Use --demo or populate "
-                     "data/raw/images and data/raw/masks.")
-        return
-    logger.info("Found %d slide/mask pair(s)", len(pairs))
-
-    normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
-    mag = cfg["magnification"]
-    rows = []
+        # REAL data: prefer whole-slide .svs (+ CATCH annotations); fall back to
+        # pre-rendered PNG image/mask pairs.
+        wsis = _list_wsi(input_dir)
+        if wsis:
+            logger.info("REAL WSI mode: %d CATCH slide(s) at %sx (base %sx)",
+                        len(wsis), cfg["magnification"]["levels"],
+                        cfg["catch"]["wsi_base_magnification"])
+            rows = _process_real_wsis(wsis, cfg, normalizer, patches_dir, logger)
+            pairs = []  # handled inside _process_real_wsis
+        else:
+            pairs = _list_pairs(input_dir)
+            if not pairs:
+                logger.error("No CATCH .svs slides, and no (image, mask) PNG pairs "
+                             "found under %s. Use --demo, or download CATCH "
+                             "(python -m src.data_acquisition.download_catch).",
+                             input_dir)
+                return
+            logger.info("Found %d slide/mask pair(s)", len(pairs))
 
     # ---- 2-3. per slide: normalise + multi-mag patch/mask extraction ----
     for img_path, mask_path in pairs:
@@ -128,6 +215,10 @@ def main():
             n_slide += 1
         logger.info("  %-14s -> %4d patches (mags=%s)", slide_id, n_slide, mag["levels"])
 
+    if not rows:
+        logger.error("No patches were extracted — nothing to split. Check that "
+                     "slides have tissue and (for WSIs) matching annotations.")
+        return
     df = pd.DataFrame(rows)
     df.to_csv(patches_dir / "manifest.csv", index=False)
     logger.info("Total patches: %d", len(df))

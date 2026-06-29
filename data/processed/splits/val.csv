@@ -1,5 +1,5 @@
-patch_path,label
-F:\tayyab\canine-melanoma-catch\data\processed\patches\melanocytic\demo_slide_bluish_y768_x768.png,melanocytic
-F:\tayyab\canine-melanoma-catch\data\processed\patches\mast_cell\demo_slide_pinkish_y512_x0.png,mast_cell
-F:\tayyab\canine-melanoma-catch\data\processed\patches\mast_cell\demo_slide_pinkish_y512_x256.png,mast_cell
-F:\tayyab\canine-melanoma-catch\data\processed\patches\melanocytic\demo_slide_bluish_y0_x512.png,melanocytic
+patch_path,label,slide_id
+E:\Project\canine-melanoma-catch\data\processed\patches\demo_pinkish\demo_slide_pinkish_y768_x768.png,demo_pinkish,demo_slide_pinkish
+E:\Project\canine-melanoma-catch\data\processed\patches\demo_bluish\demo_slide_bluish_y512_x256.png,demo_bluish,demo_slide_bluish
+E:\Project\canine-melanoma-catch\data\processed\patches\demo_bluish\demo_slide_bluish_y256_x512.png,demo_bluish,demo_slide_bluish
+E:\Project\canine-melanoma-catch\data\processed\patches\demo_pinkish\demo_slide_pinkish_y0_x512.png,demo_pinkish,demo_slide_pinkish

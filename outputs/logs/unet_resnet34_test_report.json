@@ -3,14 +3,14 @@
   "arch": "unet",
   "encoder": "resnet34",
   "device": "cpu",
-  "epochs_ran": 12,
-  "best_epoch": 9,
-  "best_val_dice": 0.4437105155725888,
+  "epochs_ran": 2,
+  "best_epoch": 2,
+  "best_val_dice": 0.2510543373039162,
   "test_metrics": {
-    "dice": 0.4299893849915233,
-    "iou": 0.40531542688349487,
-    "pixel_acc": 0.9906326293945312,
-    "hausdorff": 115.10337888555583
+    "dice": 0.22490787319306121,
+    "iou": 0.12670208480830428,
+    "pixel_acc": 0.5340983072916666,
+    "hausdorff": 218.52679612474458
   },
   "params_million": 24.44
 }

@@ -128,15 +128,25 @@ print("Setup done.")
 cells.append(md(r"""
 ## 2. Dataset & scale — *"are you using the full dataset?"*
 
-**Honest status:** the real **CATCH dataset (750 whole-slide images)** is hosted on
-TCIA and is being downloaded. So that development never stalls, the pipeline is
-**validated on synthetic slides** that exercise every step end-to-end. **The exact
-same code runs unchanged on the full 750-slide dataset** — only the input folder
-changes (see Section 6).
+**Honest status.** No real CATCH slides have been processed yet — every result in
+this notebook is computed on **synthetic** slides that exercise the pipeline
+end-to-end while the TCIA download is arranged. The synthetic "tumours" and
+"subtypes" are drawn shapes/colours, **not** histology, so the numbers validate the
+*code*, not the biology.
 
-The numbers you may have seen (e.g. *616*) are **extracted patches**, not slides:
-one slide produces many 256×256 patches at 5×/10×/20×. The cell below shows the
-current patch counts for segmentation and classification.
+**The real dataset** (Wilm et al., 2022; TCIA DOI `10.7937/TCIA.2M93-FX66`) is:
+
+| | |
+|---|---|
+| Slides | **350** pyramidal Aperio `.svs` (level 0 = 0.25 µm/px ≈ 40×) |
+| Classes | **7 tumour subtypes**, 50 slides each |
+| Subtypes | Melanoma · Mast cell tumour · Squamous cell carcinoma · Peripheral nerve sheath tumour · Trichoblastoma · Histiocytoma · Plasmacytoma |
+| Annotations | **12,424 polygons** (MS-COCO JSON + SQLite) → tumour masks |
+
+The pipeline is now **real-data-ready** (native `.svs` tiling, COCO/SQLite mask
+parsing, folder-per-subtype labels, slide-level split). Switching to real data is
+a flag, not a rewrite — see Section 7. Patch counts below are *extracted patches*
+(one slide → many 256×256 tiles at 5×/10×/20×), not slides.
 """))
 
 cells.append(code(r"""
@@ -228,12 +238,47 @@ show_img(FIG/"unet_attention_predictions.png", "Attention U-Net — test predict
 """))
 
 cells.append(md(r"""
+## 5b. Real-data ingestion — whole-slide reading & polygon annotations
+
+The real CATCH slides are `.svs` whole-slide images far too large to load whole,
+with tumour regions given as **polygon annotations** (MS-COCO / SQLite), not PNG
+masks. Two modules make this work without any change to the downstream code:
+
+- `src.preprocessing.wsi` — tiles a `.svs` at a chosen magnification via OpenSlide
+  (tile-by-tile, never the whole slide in memory).
+- `src.preprocessing.catch_annotations` — parses the COCO/SQLite polygons and
+  **rasterises a binary tumour mask per tile**, aligned to the image tile.
+
+The cell below demonstrates the annotation→mask step on a synthetic polygon (so it
+runs without the multi-GB download); on real data the polygons come straight from
+the CATCH COCO file.
+"""))
+
+cells.append(code(r"""
+import numpy as np
+from src.preprocessing.catch_annotations import rasterise_tile_mask
+
+# a synthetic tumour polygon in level-0 (whole-slide) pixel coordinates
+poly = np.array([[40,30],[210,55],[230,200],[70,225]], dtype=float)
+# a 256-px tile that this polygon falls inside (level-0 span = 256 px here)
+mask = rasterise_tile_mask([(True, poly)], x0=0, y0=0, span0=256, patch_size=256)
+
+plt.figure(figsize=(4,4)); plt.imshow(mask, cmap="gray")
+plt.title(f"Rasterised tumour mask (tumour frac = {mask.mean():.2f})"); plt.axis("off"); plt.show()
+print("On real CATCH: open_slide(slide.svs) -> iter_tiles(...) for the image,")
+print("and load_annotations(CATCH.json) -> rasterise_tile_mask(...) for the mask.")
+"""))
+
+cells.append(md(r"""
 ## 6. Week 6 — Tumour-subtype classification (ResNet-50)
 
 The **classification stage** of the plan from Section 0. A **ResNet-50** (ImageNet
 transfer learning, progressive unfreezing, **class-weighted** cross-entropy + label
-smoothing) classifies tumour patches into subtypes. Evaluated with accuracy,
-macro-F1, AUC-ROC and a confusion matrix.
+smoothing) classifies tumour patches into subtypes. On real data this is the **7
+CATCH subtypes** (or binary melanoma-vs-rest via `classification.mode`); the demo
+below uses 3 colour-separable synthetic subtypes, so its perfect score reflects the
+toy data, not histology. Evaluated with accuracy, macro-F1, AUC-ROC and a confusion
+matrix.
 """))
 
 cells.append(code(r"""
@@ -250,30 +295,32 @@ show_img(FIG/"cls_resnet50_confusion.png", "ResNet-50 — confusion matrix (test
 """))
 
 cells.append(md(r"""
-## 7. How to run on the FULL CATCH dataset
+## 7. How to run on the REAL CATCH dataset
 
-The pipeline is **dataset-agnostic** — point it at the real slides instead of the
-demo. Once the CATCH slides are downloaded from TCIA:
+Point the pipeline at the downloaded slides — the scripts auto-detect `.svs`
+whole-slide images and the COCO/SQLite annotation file. **Recommended layout**
+(subtype folders make labelling unambiguous):
 
 ```text
-data/raw/images/   <- whole-slide images   (.svs / .tiff)
-data/raw/masks/    <- tumour masks          (segmentation ground truth)
-data/raw/cls_images/<label>_*.png   <- subtype-labelled slides (classification)
+data/raw/
+  Melanoma/*.svs            Mast cell tumor/*.svs   Squamous cell carcinoma/*.svs
+  Peripheral nerve sheath tumor/*.svs   Trichoblastoma/*.svs
+  Histiocytoma/*.svs        Plasmacytoma/*.svs
+  annotations/CATCH.json    # MS-COCO polygons (tumour masks)
 ```
-
-then run **without** `--demo`:
 
 ```bash
-python scripts/run_week1_2_pipeline.py     --input data/raw          # preprocess all slides
-python scripts/prepare_segmentation_data.py --input data/raw          # seg patches+masks
-python scripts/train_unet.py --arch unet                              # ResNet-34 U-Net
-python scripts/train_unet.py --arch attention                         # Attention U-Net
-python scripts/prepare_classification_data.py --input data/raw        # classification patches
-python scripts/train_classifier.py --arch resnet50                    # ResNet-50 classifier
+python -m src.data_acquisition.download_catch              # instructions + verify
+python scripts/prepare_segmentation_data.py  --input data/raw   # WSI tiles + masks from polygons
+python scripts/train_unet.py --arch attention                   # Attention U-Net
+python scripts/prepare_classification_data.py --input data/raw  # tumour tiles, labelled by subtype
+python scripts/train_classifier.py --arch resnet50 --epochs 20  # 7-class ResNet-50
 ```
 
-No code changes are needed — the same modules scale from 8 demo slides to the full
-750-slide CATCH collection.
+> Requires the **OpenSlide** binaries on the machine (`pip install openslide-python`
+> + the platform libraries from openslide.org). The download is license-gated on
+> TCIA (accept the data-use agreement first). Expect a large download (~hundreds of
+> GB for all 350 slides) — a few subtype folders are enough to start.
 """))
 
 cells.append(md(r"""

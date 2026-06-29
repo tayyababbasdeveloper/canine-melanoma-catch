@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viva Preparation — Canine Melanoma (CATCH) Weeks 1–6</title>
+<style>
+  :root{ --hull:#1F3A6E; --hull2:#2E5AA8; --ink:#1c2330; --soft:#586079;
+         --line:#e3e8f0; --bg:#f6f8fc; --card:#ffffff; --good:#1f8a52;
+         --warn:#b06a00; --bad:#b0322c; --chip:#eef2fb; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.62;font-size:16.5px}
+  a{color:var(--hull2);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header{background:linear-gradient(135deg,var(--hull),#13244a);color:#fff;
+         padding:46px 0 38px}
+  header h1{margin:0 0 6px;font-size:31px;line-height:1.2}
+  header .sub{font-size:18px;opacity:.95;margin:0 0 14px}
+  header .meta{font-size:14.5px;opacity:.9}
+  header .meta b{opacity:1}
+  .pill{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+        padding:3px 11px;border-radius:20px;font-size:13px;margin:4px 6px 0 0}
+  h2{color:var(--hull);font-size:23px;margin:38px 0 8px;border-bottom:2px solid var(--line);
+     padding-bottom:7px}
+  h3{color:var(--hull);font-size:18.5px;margin:24px 0 6px}
+  h4{margin:16px 0 4px;font-size:16px;color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+        padding:18px 22px;margin:16px 0;box-shadow:0 1px 3px rgba(20,30,60,.04)}
+  .grid{display:grid;gap:16px}
+  @media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}}
+  .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.4px;
+       text-transform:uppercase;padding:2px 9px;border-radius:6px;background:var(--chip);
+       color:var(--hull);margin-bottom:6px}
+  .toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 20px;margin:22px 0}
+  .toc ol{margin:6px 0 0;padding-left:22px;columns:2;column-gap:30px}
+  .toc li{margin:3px 0;break-inside:avoid}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+  th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--hull);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:#f3f6fc}
+  .q{font-weight:700;color:var(--hull);margin:18px 0 4px;font-size:16.5px}
+  .q::before{content:"Q ";background:var(--hull);color:#fff;border-radius:5px;padding:1px 7px;
+             font-size:13px;margin-right:8px}
+  .a{margin:0 0 6px}
+  .a::before{content:"A";color:var(--good);font-weight:800;margin-right:9px}
+  .key{background:#eef6ff;border-left:4px solid var(--hull2);padding:10px 15px;border-radius:0 8px 8px 0;margin:12px 0}
+  .good{color:var(--good);font-weight:600}.warn{color:var(--warn);font-weight:600}.bad{color:var(--bad);font-weight:600}
+  .note{background:#fff8ec;border-left:4px solid var(--warn);padding:10px 15px;border-radius:0 8px 8px 0;margin:12px 0}
+  code{background:#eef1f7;padding:1px 6px;border-radius:5px;font-size:14px;
+       font-family:Consolas,Monaco,monospace}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:14px;margin:10px 0}
+  .box{background:var(--chip);border:1px solid #d4ddef;border-radius:9px;padding:8px 12px;font-weight:600;color:var(--hull)}
+  .arrow{color:var(--hull2);font-weight:800;font-size:18px}
+  .small{font-size:13.5px;color:var(--soft)}
+  ul.tight{margin:6px 0;padding-left:20px}ul.tight li{margin:3px 0}
+  .define{margin:10px 0}.define b{color:var(--hull)}
+  footer{margin:40px 0;color:var(--soft);font-size:13.5px;text-align:center}
+  .num{display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;
+       background:var(--hull);color:#fff;border-radius:50%;font-size:14px;font-weight:700;margin-right:8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>🐶 Detecting Melanoma in Dogs from Microscope Slides</h1>
+    <p class="sub">A plain-English study guide for the viva · Weeks 1–6</p>
+    <p class="meta"><b>Project:</b> Classification of Malignant Melanoma in Canines (CATCH) ·
+       <b>Code:</b> DAIM2025A_088<br>
+       <b>Student:</b> Muhammad Tayyab Abbas · <b>Supervisor:</b> Dr Claire Cashmore · University of Hull</p>
+    <div>
+      <span class="pill">Deep Learning</span>
+      <span class="pill">Histopathology</span>
+      <span class="pill">U-Net Segmentation</span>
+      <span class="pill">Attention U-Net</span>
+      <span class="pill">ResNet-50 Classification</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="toc">
+  <b>What's inside (click to jump)</b>
+  <ol>
+    <li><a href="#big">The big picture (30-second version)</a></li>
+    <li><a href="#data">The dataset (CATCH), in simple words</a></li>
+    <li><a href="#pipeline">How the two stages fit together</a></li>
+    <li><a href="#w12">Weeks 1–2 — Preparing the images</a></li>
+    <li><a href="#w34">Weeks 3–4 — Finding the tumour (U-Net)</a></li>
+    <li><a href="#w56">Weeks 5–6 — Attention U-Net + naming the tumour</a></li>
+    <li><a href="#concepts">Key words explained with everyday examples</a></li>
+    <li><a href="#results">The results (and an honest reading of them)</a></li>
+    <li><a href="#bugs">Problems I found and fixed</a></li>
+    <li><a href="#limits">Honest limitations</a></li>
+    <li><a href="#viva">Likely viva questions &amp; answers ⭐</a></li>
+    <li><a href="#next">What comes next</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="big">1. The big picture (30-second version)</h2>
+<div class="card">
+  <p><b>The problem:</b> Skin cancer in dogs is diagnosed by a pathologist looking at a
+  stained tissue slide under a microscope. This is slow, needs an expert, and different
+  experts don't always agree. <b>Melanoma</b> (a pigment-cell cancer) is the focus.</p>
+  <p><b>The idea:</b> Train a computer to do two jobs on these slides:</p>
+  <ul class="tight">
+    <li><span class="num">1</span><b>Segmentation</b> — draw around <i>where</i> the tumour is (find it).</li>
+    <li><span class="num">2</span><b>Classification</b> — say <i>what kind</i> of tumour it is (name it).</li>
+  </ul>
+  <div class="key"><b>If you remember only three things:</b>
+    (1) Stage 1 finds the tumour, Stage 2 names it.
+    (2) The clever model is the <b>Attention U-Net</b>, which learns to "look only where it matters".
+    (3) The code is fully built and tested, but on <b>realistic stand-in (synthetic) images</b> —
+    the real 350-slide dataset is licence-locked and is the next step.</div>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="data">2. The dataset (CATCH), in simple words</h2>
+<div class="card">
+  <p><b>CATCH</b> = "CAnine cuTaneous Cancer Histology" — a public research dataset of dog
+  skin-cancer slides (Wilm et al., 2022, hosted on TCIA, DOI <code>10.7937/TCIA.2M93-FX66</code>).</p>
+  <table>
+    <tr><th>Thing</th><th>What it means</th></tr>
+    <tr><td><b>350 slides</b> (<code>.svs</code> files)</td><td>Each is a <i>whole-slide image</i> — a single
+        gigantic photo of a tissue sample, often 40,000+ pixels wide.</td></tr>
+    <tr><td><b>7 tumour types</b>, 50 slides each</td><td>Melanoma, Mast cell tumour, Squamous cell
+        carcinoma, Peripheral nerve sheath tumour, Trichoblastoma, Histiocytoma, Plasmacytoma.</td></tr>
+    <tr><td><b>12,424 annotations</b></td><td>Doctors drew polygons around regions (tumour, skin layers, etc.).
+        These become the "correct answers" the model learns from.</td></tr>
+  </table>
+  <p class="small">The slides are far too big to feed to a network whole, so we cut them into
+  small <b>256×256 patches</b> (tiles) — this is the unit the models actually see.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="pipeline">3. How the two stages fit together</h2>
+<div class="card">
+  <div class="flow">
+    <span class="box">Whole slide</span><span class="arrow">→</span>
+    <span class="box">cut into 256×256 patches</span><span class="arrow">→</span>
+    <span class="box">Stage 1: U-Net finds tumour (mask)</span><span class="arrow">→</span>
+    <span class="box">keep tumour patches</span><span class="arrow">→</span>
+    <span class="box">Stage 2: ResNet-50 names the type</span>
+  </div>
+  <p>So segmentation doesn't just locate the cancer — it also <b>selects which patches</b>
+  are worth sending to the classifier. The classifier only ever sees tumour tissue, which
+  makes its job cleaner.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="w12">4. Weeks 1–2 — Preparing the images</h2>
+<div class="grid g2">
+  <div class="card"><span class="tag">What I did</span>
+    <ul class="tight">
+      <li><b>Quality check</b> — throw out blurry, too-dark, or near-empty slides.</li>
+      <li><b>Stain normalisation (Macenko)</b> — make every slide use the same colours.</li>
+      <li><b>Tissue detection</b> — ignore the blank glass, keep only real tissue.</li>
+      <li><b>Patch extraction</b> at 5×, 10×, 20× zoom levels.</li>
+      <li><b>Train/validation/test split</b> for fair evaluation.</li>
+    </ul>
+  </div>
+  <div class="card"><span class="tag">Why it matters</span>
+    <p>Garbage in, garbage out. Different labs and scanners produce slides in different
+    shades of pink/purple. If you don't fix this, the model might "cheat" by learning
+    colour instead of biology. Macenko normalisation removes that crutch.</p>
+    <p class="small">Multiple zoom levels give the model both fine detail (20×) and wider
+    context (5×) — like reading a word and also seeing the whole sentence.</p>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="w34">5. Weeks 3–4 — Finding the tumour (U-Net)</h2>
+<div class="grid g2">
+  <div class="card"><span class="tag">What I did</span>
+    <p>Built and trained a <b>U-Net</b> — the standard network for medical image
+    segmentation. It outputs a <b>mask</b>: for every pixel it answers "tumour or not?".</p>
+    <p>Two versions were compared:</p>
+    <ul class="tight">
+      <li><b>Baseline U-Net</b> — learns everything from scratch.</li>
+      <li><b>U-Net with a ResNet-34 encoder</b> — reuses a network already trained on millions
+          of everyday photos (<i>transfer learning</i>).</li>
+    </ul>
+  </div>
+  <div class="card"><span class="tag">Why a U-Net?</span>
+    <p>Its "U" shape first <b>shrinks</b> the image to understand <i>what</i> is there, then
+    <b>grows</b> it back to mark <i>where</i> exactly. "Skip connections" carry fine detail
+    across the U so the edges of the tumour stay sharp.</p>
+    <p class="small">Trained with a <b>BCE + Dice</b> loss, Adam optimiser, and cosine
+    learning-rate schedule — the standard, reliable recipe.</p>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="w56">6. Weeks 5–6 — Attention U-Net + naming the tumour</h2>
+<div class="grid g2">
+  <div class="card"><span class="tag">Attention U-Net (Stage 1+)</span>
+    <p>An upgrade with <b>attention gates</b>: before combining information, the network
+    learns to <b>highlight the tumour region and dim the background</b> — like a
+    highlighter pen that the model controls itself.</p>
+    <p class="small">Built on the <i>same</i> backbone as the baseline, so any improvement
+    is purely due to attention — a fair, controlled comparison.</p>
+  </div>
+  <div class="card"><span class="tag">ResNet-50 classifier (Stage 2)</span>
+    <p>Takes the tumour patches and predicts the <b>tumour type</b>. It uses:</p>
+    <ul class="tight">
+      <li><b>Transfer learning</b> (starts from ImageNet knowledge).</li>
+      <li><b>Progressive unfreezing</b> — train the new part first, then gently the rest.</li>
+      <li><b>Class weighting</b> — pay more attention to rarer tumour types.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="concepts">7. Key words explained with everyday examples</h2>
+<div class="grid g2">
+  <div class="card">
+    <div class="define"><b>Whole-slide image (WSI)</b> — one enormous photo of a tissue
+      sample. Like a satellite image of a whole city; you can't look at it all at once.</div>
+    <div class="define"><b>Patch</b> — a small tile cut from the WSI. Like one street from
+      the satellite image.</div>
+    <div class="define"><b>Stain normalisation</b> — making all photos use the same colour
+      balance, so brand of camera/lab doesn't matter.</div>
+    <div class="define"><b>Segmentation</b> — colouring in the exact pixels that are tumour.
+      Output = a black-and-white <b>mask</b>.</div>
+    <div class="define"><b>Classification</b> — putting an image into one labelled box
+      ("this is melanoma").</div>
+    <div class="define"><b>Encoder / transfer learning</b> — borrowing a network that already
+      learned to "see" from millions of photos, instead of starting blank. Saves time and data.</div>
+  </div>
+  <div class="card">
+    <div class="define"><b>Attention gate</b> — a learned spotlight that tells the network
+      where to focus and what to ignore.</div>
+    <div class="define"><b>Dice score</b> — how well the predicted mask overlaps the true
+      mask. <b>1.0 = perfect, 0 = no overlap.</b> Like the overlap of two traced shapes.</div>
+    <div class="define"><b>IoU</b> (Intersection-over-Union) — a stricter cousin of Dice;
+      same idea, always a bit lower.</div>
+    <div class="define"><b>Hausdorff distance</b> — the <i>worst</i> gap between the predicted
+      and true tumour edge (lower = better).</div>
+    <div class="define"><b>Class imbalance</b> — some tumour types have far more slides than
+      others; we correct for it so rare types aren't ignored.</div>
+    <div class="define"><b>Data leakage</b> — accidentally letting the model "peek" at test
+      data during training, which fakes a good score. We prevent it (see §9).</div>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="results">8. The results (and an honest reading of them)</h2>
+<div class="card">
+  <p><b>Segmentation — three models compared</b> (higher Dice/IoU/pixel-acc = better; lower Hausdorff = better):</p>
+  <table>
+    <tr><th>Model</th><th>Params</th><th>Dice ↑</th><th>IoU ↑</th><th>Pixel acc ↑</th><th>Hausdorff ↓</th></tr>
+    <tr><td>Baseline U-Net (from scratch)</td><td>31.0 M</td><td>0.842</td><td>0.727</td><td>0.981</td><td>111.3</td></tr>
+    <tr><td>U-Net + ResNet-34 encoder</td><td>24.4 M</td><td>0.225</td><td>0.127</td><td>0.534</td><td>218.5</td></tr>
+    <tr><td><b>Attention U-Net</b></td><td>31.4 M</td><td><b>0.965</b></td><td><b>0.932</b></td><td><b>0.994</b></td><td>113.3</td></tr>
+  </table>
+  <p><b>Classification — ResNet-50:</b> accuracy / F1 / AUC = <b>1.000</b> on the 3 demo types.</p>
+
+  <div class="note"><b>Read these honestly (very important for the viva).</b>
+    <ul class="tight">
+      <li>The <b>Attention U-Net clearly wins</b> — that part of the story is real and expected.</li>
+      <li>The ResNet-34 number looks bad only because <b>all models were trained for just 2 quick
+          epochs</b> on a slow CPU; it simply didn't finish learning. It is <span class="warn">under-training
+          noise, not a true ranking</span>.</li>
+      <li>The <b>100% classification score is not impressive</b> — the synthetic types are different
+          colours <i>by design</i>, so they're trivially easy. It proves the <b>code works</b>, not that
+          the model can tell real cancers apart.</li>
+      <li>All numbers are on <b>synthetic stand-in images</b>. They validate the <i>pipeline</i>, not the
+          <i>biology</i>.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="bugs">9. Problems I found and fixed</h2>
+<p class="small">Examiners love this section — it shows you understand <i>why</i> things were wrong, not just that they ran.</p>
+<div class="grid g3">
+  <div class="card"><span class="tag">Bug 1 · Labels</span>
+    <h4>Fake labels from filenames</h4>
+    <p>The early code guessed the tumour type from the file's <i>colour</i> in its name —
+    biologically meaningless. <b>Fixed:</b> read the real type from the folder/annotation.</p>
+  </div>
+  <div class="card"><span class="tag">Bug 2 · Leakage</span>
+    <h4>Same slide in train &amp; test</h4>
+    <p>Patches from one slide were landing in both training and testing, which fakes a high
+    score. <b>Fixed:</b> split by <b>whole slide</b>, so a slide is only ever in one set
+    (verified zero overlap).</p>
+  </div>
+  <div class="card"><span class="tag">Bug 3 · Transfer learning</span>
+    <h4>Frozen layers weren't really frozen</h4>
+    <p>The "frozen" pretrained layers were quietly drifting during training, undoing the
+    benefit. <b>Fixed:</b> properly lock their statistics (verified: zero drift).</p>
+  </div>
+</div>
+<div class="card"><span class="tag">Bonus · Engineering</span>
+  <h4>The Attention U-Net crash</h4>
+  <p>On this PC the Attention U-Net kept crashing. I diagnosed it properly: it wasn't a code
+  bug but a <b>memory (RAM) limit</b> — the bigger model ran out of memory and the system
+  crashed instead of warning. <b>Fix:</b> use a smaller batch size. After that it trained
+  fine (Dice 0.965). <span class="small">This shows debugging skill — finding the <i>real</i>
+  cause instead of guessing.</span></p>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="limits">10. Honest limitations</h2>
+<div class="card">
+  <ul class="tight">
+    <li><b>No real data yet.</b> The real CATCH slides are licence-locked and very large
+        (hundreds of GB). Everything so far runs on realistic <b>synthetic</b> images. The
+        code is built to switch to real data with one command — that's the next milestone.</li>
+    <li><b>Short training.</b> Models ran 2 epochs on CPU for speed; real runs will train much longer.</li>
+    <li><b>Synthetic = easy.</b> The fake tumours are simpler than real tissue, so the scores
+        are optimistic and will change on real slides.</li>
+    <li><b>Single split.</b> For the final project, 5-fold cross-validation will give more
+        trustworthy numbers.</li>
+  </ul>
+  <p class="good">Being upfront about these is a strength, not a weakness — it shows you know
+  exactly where the project stands.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="viva">11. Likely viva questions &amp; answers ⭐</h2>
+<div class="card">
+
+  <p class="q">In one sentence, what is your project?</p>
+  <p class="a">A two-stage deep-learning pipeline that first <b>finds</b> tumour regions in dog
+  skin-cancer slides (segmentation) and then <b>identifies the tumour type</b> (classification),
+  with a focus on melanoma.</p>
+
+  <p class="q">What is the output of the segmentation stage?</p>
+  <p class="a">A <b>binary mask</b> — a black-and-white image the same size as the patch, where
+  white = tumour pixel and black = everything else. Joined together, these masks show the whole
+  tumour region on the slide.</p>
+
+  <p class="q">Why do you need segmentation <i>and</i> classification?</p>
+  <p class="a">Segmentation answers <b>"where is the cancer?"</b> and also picks out which
+  patches are tumour. Classification answers <b>"what kind of cancer is it?"</b> on just those
+  patches. Together they mimic how a pathologist works: locate, then diagnose.</p>
+
+  <p class="q">Why did you choose U-Net?</p>
+  <p class="a">U-Net is the proven standard for medical image segmentation. Its encoder–decoder
+  ("U") shape captures <i>what</i> is in the image and then restores <i>where</i> precisely, and
+  its skip connections keep tumour edges sharp. It also works well with relatively few images.</p>
+
+  <p class="q">What does the attention gate actually do?</p>
+  <p class="a">Before the network merges detail from the encoder with context from the decoder,
+  the attention gate produces a <b>focus map</b> (values 0–1) that boosts tumour areas and
+  suppresses background. It's a learned spotlight, so the model spends its effort where it matters.</p>
+
+  <p class="q">Why is your classification accuracy 100%? Isn't that too good?</p>
+  <p class="a"><b>Yes, and that's expected.</b> The current data is <b>synthetic</b> and the three
+  classes are drawn in clearly different colours, so they're trivially separable. The 100% only
+  proves the training/evaluation code is correct — <b>not</b> that the model can distinguish real
+  cancers. On real CATCH it becomes a much harder 7-class problem and the score will drop.</p>
+
+  <p class="q">Are you using the real dataset?</p>
+  <p class="a">Not yet — the real CATCH slides need a signed data-use agreement and are hundreds
+  of gigabytes. To keep progressing I validate everything on synthetic slides that exercise every
+  step. The code is already <b>real-data-ready</b>: it reads <code>.svs</code> whole-slide files,
+  parses the real polygon annotations into masks, and knows the 7 official tumour types — switching
+  over is just pointing it at the downloaded slides.</p>
+
+  <p class="q">What is data leakage and how did you avoid it?</p>
+  <p class="a">Leakage is when information from the test set sneaks into training, faking a high
+  score. With slides cut into many patches, the danger is putting patches from the <b>same slide</b>
+  in both training and testing. I split by <b>whole slide</b>, so every patch of a slide stays in
+  one set only. I verified there is zero slide overlap.</p>
+
+  <p class="q">How do you handle class imbalance?</p>
+  <p class="a">Two places. In <b>segmentation</b>, tumour pixels are rare (~10%), so the loss gives
+  tumour pixels more weight (<code>pos_weight</code>) plus a Dice term. In <b>classification</b>,
+  rarer tumour types get higher weight in the loss, and the split keeps class proportions similar
+  across train/val/test.</p>
+
+  <p class="q">What's the difference between Dice and IoU?</p>
+  <p class="a">Both measure overlap between predicted and true masks. <b>Dice</b> counts the
+  overlap twice in its formula, so it's a bit more forgiving; <b>IoU</b> is stricter and always a
+  little lower. Same idea, two standard yardsticks.</p>
+
+  <p class="q">Why stain normalisation?</p>
+  <p class="a">Slides from different labs/scanners come in different shades. Without normalising,
+  the model could "cheat" by learning colour rather than tissue structure, and would fail on slides
+  from a new lab. Macenko normalisation maps every slide onto a common colour appearance.</p>
+
+  <p class="q">Why multiple magnifications (5×/10×/20×)?</p>
+  <p class="a">Different clues live at different zooms: cell-level detail at 20×, tissue-level
+  patterns at 5×. Giving the model several scales is like letting a doctor switch microscope
+  objectives — more context, better decisions.</p>
+
+  <p class="q">Why did the ResNet-34 U-Net score worse than the from-scratch baseline?</p>
+  <p class="a">Only because of <b>very short training</b> (2 epochs on CPU). With a strong
+  tumour-pixel weight it briefly over-predicted and hadn't settled. It's training noise, not a real
+  finding — with full training the pretrained encoder is expected to help, as the literature shows.</p>
+
+  <p class="q">What were the main challenges?</p>
+  <p class="a">(1) No real data, so building a faithful synthetic stand-in and keeping the code
+  truly real-data-ready. (2) Slow CPU training and a memory crash on the Attention U-Net, which I
+  traced to a RAM limit and fixed with a smaller batch size. (3) Catching subtle correctness bugs
+  (label source, data leakage, frozen-layer drift).</p>
+
+  <p class="q">What would you do differently / next?</p>
+  <p class="a">Run on the real CATCH slides, train for full length, add EfficientNet-B3 for
+  comparison, use 5-fold cross-validation and a significance test (McNemar's), and add Grad-CAM
+  heat-maps so a vet can <i>see why</i> the model made each decision.</p>
+
+  <p class="q">How is this clinically useful?</p>
+  <p class="a">It could act as a <b>second opinion</b> — flagging tumour regions and suggesting a
+  type — to speed up reporting and reduce disagreement between pathologists, especially where
+  specialist vets are scarce. It assists, it doesn't replace, the expert.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="next">12. What comes next (Weeks 7–8)</h2>
+<div class="card">
+  <ul class="tight">
+    <li>Download and run on the <b>real CATCH slides</b> (with OpenSlide installed).</li>
+    <li>Train an <b>EfficientNet-B3</b> classifier and compare it with ResNet-50.</li>
+    <li>Move to a proper <b>evaluation phase</b>: 5-fold cross-validation, McNemar's test, Grad-CAM.</li>
+    <li>Decide with the supervisor: <b>7-class</b> tumour typing vs <b>melanoma-vs-rest</b> as the headline.</li>
+  </ul>
+</div>
+
+<footer>
+  Study guide generated for viva preparation · Weeks 1–6 · DAIM2025A_088 · University of Hull.<br>
+  Companion files: <code>notebooks/CATCH_Melanoma_Project.ipynb</code> (live notebook) ·
+  <code>docs/Supervisor_Notes_Week6.pdf</code> · <code>docs/progress_report/</code>.
+</footer>
+
+</div>
+</body>
+</html>

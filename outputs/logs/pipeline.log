@@ -336,3 +336,147 @@
 2026-06-27 10:59:58 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
 2026-06-27 10:59:58 | INFO    | Tumour pixel fraction ~0.092 -> BCE pos_weight=9.90
 2026-06-27 11:07:33 | INFO    | epoch 01/10 | train 0.8219 | val 0.9580 | dice 0.9333 | iou 0.8749 | lr 9.76e-05 | 451.3s
+2026-06-29 17:00:54 | INFO    | DEMO mode: generating synthetic H&E slides
+2026-06-29 17:00:54 | INFO    | Processing 2 slide(s)
+2026-06-29 17:00:56 | INFO    |   demo_slide_bluish.png -> 12 patches (label=demo_bluish)
+2026-06-29 17:00:58 | INFO    |   demo_slide_pinkish.png -> 14 patches (label=demo_pinkish)
+2026-06-29 17:00:58 | INFO    | Quality report written: E:\Project\canine-melanoma-catch\outputs\logs\quality_report.csv
+2026-06-29 17:00:58 | INFO    | Split: train=18 val=4 test=4 (total=26)
+2026-06-29 17:00:58 | INFO    | DONE. Figures in E:\Project\canine-melanoma-catch\outputs\figures, reports in E:\Project\canine-melanoma-catch\outputs\logs
+2026-06-29 17:01:03 | INFO    | DEMO mode: generating 6 synthetic slides + masks
+2026-06-29 17:01:14 | INFO    |   demo_seg_00    ->   44 patches (mags=[5, 10, 20])
+2026-06-29 17:01:16 | INFO    |   demo_seg_01    ->   74 patches (mags=[5, 10, 20])
+2026-06-29 17:01:19 | INFO    |   demo_seg_02    ->   39 patches (mags=[5, 10, 20])
+2026-06-29 17:01:21 | INFO    |   demo_seg_03    ->   72 patches (mags=[5, 10, 20])
+2026-06-29 17:01:24 | INFO    |   demo_seg_04    ->    6 patches (mags=[5, 10, 20])
+2026-06-29 17:01:26 | INFO    |   demo_seg_05    ->   39 patches (mags=[5, 10, 20])
+2026-06-29 17:01:26 | INFO    | Total patches: 274
+2026-06-29 17:01:26 | INFO    | Split (patches): train=156 val=74 test=44 | slides 4/1/1
+2026-06-29 17:01:26 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\seg_splits
+2026-06-29 17:01:31 | INFO    | DEMO mode: generating 4 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-29 17:01:37 | INFO    | Classes (subtype mode): {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-29 17:01:39 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-29 17:01:40 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-29 17:01:41 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-29 17:01:43 | INFO    |   melanocytic_03     [melanocytic] -> 34 patches
+2026-06-29 17:01:44 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-29 17:01:45 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-29 17:01:47 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-29 17:01:48 | INFO    |   mast_cell_03       [mast_cell] -> 10 patches
+2026-06-29 17:01:49 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-29 17:01:50 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-29 17:01:52 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-29 17:01:53 | INFO    |   squamous_cell_03   [squamous_cell] -> 33 patches
+2026-06-29 17:01:53 | INFO    | Total patches: 301
+2026-06-29 17:01:53 | INFO    | Split (patches): train=148 val=80 test=73
+2026-06-29 17:01:53 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\cls_splits
+2026-06-29 17:08:41 | INFO    | DEMO mode: generating 14 synthetic slides + masks
+2026-06-29 17:09:05 | INFO    |   demo_seg_00    ->   44 patches (mags=[5, 10, 20])
+2026-06-29 17:09:09 | INFO    |   demo_seg_01    ->   74 patches (mags=[5, 10, 20])
+2026-06-29 17:09:13 | INFO    |   demo_seg_02    ->   39 patches (mags=[5, 10, 20])
+2026-06-29 17:09:16 | INFO    |   demo_seg_03    ->   72 patches (mags=[5, 10, 20])
+2026-06-29 17:09:20 | INFO    |   demo_seg_04    ->    6 patches (mags=[5, 10, 20])
+2026-06-29 17:09:23 | INFO    |   demo_seg_05    ->   39 patches (mags=[5, 10, 20])
+2026-06-29 17:09:26 | INFO    |   demo_seg_06    ->    0 patches (mags=[5, 10, 20])
+2026-06-29 17:09:30 | INFO    |   demo_seg_07    ->   50 patches (mags=[5, 10, 20])
+2026-06-29 17:09:33 | INFO    |   demo_seg_08    ->   13 patches (mags=[5, 10, 20])
+2026-06-29 17:09:36 | INFO    |   demo_seg_09    ->   77 patches (mags=[5, 10, 20])
+2026-06-29 17:09:41 | INFO    |   demo_seg_10    ->    4 patches (mags=[5, 10, 20])
+2026-06-29 17:09:45 | INFO    |   demo_seg_11    ->   75 patches (mags=[5, 10, 20])
+2026-06-29 17:09:48 | INFO    |   demo_seg_12    ->   51 patches (mags=[5, 10, 20])
+2026-06-29 17:09:52 | INFO    |   demo_seg_13    ->   72 patches (mags=[5, 10, 20])
+2026-06-29 17:09:52 | INFO    | Total patches: 616
+2026-06-29 17:09:52 | INFO    | Split (patches): train=408 val=57 test=151 | slides 9/2/2
+2026-06-29 17:09:52 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\seg_splits
+2026-06-29 17:10:04 | INFO    | Patches: train=24 val=12 test=12
+2026-06-29 17:10:04 | INFO    | Device: cpu
+2026-06-29 17:10:05 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-29 17:10:05 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+2026-06-29 17:16:34 | INFO    | epoch 01/2 | train 1.0839 | val 1.0241 | dice 0.0000 | iou 0.0000 | lr 5.00e-05 | 385.7s
+2026-06-29 17:23:10 | INFO    | epoch 02/2 | train 0.8453 | val 1.0215 | dice 0.7744 | iou 0.6318 | lr 0.00e+00 | 394.5s
+2026-06-29 17:23:11 | INFO    | Best val Dice 0.7744 at epoch 2
+2026-06-29 17:23:43 | INFO    | TEST | dice 0.8422 | iou 0.7274 | pix-acc 0.9814 | hausdorff 111.27
+2026-06-29 17:23:59 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_baseline_test_report.json
+2026-06-29 17:24:14 | INFO    | Patches: train=24 val=12 test=12
+2026-06-29 17:24:14 | INFO    | Device: cpu
+2026-06-29 17:24:21 | INFO    | Model: unet (encoder=resnet34, params=24.44M)
+2026-06-29 17:24:21 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+2026-06-29 17:25:01 | INFO    | epoch 01/2 | train 1.0213 | val 0.9894 | dice 0.1748 | iou 0.0958 | lr 5.00e-05 | 40.1s
+2026-06-29 17:25:38 | INFO    | epoch 02/2 | train 0.9245 | val 0.8869 | dice 0.2511 | iou 0.1435 | lr 0.00e+00 | 36.6s
+2026-06-29 17:25:39 | INFO    | Best val Dice 0.2511 at epoch 2
+2026-06-29 17:25:48 | INFO    | TEST | dice 0.2249 | iou 0.1267 | pix-acc 0.5341 | hausdorff 218.53
+2026-06-29 17:25:54 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_resnet34_test_report.json
+2026-06-29 17:26:03 | INFO    | Patches: train=24 val=12 test=12
+2026-06-29 17:26:03 | INFO    | Device: cpu
+2026-06-29 17:26:03 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:26:03 | INFO    | Tumour pixel fraction ~0.095 -> BCE pos_weight=9.57
+2026-06-29 17:28:55 | INFO    | DEMO mode: generating 4 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-29 17:29:02 | INFO    | Classes (subtype mode): {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-29 17:29:03 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-29 17:29:05 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-29 17:29:06 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-29 17:29:07 | INFO    |   melanocytic_03     [melanocytic] -> 34 patches
+2026-06-29 17:29:08 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-29 17:29:10 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-29 17:29:11 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-29 17:29:12 | INFO    |   mast_cell_03       [mast_cell] -> 10 patches
+2026-06-29 17:29:13 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-29 17:29:14 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-29 17:29:16 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-29 17:29:17 | INFO    |   squamous_cell_03   [squamous_cell] -> 33 patches
+2026-06-29 17:29:17 | INFO    | Total patches: 301
+2026-06-29 17:29:17 | INFO    | Split (patches): train=148 val=80 test=73
+2026-06-29 17:29:17 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\cls_splits
+2026-06-29 17:29:30 | INFO    | Classes: ['mast_cell', 'melanocytic', 'squamous_cell']
+2026-06-29 17:29:30 | INFO    | Patches: train=119 val=80 test=73
+2026-06-29 17:29:30 | INFO    | Device: cpu
+2026-06-29 17:29:38 | INFO    | Model: resnet50 (trainable head params=23514179)
+2026-06-29 17:29:38 | INFO    | Class weights (imbalance handling): [1.02, 0.99, 0.99]
+2026-06-29 17:30:44 | INFO    | epoch 01/3 | loss 1.0375 | val acc 0.650 | val f1 0.685 | auc 0.812 | 65.6s
+2026-06-29 17:31:49 | INFO    | epoch 02/3 | loss 0.9663 | val acc 0.812 | val f1 0.833 | auc 0.923 | 65.1s
+2026-06-29 17:31:49 | INFO    |   unfroze to stage 1 (14970883 trainable params)
+2026-06-29 17:33:06 | INFO    | epoch 03/3 | loss 0.8197 | val acc 1.000 | val f1 1.000 | auc 1.000 | 76.7s
+2026-06-29 17:33:06 | INFO    | Best val macro-F1 1.0000 at epoch 3
+2026-06-29 17:33:30 | INFO    | TEST | acc 1.000 | macro-F1 1.000 | precision 1.000 | recall 1.000 | auc 1.000
+2026-06-29 17:33:31 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\cls_resnet50_test_report.json
+2026-06-29 17:34:06 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:34:06 | INFO    | Device: cpu
+2026-06-29 17:34:06 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:34:06 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:38:01 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:38:01 | INFO    | Device: cpu
+2026-06-29 17:38:01 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:38:01 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:40:59 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:40:59 | INFO    | Device: cpu
+2026-06-29 17:40:59 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:40:59 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:44:03 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:44:03 | INFO    | Device: cpu
+2026-06-29 17:44:04 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:44:04 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:47:18 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:47:18 | INFO    | Device: cpu
+2026-06-29 17:47:19 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:47:19 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:50:22 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:50:22 | INFO    | Device: cpu
+2026-06-29 17:50:22 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:50:22 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:53:21 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:53:21 | INFO    | Device: cpu
+2026-06-29 17:53:21 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:53:21 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:57:17 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:57:17 | INFO    | Device: cpu
+2026-06-29 17:57:18 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:57:18 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 17:59:22 | INFO    | Patches: train=16 val=10 test=10
+2026-06-29 17:59:22 | INFO    | Device: cpu
+2026-06-29 17:59:23 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-29 17:59:23 | INFO    | Tumour pixel fraction ~0.119 -> BCE pos_weight=7.40
+2026-06-29 18:01:48 | INFO    | epoch 01/2 | train 0.9695 | val 0.9690 | dice 0.7278 | iou 0.5721 | lr 5.00e-05 | 141.6s
+2026-06-29 18:04:01 | INFO    | epoch 02/2 | train 0.8155 | val 0.9271 | dice 0.9588 | iou 0.9209 | lr 0.00e+00 | 132.5s
+2026-06-29 18:04:02 | INFO    | Best val Dice 0.9588 at epoch 2
+2026-06-29 18:04:25 | INFO    | TEST | dice 0.9646 | iou 0.9316 | pix-acc 0.9942 | hausdorff 113.32
+2026-06-29 18:04:42 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_attention_test_report.json

@@ -14,6 +14,45 @@ paths:
   figures_dir: "outputs/figures"
   logs_dir: "outputs/logs"
 
+# ---- Real CATCH dataset (Wilm et al., 2022) ----
+# Pan-tumor CAnine cuTaneous Cancer Histology dataset, hosted on TCIA.
+#   350 WSIs (.svs, Aperio pyramidal) = 50 each of 7 tumour subtypes,
+#   with 12,424 polygon annotations (MS-COCO JSON + SQLite3).
+# DOI: 10.7937/TCIA.2M93-FX66   Reference: Sci Data 9, 588 (2022).
+catch:
+  doi: "10.7937/TCIA.2M93-FX66"
+  tcia_collection_url: "https://www.cancerimagingarchive.net/collection/catch/"
+  n_slides: 350
+  slides_per_subtype: 50
+  # The 7 official tumour subtypes (also the folder names CATCH ships them in).
+  subtypes:
+    - "Melanoma"
+    - "Mast cell tumor"
+    - "Squamous cell carcinoma"
+    - "Peripheral nerve sheath tumor"
+    - "Trichoblastoma"
+    - "Histiocytoma"
+    - "Plasmacytoma"
+  # Whole-slide reading: CATCH .svs expose 3 levels (0.25 / 1 / 4 um/px ~ 40x/10x/2.5x).
+  # We read at this objective magnification for patching (20x ~ 0.5 um/px is standard).
+  wsi_read_magnification: 20
+  wsi_base_magnification: 40     # CATCH scan magnification (level 0 = 0.25 um/px)
+  # Annotation files (as distributed); the loader auto-discovers these names.
+  coco_annotation_glob: ["*.json", "annotations*.json", "CATCH*.json"]
+  sqlite_annotation_glob: ["*.sqlite", "*.sqlite3", "*.db"]
+  # COCO category names that count as TUMOUR (foreground) for binary segmentation.
+  # Anything else (epidermis, dermis, subcutis, inflamm/necrosis, background,
+  # bone, cartilage) is treated as non-tumour (0).
+  tumour_annotation_classes:
+    - "Tumor"
+    - "Melanoma"
+    - "Mast cell tumor"
+    - "Squamous cell carcinoma"
+    - "Peripheral nerve sheath tumor"
+    - "Trichoblastoma"
+    - "Histiocytoma"
+    - "Plasmacytoma"
+
 # ---- Quality assessment thresholds (quality_check.py) ----
 quality:
   min_width: 256
@@ -104,6 +143,12 @@ classification:
   arch: "resnet50"               # "resnet50" or "efficientnet_b3"
   pretrained: true               # ImageNet weights (falls back to random if offline)
   patch_size: 256
+  # Classification mode on REAL data:
+  #   "subtype"  -> full 7-class CATCH tumour-subtype classification
+  #   "melanoma" -> binary Melanoma vs. non-melanoma (project focus)
+  # On demo data the classes are auto-detected from the folder names instead.
+  mode: "subtype"
+  freeze_bn: true                # keep frozen encoder BatchNorm in eval mode
   epochs: 20
   batch_size: 16
   lr: 0.0003

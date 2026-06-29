@@ -14,6 +14,23 @@ import torch.nn as nn
 from torchvision import models
 
 
+def freeze_bn_running_stats(model: nn.Module) -> None:
+    """Put every BatchNorm whose parameters are frozen into eval mode.
+
+    Transfer-learning pitfall: a module with ``requires_grad=False`` still has its
+    BatchNorm ``running_mean``/``running_var`` updated by ``model.train()`` on each
+    forward pass, which silently overwrites the pretrained ImageNet statistics with
+    the (small, new-domain) batch statistics — defeating the purpose of freezing.
+    Setting frozen BN layers to ``.eval()`` makes them use the fixed running stats.
+    Call this AFTER ``model.train()`` and after every unfreeze.
+    """
+    for m in model.modules():
+        if isinstance(m, (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d)):
+            frozen = all(not p.requires_grad for p in m.parameters(recurse=False))
+            if frozen:
+                m.eval()
+
+
 def build_classifier(arch: str = "resnet50", num_classes: int = 3,
                      pretrained: bool = True, logger=None) -> nn.Module:
     """Build an ImageNet-pretrained classifier with a fresh head.
@@ -43,10 +60,16 @@ def build_classifier(arch: str = "resnet50", num_classes: int = 3,
 
 
 def set_trainable_stage(model: nn.Module, arch: str, stage: int) -> None:
-    """Progressive unfreezing.
+    """Progressive unfreezing (head outward toward the input).
 
-    stage 0 -> only the classification head trainable;
-    stage 1 -> head + last block; stage 2 -> entire network.
+    ResNet-50:  stage 0 -> classification head only;
+                stage 1 -> head + layer4;  stage 2 -> head + layer4 + layer3.
+    EfficientNet-B3: head, then the last two feature blocks.
+
+    Stages 1+ unfreeze the *deepest* blocks (closest to the head) first, where
+    task-specific features live, leaving the early generic layers frozen on a
+    small dataset. After calling this, also call :func:`freeze_bn_running_stats`
+    so the still-frozen encoder BatchNorm does not drift.
     """
     for p in model.parameters():
         p.requires_grad = False
@@ -63,6 +86,7 @@ def set_trainable_stage(model: nn.Module, arch: str, stage: int) -> None:
     for g in groups:
         for p in g.parameters():
             p.requires_grad = True
+    freeze_bn_running_stats(model)
 
 
 def count_trainable(model: nn.Module) -> int:

@@ -22,7 +22,8 @@ from torch.utils.tensorboard import SummaryWriter
 from sklearn.metrics import (accuracy_score, precision_recall_fscore_support,
                              roc_auc_score, confusion_matrix)
 
-from src.models.classifier import set_trainable_stage, count_trainable
+from src.models.classifier import (set_trainable_stage, count_trainable,
+                                    freeze_bn_running_stats)
 
 
 def classification_metrics(y_true, y_pred, y_prob, num_classes: int) -> dict:
@@ -85,6 +86,7 @@ class ClassifierTrainer:
         self.loss_fn = nn.CrossEntropyLoss(
             weight=w, label_smoothing=float(c.get("label_smoothing", 0.1)))
 
+        self.freeze_bn = bool(c.get("freeze_bn", True))
         self.stage = 0
         set_trainable_stage(self.model, self.arch, self.stage)
         self.optimizer = self._make_optimizer()
@@ -110,6 +112,10 @@ class ClassifierTrainer:
 
     def _train_epoch(self, loader) -> float:
         self.model.train()
+        # keep frozen-encoder BatchNorm in eval mode so its pretrained running
+        # stats are not overwritten by the new domain (transfer-learning fix)
+        if self.freeze_bn:
+            freeze_bn_running_stats(self.model)
         running = 0.0
         for images, labels in loader:
             images = images.to(self.device); labels = labels.to(self.device)

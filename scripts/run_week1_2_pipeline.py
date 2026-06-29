@@ -44,6 +44,28 @@ def list_slides(input_dir: Path) -> list[Path]:
     return sorted(p for p in input_dir.rglob("*") if p.suffix.lower() in exts)
 
 
+def slide_label(slide: Path, subtypes: set[str]) -> str:
+    """Subtype label for a slide from its REAL source.
+
+    Order of precedence:
+      1. a CATCH subtype parent folder (real layout: data/raw/<Subtype>/slide.svs)
+      2. the ``<label>_<n>`` filename convention used by labelled PNG slides
+      3. for the two synthetic Week 1-2 demo slides (which have NO real subtype),
+         an explicit ``demo_*`` placeholder — never a biological label.
+    """
+    for parent in slide.parents:
+        if parent.name in subtypes:
+            return parent.name
+    stem = slide.stem
+    if stem.startswith("demo_slide"):
+        return "demo_bluish" if "blu" in stem else "demo_pinkish"
+    if "_" in stem:
+        cand = stem.rsplit("_", 1)[0]
+        if cand:
+            return cand
+    return "unknown"
+
+
 def save_before_after(before, after, out_path, title):
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
     ax[0].imshow(before); ax[0].set_title("Original"); ax[0].axis("off")
@@ -100,6 +122,7 @@ def main():
 
     normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
     patches_root = Path(cfg["paths"]["patches_dir"])
+    subtypes = set(cfg["catch"]["subtypes"])
     qa_rows, split_rows = [], []
 
     # ---- 2-4. per-slide processing ----
@@ -124,8 +147,10 @@ def main():
             f"Macenko stain normalisation — {slide_id}",
         )
 
-        # 4. patch extraction (label = demo class derived from slide id)
-        label = "melanocytic" if "blu" in slide_id else "mast_cell"
+        # 4. patch extraction. Label comes from the slide's REAL source:
+        #    a CATCH subtype parent folder when present (data/raw/<Subtype>/...),
+        #    otherwise the demo filename convention. NEVER a colour-cast guess.
+        label = slide_label(slide, subtypes)
         out_dir = patches_root / label
         n = extract_and_save(norm, out_dir, slide_id, cfg["patches"])
         logger.info("  %s -> %d patches (label=%s)", slide.name, n, label)
@@ -137,8 +162,10 @@ def main():
         save_patch_grid(sample, figures_dir / f"patches_{slide_id}.png",
                         f"Sample patches — {slide_id} ({label})")
 
+        # carry slide_id so the split groups by slide (no patch leakage)
         for patch_file in out_dir.glob(f"{slide_id}_*.png"):
-            split_rows.append({"patch_path": str(patch_file), "label": label})
+            split_rows.append({"patch_path": str(patch_file), "label": label,
+                               "slide_id": slide_id})
 
     # ---- QA report ----
     qa_df = pd.DataFrame(qa_rows)
@@ -155,6 +182,7 @@ def main():
             train=cfg["split"]["train"], val=cfg["split"]["val"],
             test=cfg["split"]["test"], stratify=cfg["split"]["stratify"],
             seed=cfg["project"]["seed"],
+            group_col="slide_id",   # slide-level split -> no patch leakage
         )
         with open(logs_dir / "split_summary.json", "w") as f:
             json.dump(summary, f, indent=2)
