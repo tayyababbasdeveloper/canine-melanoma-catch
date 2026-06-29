@@ -37,6 +37,7 @@ from src.data_acquisition.quality_check import assess_image
 from src.preprocessing.stain_normalization import MacenkoNormalizer
 from src.preprocessing.patch_extraction import extract_patches, extract_and_save
 from src.preprocessing.dataset_split import make_split
+from src.preprocessing.catch_annotations import subtype_from_filename
 
 
 def list_slides(input_dir: Path) -> list[Path]:
@@ -44,18 +45,21 @@ def list_slides(input_dir: Path) -> list[Path]:
     return sorted(p for p in input_dir.rglob("*") if p.suffix.lower() in exts)
 
 
-def slide_label(slide: Path, subtypes: set[str]) -> str:
+def slide_label(slide: Path, subtypes: set[str], prefix_map: dict) -> str:
     """Subtype label for a slide from its REAL source.
 
     Order of precedence:
       1. a CATCH subtype parent folder (real layout: data/raw/<Subtype>/slide.svs)
-      2. the ``<label>_<n>`` filename convention used by labelled PNG slides
+      2. the real CATCH filename prefix ('MCT_15_1.svs' -> 'Mast Cell Tumor')
       3. for the two synthetic Week 1-2 demo slides (which have NO real subtype),
          an explicit ``demo_*`` placeholder — never a biological label.
     """
     for parent in slide.parents:
         if parent.name in subtypes:
             return parent.name
+    st = subtype_from_filename(slide.name, prefix_map)
+    if st:
+        return st
     stem = slide.stem
     if stem.startswith("demo_slide"):
         return "demo_bluish" if "blu" in stem else "demo_pinkish"
@@ -123,6 +127,7 @@ def main():
     normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
     patches_root = Path(cfg["paths"]["patches_dir"])
     subtypes = set(cfg["catch"]["subtypes"])
+    prefix_map = cfg["catch"].get("filename_prefix_map", {})
     qa_rows, split_rows = [], []
 
     # ---- 2-4. per-slide processing ----
@@ -150,7 +155,7 @@ def main():
         # 4. patch extraction. Label comes from the slide's REAL source:
         #    a CATCH subtype parent folder when present (data/raw/<Subtype>/...),
         #    otherwise the demo filename convention. NEVER a colour-cast guess.
-        label = slide_label(slide, subtypes)
+        label = slide_label(slide, subtypes, prefix_map)
         out_dir = patches_root / label
         n = extract_and_save(norm, out_dir, slide_id, cfg["patches"])
         logger.info("  %s -> %d patches (label=%s)", slide.name, n, label)

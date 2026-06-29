@@ -24,31 +24,41 @@ catch:
   tcia_collection_url: "https://www.cancerimagingarchive.net/collection/catch/"
   n_slides: 350
   slides_per_subtype: 50
-  # The 7 official tumour subtypes (also the folder names CATCH ships them in).
+  # The 7 tumour subtypes EXACTLY as named in the real CATCH annotation files
+  # (verified against CATCH.json categories / CATCH.sqlite Classes).
   subtypes:
     - "Melanoma"
-    - "Mast cell tumor"
-    - "Squamous cell carcinoma"
-    - "Peripheral nerve sheath tumor"
+    - "Mast Cell Tumor"
+    - "SCC"
+    - "PNST"
     - "Trichoblastoma"
     - "Histiocytoma"
     - "Plasmacytoma"
+  # Real CATCH slides are named by a subtype prefix, e.g. "MCT_15_1.svs".
+  # Maps the filename prefix -> the canonical subtype label above.
+  filename_prefix_map:
+    Melanoma: "Melanoma"
+    MCT: "Mast Cell Tumor"
+    SCC: "SCC"
+    PNST: "PNST"
+    Trichoblastoma: "Trichoblastoma"
+    Histiocytoma: "Histiocytoma"
+    Plasmacytoma: "Plasmacytoma"
   # Whole-slide reading: CATCH .svs expose 3 levels (0.25 / 1 / 4 um/px ~ 40x/10x/2.5x).
   # We read at this objective magnification for patching (20x ~ 0.5 um/px is standard).
   wsi_read_magnification: 20
   wsi_base_magnification: 40     # CATCH scan magnification (level 0 = 0.25 um/px)
   # Annotation files (as distributed); the loader auto-discovers these names.
-  coco_annotation_glob: ["*.json", "annotations*.json", "CATCH*.json"]
-  sqlite_annotation_glob: ["*.sqlite", "*.sqlite3", "*.db"]
-  # COCO category names that count as TUMOUR (foreground) for binary segmentation.
-  # Anything else (epidermis, dermis, subcutis, inflamm/necrosis, background,
-  # bone, cartilage) is treated as non-tumour (0).
+  coco_annotation_glob: ["CATCH.json", "*.json", "annotations*.json"]
+  sqlite_annotation_glob: ["CATCH.sqlite", "*.sqlite", "*.sqlite3", "*.db"]
+  # COCO/SQLite class names that count as TUMOUR (foreground) for binary
+  # segmentation. Everything else (Dermis, Epidermis, Subcutis, Inflamm/Necrosis,
+  # Bone, Cartilage) is non-tumour (0).
   tumour_annotation_classes:
-    - "Tumor"
     - "Melanoma"
-    - "Mast cell tumor"
-    - "Squamous cell carcinoma"
-    - "Peripheral nerve sheath tumor"
+    - "Mast Cell Tumor"
+    - "SCC"
+    - "PNST"
     - "Trichoblastoma"
     - "Histiocytoma"
     - "Plasmacytoma"

@@ -33,37 +33,43 @@ from src.preprocessing.stain_normalization import MacenkoNormalizer
 from src.preprocessing.patch_extraction import extract_patches
 from src.preprocessing.wsi import WSI_EXTENSIONS, open_slide, iter_tiles, tile_geometry
 from src.preprocessing.catch_annotations import (
-    find_annotation_file, load_annotations, rasterise_tile_mask)
+    find_annotation_file, load_annotations, rasterise_tile_mask,
+    subtype_from_filename)
 from src.preprocessing.tissue import tissue_mask
 
 
-def _label_from_path(p: Path, subtypes: set[str]) -> str:
-    """Subtype label for a slide. Prefers a parent folder that names a CATCH
-    subtype (the recommended real layout, ``data/raw/<Subtype>/slide.svs``); else
-    falls back to the demo filename convention ``<label>_<n>.ext``.
+def _label_from_path(p: Path, subtypes: set[str], prefix_map: dict) -> str:
+    """Subtype label for a slide, in priority order:
+      1. a parent folder naming a CATCH subtype (data/raw/<Subtype>/slide.svs);
+      2. the real CATCH filename prefix ('MCT_15_1.svs' -> 'Mast Cell Tumor');
+      3. the demo filename convention '<label>_<n>'.
     """
     for parent in p.parents:
         if parent.name in subtypes:
             return parent.name
+    st = subtype_from_filename(p.name, prefix_map)
+    if st:
+        return st
     return p.stem.rsplit("_", 1)[0]
 
 
-def _list_labeled(input_dir: Path, subtypes: set[str]):
+def _list_labeled(input_dir: Path, subtypes: set[str], prefix_map: dict):
     """Label demo/real PNG slides. Looks in ``cls_images/`` first, then anywhere
     a subtype folder is found (real CATCH may put .svs directly under data/raw/)."""
     search = (input_dir / "cls_images") if (input_dir / "cls_images").exists() else input_dir
     pairs = []
     for p in sorted(search.rglob("*")):
         if p.suffix.lower() in STD_EXTENSIONS and p.parent.name != "masks":
-            pairs.append((p, _label_from_path(p, subtypes)))
+            pairs.append((p, _label_from_path(p, subtypes, prefix_map)))
     return pairs
 
 
-def _list_wsi_labeled(input_dir: Path, subtypes: set[str]):
-    """Real CATCH .svs slides labelled by their subtype folder."""
-    return [(p, _label_from_path(p, subtypes))
+def _list_wsi_labeled(input_dir: Path, subtypes: set[str], prefix_map: dict):
+    """Real CATCH .svs slides labelled by subtype (folder or filename prefix)."""
+    return [(p, _label_from_path(p, subtypes, prefix_map))
             for p in sorted(input_dir.rglob("*"))
-            if p.suffix.lower() in WSI_EXTENSIONS and "demo" not in p.stem]
+            if p.suffix.lower() in WSI_EXTENSIONS and "demo" not in p.stem
+            and "annotations" not in p.parts]
 
 
 def _process_real_wsi_classification(wsi_pairs, cfg, normalizer, patches_dir,
@@ -146,6 +152,7 @@ def main():
     splits_dir.mkdir(parents=True, exist_ok=True)
 
     subtypes = set(cfg["catch"]["subtypes"])
+    prefix_map = cfg["catch"].get("filename_prefix_map", {})
     normalizer = MacenkoNormalizer(**cfg["stain_normalization"])
     input_dir = Path(args.input) if args.input else Path(cfg["paths"]["raw_dir"])
 
@@ -158,8 +165,8 @@ def main():
     else:
         # REAL data: prefer whole-slide .svs (labelled by subtype folder); fall
         # back to pre-rendered PNGs.
-        wsi_pairs = _list_wsi_labeled(input_dir, subtypes)
-        pairs = [] if wsi_pairs else _list_labeled(input_dir, subtypes)
+        wsi_pairs = _list_wsi_labeled(input_dir, subtypes, prefix_map)
+        pairs = [] if wsi_pairs else _list_labeled(input_dir, subtypes, prefix_map)
 
     if not pairs and not wsi_pairs:
         logger.error("No labelled slides found. Use --demo, or place real CATCH "

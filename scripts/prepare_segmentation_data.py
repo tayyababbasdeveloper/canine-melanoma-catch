@@ -58,10 +58,11 @@ def _list_pairs(input_dir: Path):
 
 
 def _list_wsi(input_dir: Path):
-    """Real CATCH .svs slides (excludes the demo PNG/mask folders)."""
+    """Real CATCH .svs slides (excludes the demo PNG/mask and annotation folders)."""
     return sorted(p for p in input_dir.rglob("*")
                   if p.suffix.lower() in WSI_EXTENSIONS
                   and p.parent.name not in ("masks",)
+                  and "annotations" not in p.parts
                   and "demo" not in p.stem)
 
 

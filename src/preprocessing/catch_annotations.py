@@ -31,19 +31,66 @@ def find_annotation_file(search_dir: str | Path, globs) -> Path | None:
     """Return the first annotation file under ``search_dir`` matching any glob."""
     search_dir = Path(search_dir)
     for pattern in globs:
-        hits = sorted(search_dir.rglob(pattern))
+        hits = sorted(p for p in search_dir.rglob(pattern) if "__MACOSX" not in str(p))
         if hits:
             return hits[0]
     return None
 
 
+def subtype_from_filename(name: str, prefix_map: dict) -> str | None:
+    """Map a real CATCH slide filename (e.g. 'MCT_15_1.svs') to its subtype via
+    the longest matching prefix in ``prefix_map`` (config ``catch.filename_prefix_map``)."""
+    stem = Path(name).stem
+    for prefix in sorted(prefix_map, key=len, reverse=True):
+        if stem == prefix or stem.startswith(prefix + "_") or stem.startswith(prefix):
+            return prefix_map[prefix]
+    return None
+
+
+def coco_dataset_stats(coco_path: str | Path, tumour_class_names) -> dict:
+    """Summary statistics of the real CATCH COCO file for reporting / the notebook:
+    slides per subtype, annotations per class, and total polygon counts — without
+    needing the (522 GB) whole-slide images."""
+    data = json.loads(Path(coco_path).read_text())
+    cat_name = {c["id"]: c["name"] for c in data.get("categories", [])}
+    tumour = set(tumour_class_names)
+    imgid_name = {im["id"]: im["file_name"] for im in data.get("images", [])}
+    slide_subtype = {}
+    per_class = {}
+    for a in data.get("annotations", []):
+        nm = cat_name.get(a.get("category_id"), "?")
+        per_class[nm] = per_class.get(nm, 0) + 1
+        if nm in tumour:
+            slide_subtype.setdefault(imgid_name.get(a["image_id"]), nm)
+    slides_per_subtype = {}
+    for st in slide_subtype.values():
+        slides_per_subtype[st] = slides_per_subtype.get(st, 0) + 1
+    return {
+        "n_slides": len(data.get("images", [])),
+        "n_annotations": len(data.get("annotations", [])),
+        "categories": list(cat_name.values()),
+        "slides_per_subtype": dict(sorted(slides_per_subtype.items())),
+        "annotations_per_class": dict(sorted(per_class.items(),
+                                             key=lambda kv: -kv[1])),
+    }
+
+
 def _polys_from_coco_segmentation(seg) -> list[np.ndarray]:
-    """COCO ``segmentation`` -> list of (N,2) float arrays (polygon rings)."""
+    """COCO ``segmentation`` -> list of (N,2) float arrays (polygon rings).
+
+    Handles both the standard nested form ``[[x1,y1,...], ...]`` and the **flat**
+    form ``[x1,y1,x2,y2,...]`` that the real CATCH file uses (a single polygon as
+    one flat coordinate list).
+    """
     polys = []
-    if isinstance(seg, list):                      # polygon form [[x1,y1,...], ...]
-        for ring in seg:
-            if len(ring) >= 6:                     # at least 3 points
-                polys.append(np.asarray(ring, dtype=np.float64).reshape(-1, 2))
+    if isinstance(seg, list) and seg:
+        if isinstance(seg[0], (int, float)):       # flat form -> one polygon
+            if len(seg) >= 6:
+                polys.append(np.asarray(seg, dtype=np.float64).reshape(-1, 2))
+        else:                                      # nested form -> many polygons
+            for ring in seg:
+                if isinstance(ring, list) and len(ring) >= 6:
+                    polys.append(np.asarray(ring, dtype=np.float64).reshape(-1, 2))
     # RLE form (dict) is not used by CATCH; ignored on purpose.
     return polys
 
