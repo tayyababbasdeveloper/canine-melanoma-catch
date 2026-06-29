@@ -69,32 +69,48 @@ def hausdorff_distance(logits, targets) -> float:
 
 
 class SegMetrics:
-    """Accumulate per-batch metrics and report the mean over an epoch."""
+    """Accumulate metrics over an epoch.
+
+    Dice and IoU are **micro-averaged** (pixel-aggregated across all patches):
+    intersection / union are summed over every pixel of every patch, then a
+    single Dice/IoU is computed. This is the honest metric for a patch dataset
+    with many background-only patches — unlike mean-per-patch Dice, a model that
+    simply predicts "empty everywhere" scores ~0 (not ~1), because the few
+    tumour patches dominate the aggregate. Pixel-accuracy is micro too; Hausdorff
+    is averaged over tumour-containing patches only.
+    """
 
     def __init__(self):
         self.reset()
 
     def reset(self):
-        self._dice, self._iou, self._acc, self._hd, self._n = 0.0, 0.0, 0.0, [], 0
+        self._inter = 0.0
+        self._pred = 0.0
+        self._gt = 0.0
+        self._union = 0.0
+        self._correct = 0.0
+        self._pixels = 0.0
+        self._hd = []
 
     @torch.no_grad()
     def update(self, logits, targets):
-        """Update with a batch; metrics are averaged per-sample."""
-        b = logits.shape[0]
-        for i in range(b):
-            lo, ta = logits[i:i + 1], targets[i:i + 1]
-            self._dice += dice_coefficient(lo, ta)
-            self._iou += iou_score(lo, ta)
-            self._acc += pixel_accuracy(lo, ta)
-            self._hd.append(hausdorff_distance(lo, ta))
-            self._n += 1
+        pred = _to_binary_np(logits, is_logit=True).astype(np.float64)
+        gt = _to_binary_np(targets, is_logit=False).astype(np.float64)
+        self._inter += float((pred * gt).sum())
+        self._pred += float(pred.sum())
+        self._gt += float(gt.sum())
+        self._union += float(np.logical_or(pred, gt).sum())
+        self._correct += float((pred == gt).sum())
+        self._pixels += float(pred.size)
+        # Hausdorff still makes sense only per tumour-containing image
+        for i in range(logits.shape[0]):
+            self._hd.append(hausdorff_distance(logits[i:i + 1], targets[i:i + 1]))
 
-    def compute(self) -> dict:
-        n = max(self._n, 1)
+    def compute(self, eps: float = 1e-7) -> dict:
         hd = np.array(self._hd, dtype=np.float64)
         return {
-            "dice": self._dice / n,
-            "iou": self._iou / n,
-            "pixel_acc": self._acc / n,
+            "dice": (2 * self._inter + eps) / (self._pred + self._gt + eps),
+            "iou": (self._inter + eps) / (self._union + eps),
+            "pixel_acc": self._correct / max(self._pixels, 1),
             "hausdorff": float(np.nanmean(hd)) if np.isfinite(hd).any() else float("nan"),
         }

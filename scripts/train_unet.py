@@ -35,8 +35,8 @@ from src.training.evaluate import (evaluate, save_prediction_grid,
 
 def main():
     ap = argparse.ArgumentParser(description="Train U-Net segmentation")
-    ap.add_argument("--arch", choices=["unet", "baseline"], default=None,
-                    help="override segmentation.arch")
+    ap.add_argument("--arch", choices=["unet", "baseline", "attention"], default=None,
+                    help="override segmentation.arch (unet=ResNet-34, attention=Attention U-Net)")
     ap.add_argument("--epochs", type=int, default=None)
     ap.add_argument("--batch-size", type=int, default=None)
     ap.add_argument("--quick", action="store_true",

@@ -27,3 +27,8 @@ scipy>=1.11               # Hausdorff distance (metrics.py)
 # Supervisor deliverables (report/slide generation)
 python-docx>=1.1
 reportlab>=4.0
+
+# Jupyter notebook (the project's main interactive notebook)
+jupyterlab>=4.0
+ipykernel>=6.29
+nbformat>=5.9

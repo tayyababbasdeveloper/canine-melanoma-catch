@@ -189,3 +189,150 @@
 2026-06-22 17:35:18 | INFO    | Best val Dice 0.4437 at epoch 9
 2026-06-22 17:35:40 | INFO    | TEST | dice 0.4300 | iou 0.4053 | pix-acc 0.9906 | hausdorff 115.10
 2026-06-22 17:35:42 | INFO    | Report written: F:\tayyab\outputs\logs\unet_resnet34_test_report.json
+2026-06-27 09:25:12 | INFO    | DEMO mode: generating 4 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-27 09:25:20 | INFO    | Classes: {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-27 09:25:22 | INFO    |   melanocytic_00     [melanocytic] -> 34 patches
+2026-06-27 09:25:23 | INFO    |   melanocytic_01     [melanocytic] -> 0 patches
+2026-06-27 09:25:24 | INFO    |   melanocytic_02     [melanocytic] -> 0 patches
+2026-06-27 09:25:25 | INFO    |   melanocytic_03     [melanocytic] -> 0 patches
+2026-06-27 09:25:26 | INFO    |   mast_cell_00       [mast_cell] -> 15 patches
+2026-06-27 09:25:28 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-27 09:25:29 | INFO    |   mast_cell_02       [mast_cell] -> 25 patches
+2026-06-27 09:25:30 | INFO    |   mast_cell_03       [mast_cell] -> 34 patches
+2026-06-27 09:25:32 | INFO    |   squamous_cell_00   [squamous_cell] -> 27 patches
+2026-06-27 09:25:33 | INFO    |   squamous_cell_01   [squamous_cell] -> 9 patches
+2026-06-27 09:25:34 | INFO    |   squamous_cell_02   [squamous_cell] -> 30 patches
+2026-06-27 09:25:36 | INFO    |   squamous_cell_03   [squamous_cell] -> 29 patches
+2026-06-27 09:25:36 | INFO    | Total patches: 236
+2026-06-27 09:25:36 | INFO    | Split (patches): train=212 val=0 test=24
+2026-06-27 09:25:36 | INFO    | DONE. Manifests in F:\tayyab\data\processed\cls_splits
+2026-06-27 09:26:35 | INFO    | DEMO mode: generating 5 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-27 09:26:43 | INFO    | Classes: {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-27 09:26:44 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-27 09:26:45 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-27 09:26:46 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-27 09:26:47 | INFO    |   melanocytic_03     [melanocytic] -> 34 patches
+2026-06-27 09:26:48 | INFO    |   melanocytic_04     [melanocytic] -> 25 patches
+2026-06-27 09:26:49 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-27 09:26:51 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-27 09:26:52 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-27 09:26:53 | INFO    |   mast_cell_03       [mast_cell] -> 10 patches
+2026-06-27 09:26:54 | INFO    |   mast_cell_04       [mast_cell] -> 13 patches
+2026-06-27 09:26:55 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-27 09:26:56 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-27 09:26:57 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-27 09:26:58 | INFO    |   squamous_cell_03   [squamous_cell] -> 33 patches
+2026-06-27 09:26:59 | INFO    |   squamous_cell_04   [squamous_cell] -> 23 patches
+2026-06-27 09:26:59 | INFO    | Total patches: 362
+2026-06-27 09:26:59 | INFO    | Split (patches): train=209 val=90 test=63
+2026-06-27 09:26:59 | INFO    | DONE. Manifests in F:\tayyab\data\processed\cls_splits
+2026-06-27 09:27:47 | INFO    | Patches: train=64 val=32 test=32
+2026-06-27 09:27:47 | INFO    | Device: cpu
+2026-06-27 09:27:48 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-27 09:27:51 | INFO    | Tumour pixel fraction ~0.092 -> BCE pos_weight=9.92
+2026-06-27 09:33:41 | INFO    | epoch 01/5 | train 0.9103 | val 1.0532 | dice 0.9098 | iou 0.8652 | lr 9.05e-05 | 347.2s
+2026-06-27 09:36:39 | INFO    | epoch 02/5 | train 0.7065 | val 0.9843 | dice 0.4266 | iou 0.4165 | lr 6.55e-05 | 166.1s
+2026-06-27 09:39:00 | INFO    | epoch 03/5 | train 0.7399 | val 0.7975 | dice 0.3032 | iou 0.2947 | lr 3.45e-05 | 140.5s
+2026-06-27 09:41:25 | INFO    | epoch 04/5 | train 0.6499 | val 0.6776 | dice 0.2987 | iou 0.2872 | lr 9.55e-06 | 144.9s
+2026-06-27 09:43:55 | INFO    | epoch 05/5 | train 0.7179 | val 0.6387 | dice 0.2571 | iou 0.2399 | lr 0.00e+00 | 150.2s
+2026-06-27 09:43:56 | INFO    | Best val Dice 0.9098 at epoch 1
+2026-06-27 09:44:39 | INFO    | TEST | dice 0.9635 | iou 0.9384 | pix-acc 0.9862 | hausdorff 4.98
+2026-06-27 09:45:22 | INFO    | Report written: F:\tayyab\outputs\logs\unet_attention_test_report.json
+2026-06-27 09:45:59 | INFO    | DEMO mode: generating 5 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-27 09:46:05 | INFO    | Classes: {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-27 09:46:06 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-27 09:46:07 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-27 09:46:08 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-27 09:46:09 | INFO    |   melanocytic_03     [melanocytic] -> 34 patches
+2026-06-27 09:46:10 | INFO    |   melanocytic_04     [melanocytic] -> 25 patches
+2026-06-27 09:46:10 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-27 09:46:11 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-27 09:46:12 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-27 09:46:13 | INFO    |   mast_cell_03       [mast_cell] -> 10 patches
+2026-06-27 09:46:14 | INFO    |   mast_cell_04       [mast_cell] -> 13 patches
+2026-06-27 09:46:15 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-27 09:46:15 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-27 09:46:16 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-27 09:46:17 | INFO    |   squamous_cell_03   [squamous_cell] -> 33 patches
+2026-06-27 09:46:18 | INFO    |   squamous_cell_04   [squamous_cell] -> 23 patches
+2026-06-27 09:46:18 | INFO    | Total patches: 362
+2026-06-27 09:46:18 | INFO    | Split (patches): train=209 val=90 test=63
+2026-06-27 09:46:18 | INFO    | DONE. Manifests in F:\tayyab\data\processed\cls_splits
+2026-06-27 09:46:56 | INFO    | Classes: ['mast_cell', 'melanocytic', 'squamous_cell']
+2026-06-27 09:46:56 | INFO    | Patches: train=120 val=90 test=63
+2026-06-27 09:46:56 | INFO    | Device: cpu
+2026-06-27 09:47:42 | INFO    | Model: resnet50 (trainable head params=23514179)
+2026-06-27 09:47:42 | INFO    | Class weights (imbalance handling): [1.0, 1.0, 1.0]
+2026-06-27 09:48:11 | INFO    | epoch 01/6 | loss 1.0875 | val acc 0.467 | val f1 0.310 | auc 0.687 | 28.4s
+2026-06-27 09:48:34 | INFO    | epoch 02/6 | loss 1.0002 | val acc 0.756 | val f1 0.602 | auc 0.969 | 23.3s
+2026-06-27 09:48:34 | INFO    |   unfroze to stage 1 (14970883 trainable params)
+2026-06-27 09:49:03 | INFO    | epoch 03/6 | loss 0.6700 | val acc 1.000 | val f1 1.000 | auc 1.000 | 28.2s
+2026-06-27 09:49:31 | INFO    | epoch 04/6 | loss 0.4514 | val acc 0.967 | val f1 0.971 | auc 1.000 | 28.3s
+2026-06-27 09:49:31 | INFO    |   unfroze to stage 2 (22069251 trainable params)
+2026-06-27 09:50:08 | INFO    | epoch 05/6 | loss 0.3819 | val acc 1.000 | val f1 1.000 | auc 1.000 | 36.9s
+2026-06-27 09:50:47 | INFO    | epoch 06/6 | loss 0.3466 | val acc 0.978 | val f1 0.980 | auc 1.000 | 38.7s
+2026-06-27 09:50:47 | INFO    | Best val macro-F1 1.0000 at epoch 3
+2026-06-27 09:50:54 | INFO    | TEST | acc 1.000 | macro-F1 1.000 | precision 1.000 | recall 1.000 | auc 1.000
+2026-06-27 09:50:56 | INFO    | Report written: F:\tayyab\outputs\logs\cls_resnet50_test_report.json
+2026-06-27 09:51:43 | INFO    | Patches: train=100 val=57 test=60
+2026-06-27 09:51:43 | INFO    | Device: cpu
+2026-06-27 09:51:43 | INFO    | Model: attention (encoder=resnet34, params=31.39M)
+2026-06-27 09:51:44 | INFO    | Tumour pixel fraction ~0.092 -> BCE pos_weight=9.90
+2026-06-27 09:56:22 | INFO    | epoch 01/10 | train 0.8286 | val 1.0665 | dice 0.9484 | iou 0.9217 | lr 9.76e-05 | 276.2s
+2026-06-27 10:01:54 | INFO    | epoch 02/10 | train 0.6693 | val 0.7056 | dice 0.3366 | iou 0.3242 | lr 9.05e-05 | 281.0s
+2026-06-27 10:05:55 | INFO    | epoch 03/10 | train 0.6680 | val 0.5986 | dice 0.3016 | iou 0.2797 | lr 7.94e-05 | 241.8s
+2026-06-27 10:09:53 | INFO    | epoch 04/10 | train 0.7146 | val 0.5871 | dice 0.3043 | iou 0.2837 | lr 6.55e-05 | 237.4s
+2026-06-27 10:13:42 | INFO    | epoch 05/10 | train 0.6402 | val 0.5592 | dice 0.3531 | iou 0.3398 | lr 5.00e-05 | 229.2s
+2026-06-27 10:17:49 | INFO    | epoch 06/10 | train 0.6050 | val 0.5566 | dice 0.4045 | iou 0.3903 | lr 3.45e-05 | 246.7s
+2026-06-27 10:26:24 | INFO    | epoch 07/10 | train 0.6247 | val 0.5539 | dice 0.3315 | iou 0.3154 | lr 2.06e-05 | 511.8s
+2026-06-27 10:33:00 | INFO    | epoch 08/10 | train 0.6488 | val 0.5453 | dice 0.5299 | iou 0.5176 | lr 9.55e-06 | 395.8s
+2026-06-27 10:37:46 | INFO    | epoch 09/10 | train 0.5867 | val 0.5522 | dice 0.3689 | iou 0.3545 | lr 2.45e-06 | 285.3s
+2026-06-27 10:42:30 | INFO    | epoch 10/10 | train 0.6226 | val 0.5431 | dice 0.4417 | iou 0.4291 | lr 0.00e+00 | 283.9s
+2026-06-27 10:42:33 | INFO    | Best val Dice 0.9484 at epoch 1
+2026-06-27 10:43:37 | INFO    | TEST | dice 0.9204 | iou 0.9058 | pix-acc 0.9946 | hausdorff 19.61
+2026-06-27 10:44:18 | INFO    | Report written: F:\tayyab\outputs\logs\unet_attention_test_report.json
+2026-06-27 10:45:51 | INFO    | DEMO mode: generating 5 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-27 10:45:58 | INFO    | Classes: {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-27 10:46:00 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-27 10:46:01 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-27 10:46:02 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-27 10:46:03 | INFO    |   melanocytic_03     [melanocytic] -> 34 patches
+2026-06-27 10:46:04 | INFO    |   melanocytic_04     [melanocytic] -> 25 patches
+2026-06-27 10:46:05 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-27 10:46:06 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-27 10:46:07 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-27 10:46:08 | INFO    |   mast_cell_03       [mast_cell] -> 10 patches
+2026-06-27 10:46:09 | INFO    |   mast_cell_04       [mast_cell] -> 13 patches
+2026-06-27 10:46:10 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-27 10:46:11 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-27 10:46:12 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-27 10:46:13 | INFO    |   squamous_cell_03   [squamous_cell] -> 33 patches
+2026-06-27 10:46:14 | INFO    |   squamous_cell_04   [squamous_cell] -> 23 patches
+2026-06-27 10:46:14 | INFO    | Total patches: 362
+2026-06-27 10:46:15 | INFO    | Split (patches): train=209 val=90 test=63
+2026-06-27 10:46:15 | INFO    | DONE. Manifests in F:\tayyab\data\processed\cls_splits
+2026-06-27 10:46:59 | INFO    | Classes: ['mast_cell', 'melanocytic', 'squamous_cell']
+2026-06-27 10:47:00 | INFO    | Patches: train=209 val=90 test=63
+2026-06-27 10:47:00 | INFO    | Device: cpu
+2026-06-27 10:47:01 | INFO    | Model: resnet50 (trainable head params=23514179)
+2026-06-27 10:47:01 | INFO    | Class weights (imbalance handling): [1.26, 0.69, 1.05]
+2026-06-27 10:47:48 | INFO    | epoch 01/10 | loss 1.0434 | val acc 0.722 | val f1 0.549 | auc 0.869 | 47.5s
+2026-06-27 10:48:37 | INFO    | epoch 02/10 | loss 0.8983 | val acc 0.956 | val f1 0.948 | auc 1.000 | 48.7s
+2026-06-27 10:48:37 | INFO    |   unfroze to stage 1 (14970883 trainable params)
+2026-06-27 10:49:28 | INFO    | epoch 03/10 | loss 0.5265 | val acc 1.000 | val f1 1.000 | auc 1.000 | 50.4s
+2026-06-27 10:50:14 | INFO    | epoch 04/10 | loss 0.3604 | val acc 1.000 | val f1 1.000 | auc 1.000 | 46.4s
+2026-06-27 10:50:14 | INFO    |   unfroze to stage 2 (22069251 trainable params)
+2026-06-27 10:51:26 | INFO    | epoch 05/10 | loss 0.3687 | val acc 0.933 | val f1 0.929 | auc 1.000 | 72.0s
+2026-06-27 10:52:37 | INFO    | epoch 06/10 | loss 0.3405 | val acc 0.989 | val f1 0.988 | auc 1.000 | 70.5s
+2026-06-27 10:53:43 | INFO    | epoch 07/10 | loss 0.3336 | val acc 1.000 | val f1 1.000 | auc 1.000 | 66.4s
+2026-06-27 10:54:55 | INFO    | epoch 08/10 | loss 0.3290 | val acc 1.000 | val f1 1.000 | auc 1.000 | 71.8s
+2026-06-27 10:56:06 | INFO    | epoch 09/10 | loss 0.3303 | val acc 1.000 | val f1 1.000 | auc 1.000 | 71.3s
+2026-06-27 10:57:17 | INFO    | epoch 10/10 | loss 0.3308 | val acc 0.989 | val f1 0.988 | auc 1.000 | 70.8s
+2026-06-27 10:57:17 | INFO    | Best val macro-F1 1.0000 at epoch 3
+2026-06-27 10:57:27 | INFO    | TEST | acc 1.000 | macro-F1 1.000 | precision 1.000 | recall 1.000 | auc 1.000
+2026-06-27 10:57:30 | INFO    | Report written: F:\tayyab\outputs\logs\cls_resnet50_test_report.json
+2026-06-27 10:59:58 | INFO    | Patches: train=100 val=57 test=60
+2026-06-27 10:59:58 | INFO    | Device: cpu
+2026-06-27 10:59:58 | INFO    | Model: baseline (encoder=resnet34, params=31.04M)
+2026-06-27 10:59:58 | INFO    | Tumour pixel fraction ~0.092 -> BCE pos_weight=9.90
+2026-06-27 11:07:33 | INFO    | epoch 01/10 | train 0.8219 | val 0.9580 | dice 0.9333 | iou 0.8749 | lr 9.76e-05 | 451.3s

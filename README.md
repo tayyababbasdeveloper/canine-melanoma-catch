@@ -33,6 +33,20 @@ python scripts/train_unet.py --arch baseline        # from-scratch baseline
 python scripts/make_deliverables_week3_4.py         # supervisor docx + pdf
 ```
 
+**Phase 2 cont. — Attention U-Net + classification (Weeks 5–6)**
+```bash
+python scripts/run_week5_6_pipeline.py --demo --quick   # attention U-Net + ResNet-50
+python scripts/train_unet.py --arch attention           # Attention U-Net (Oktay 2018)
+python scripts/train_classifier.py --arch resnet50      # tumour-subtype classifier
+```
+
+**Interactive notebook (recommended starting point):**
+```bash
+jupyter lab notebooks/CATCH_Melanoma_Project.ipynb
+```
+Runs and explains the whole project (W1–6), including the segmentation→classification
+plan. See also `docs/CLASSIFICATION_PLAN.md`.
+
 ## Layout
 ```
 config/config.yaml          tunable parameters (QA, Macenko, patches, segmentation)
@@ -62,6 +76,8 @@ The CATCH whole-slide images are **not** committed (large, TCIA-governed); see
 `data/README.md` for the download workflow.
 
 ## Documentation
+- **`notebooks/CATCH_Melanoma_Project.ipynb`** — the main interactive notebook (whole project, W1–6).
+- **[`docs/CLASSIFICATION_PLAN.md`](docs/CLASSIFICATION_PLAN.md)** — segmentation→classification plan (classes, balancing).
 - **[`SETUP_WINDOWS.md`](SETUP_WINDOWS.md)** — full install & run guide for a new Windows system.
 - **[`WHAT_TO_TRANSFER.md`](WHAT_TO_TRANSFER.md)** — which files to copy to another machine (vs. auto-generated).
 - **`docs/video_guide_weeks1-4.html`** — visual walkthrough of Weeks 1–4 (open in a browser).

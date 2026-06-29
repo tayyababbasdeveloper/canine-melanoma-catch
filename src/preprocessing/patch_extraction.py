@@ -26,9 +26,17 @@ def extract_patches(
     stride: int = 256,
     min_tissue_fraction: float = 0.5,
     max_patches: int = 2000,
+    tissue_img: np.ndarray | None = None,
 ):
-    """Yield (row, col, patch) tuples for tissue-bearing tiles of the image."""
-    mask = tissue_mask(img_rgb)
+    """Yield (row, col, patch) tuples for tissue-bearing tiles of the image.
+
+    ``tissue_img`` (optional) is the image used for tissue detection — typically
+    the ORIGINAL slide, while ``img_rgb`` is the stain-normalised slide whose
+    pixels are returned. Detecting tissue on the original is more robust because
+    stain normalisation can distort colours on unusual (e.g. heavily pigmented)
+    tissue.
+    """
+    mask = tissue_mask(tissue_img if tissue_img is not None else img_rgb)
     h, w = img_rgb.shape[:2]
     count = 0
 

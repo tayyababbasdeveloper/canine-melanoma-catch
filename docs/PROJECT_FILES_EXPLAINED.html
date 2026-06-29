@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Files Explained — Simple Guide</title>
+<style>
+  :root{--p:#1F3A6E;--s:#8E44AD;--a:#2980B9;--g:#27AE60;--w:#E67E22;--bg:#F7F9FC}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,sans-serif;color:#2C3E50;background:var(--bg);line-height:1.7}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px 60px}
+
+  header{background:linear-gradient(135deg,#1F3A6E,#8E44AD);color:#fff;padding:46px 22px;text-align:center}
+  header h1{font-size:27px;margin-bottom:8px}
+  header p{font-size:16px;opacity:.93}
+  .pill{display:inline-block;margin-top:14px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+        padding:6px 16px;border-radius:20px;font-size:13.5px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:24px 0;font-size:14px}
+  .legend span{background:#fff;border:1px solid #e7ebf1;border-radius:20px;padding:6px 14px}
+
+  .intro{background:#EEF7FF;border-left:5px solid var(--a);padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;font-size:15px}
+  .run{background:#EAF8EF;border-left:5px solid var(--g);padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;font-size:15px}
+  .run b{color:var(--g)}
+
+  h2{font-size:20px;margin:34px 0 6px;color:#fff;padding:12px 18px;border-radius:10px 10px 0 0;
+     background:linear-gradient(90deg,#1F3A6E,#34547e);font-family:'Consolas',monospace}
+  .folder{background:#fff;border:1px solid #e7ebf1;border-radius:0 0 12px 12px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:8px}
+  .frole{padding:12px 20px 4px;font-size:14px;color:#667;font-style:italic;border-bottom:1px solid #f0f3f7}
+
+  .file{display:flex;gap:14px;padding:11px 20px;align-items:flex-start;border-top:1px solid #f4f6f9}
+  .file:first-of-type{border-top:0}
+  .ic{flex-shrink:0;font-size:16px;width:22px;text-align:center}
+  .fname{font-family:'Consolas',monospace;font-size:13.5px;color:var(--p);font-weight:600;
+         min-width:200px;flex-shrink:0}
+  .fdesc{font-size:14.5px;color:#444}
+  @media(max-width:680px){.file{flex-wrap:wrap}.fname{min-width:100%}}
+
+  .toc{background:#fff;border:1px solid #e7ebf1;border-radius:12px;padding:16px 22px;margin:24px 0}
+  .toc a{color:var(--a);text-decoration:none;display:inline-block;padding:5px 12px;margin:3px;background:#f4f7fb;border-radius:8px;font-size:14px}
+  .toc a:hover{background:var(--s);color:#fff}
+
+  .big{background:#FFF8E1;border-left:5px solid var(--w);padding:14px 18px;border-radius:0 10px 10px 0;margin:24px 0;font-size:14.5px}
+  .big b{color:var(--w)}
+  footer{background:#1F3A6E;color:#cdd6e0;text-align:center;padding:24px;font-size:13px}
+  @media print{.folder{break-inside:avoid}header,h2{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📁 Project Files Explained</h1>
+  <p>Every file in simple words — what it is and what it does</p>
+  <div class="pill">Canine Melanoma · CATCH · DAIM2025A_088</div>
+</header>
+
+<div class="wrap">
+
+  <div class="legend">
+    <span>🟢 = you RUN this</span>
+    <span>🔵 = helper code (runs by itself)</span>
+    <span>⚙️ = settings</span>
+    <span>📄 = document</span>
+  </div>
+
+  <div class="intro">
+    <b>How to read this:</b> The project is organised into folders. <code>config</code> holds settings,
+    <code>src</code> holds the actual code (split into small jobs), <code>scripts</code> holds the "run buttons",
+    and <code>docs</code> holds documents. You normally only run the files in <code>scripts</code>.
+  </div>
+
+  <div class="run">
+    🟢 <b>The only files you actually RUN</b> are these 2 (everything else is used by them automatically):
+    <br>• <code>scripts\run_week1_2_pipeline.py</code> — prepares the images
+    <br>• <code>scripts\run_week3_4_pipeline.py</code> — trains the AI model
+  </div>
+
+  <div class="toc">
+    <strong>Jump to:</strong>
+    <a href="#root">Root files</a>
+    <a href="#config">config</a>
+    <a href="#utils">src/utils</a>
+    <a href="#acq">src/data_acquisition</a>
+    <a href="#prep">src/preprocessing</a>
+    <a href="#data">src/data</a>
+    <a href="#models">src/models</a>
+    <a href="#training">src/training</a>
+    <a href="#scripts">scripts</a>
+    <a href="#docs">docs</a>
+    <a href="#made">data &amp; outputs</a>
+  </div>
+
+  <!-- ROOT -->
+  <h2 id="root">📦 Root files (top folder)</h2>
+  <div class="folder">
+    <div class="frole">The main project files you see first when you open the folder.</div>
+    <div class="file"><span class="ic">📄</span><span class="fname">README.md</span><span class="fdesc">The front page — what the project is and the quick commands to run it.</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">SETUP_WINDOWS.md</span><span class="fdesc">Step-by-step guide to install and run everything on a new Windows PC.</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">WHAT_TO_TRANSFER.md</span><span class="fdesc">Tells you which files to copy to another computer (and which come from GitHub).</span></div>
+    <div class="file"><span class="ic">⚙️</span><span class="fname">requirements.txt</span><span class="fdesc">The list of Python libraries the project needs (pip installs from this).</span></div>
+    <div class="file"><span class="ic">⚙️</span><span class="fname">requirements-lock.txt</span><span class="fdesc">The exact library versions that are known to work (for safety/reproducibility).</span></div>
+    <div class="file"><span class="ic">⚙️</span><span class="fname">environment.yml</span><span class="fdesc">Same library list, but for people who use Conda instead of pip.</span></div>
+    <div class="file"><span class="ic">⚙️</span><span class="fname">.gitignore</span><span class="fdesc">Tells Git which files to NOT upload (like the big virtual environment folder).</span></div>
+    <div class="file"><span class="ic">⚙️</span><span class="fname">.gitattributes</span><span class="fdesc">Tells Git to store the big model files (.pt) using Git LFS (large file storage).</span></div>
+  </div>
+
+  <!-- CONFIG -->
+  <h2 id="config">⚙️ config/</h2>
+  <div class="folder">
+    <div class="frole">All the settings in one place — change here, not in the code.</div>
+    <div class="file"><span class="ic">⚙️</span><span class="fname">config.yaml</span><span class="fdesc">Every setting: folder paths, quality limits, patch size (256), zoom levels (5/10/20), and training settings (learning rate, epochs, loss). Change a number here without touching the code.</span></div>
+  </div>
+
+  <!-- UTILS -->
+  <h2 id="utils">🔧 src/utils/</h2>
+  <div class="folder">
+    <div class="frole">Small helper tools used everywhere in the project.</div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">config.py</span><span class="fdesc">Reads <code>config.yaml</code> and fixes all the folder paths so the code runs from anywhere.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">logger.py</span><span class="fdesc">Prints messages to the screen and saves them in a log file (so you can see what happened).</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">seed.py</span><span class="fdesc">Fixes the "randomness" so you get the same result every time you run (reproducible).</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">demo_data.py</span><span class="fdesc">Makes fake (synthetic) microscope slides for Week 1–2, used when real data isn't there yet.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">demo_segmentation.py</span><span class="fdesc">Makes fake slides <b>plus tumour masks</b> for Week 3–4, so the U-Net has something to learn from.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">__init__.py</span><span class="fdesc">Empty marker file that tells Python "this folder is a code package". (Every <code>src</code> folder has one.)</span></div>
+  </div>
+
+  <!-- ACQUISITION -->
+  <h2 id="acq">📥 src/data_acquisition/</h2>
+  <div class="folder">
+    <div class="frole">Getting the real data and checking its quality.</div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">download_catch.py</span><span class="fdesc">Explains how to download the real CATCH dataset from TCIA, and checks the downloaded slides.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">quality_check.py</span><span class="fdesc">Checks each slide: is it blurry? too dark? enough tissue? Bad slides get rejected with a reason.</span></div>
+  </div>
+
+  <!-- PREPROCESSING -->
+  <h2 id="prep">🧹 src/preprocessing/</h2>
+  <div class="folder">
+    <div class="frole">The most important folder — cleaning and cutting the slides.</div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">image_io.py</span><span class="fdesc">Reads and saves images — both normal pictures and huge whole-slide (.svs) files.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">tissue.py</span><span class="fdesc">Finds where the actual tissue is on a slide (ignores the empty white glass).</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">stain_normalization.py</span><span class="fdesc">The Macenko method — makes every slide the same colour, so the scanner's colour doesn't confuse the AI.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">patch_extraction.py</span><span class="fdesc">Cuts the big slide into small 256×256 squares, at 3 zoom levels (5×/10×/20×), and pairs them with masks.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">dataset_split.py</span><span class="fdesc">Splits the patches into train / validation / test groups (70 / 15 / 15).</span></div>
+  </div>
+
+  <!-- DATA -->
+  <h2 id="data">🍱 src/data/</h2>
+  <div class="folder">
+    <div class="frole">Feeding the prepared patches to the model.</div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">augmentation.py</span><span class="fdesc">Randomly flips, rotates and colour-changes training patches so the model sees more variety (learns better).</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">segmentation_dataset.py</span><span class="fdesc">Loads each patch and its mask together and hands them to the model as a pair.</span></div>
+  </div>
+
+  <!-- MODELS -->
+  <h2 id="models">🧠 src/models/</h2>
+  <div class="folder">
+    <div class="frole">The actual AI brain and how we score it.</div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">unet.py</span><span class="fdesc">The U-Net model itself — two versions: a basic one (from zero) and a ResNet-34 one (pre-trained, transfer learning).</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">losses.py</span><span class="fdesc">The "score of wrongness" (BCE + Dice) — tells the model how far its answer is from the truth.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">metrics.py</span><span class="fdesc">The report-card numbers: Dice, IoU, pixel-accuracy, Hausdorff — how good the model is.</span></div>
+  </div>
+
+  <!-- TRAINING -->
+  <h2 id="training">🏋️ src/training/</h2>
+  <div class="folder">
+    <div class="frole">Teaching the model and then testing it.</div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">trainer.py</span><span class="fdesc">The training loop — the model learns round by round, the learning rate slowly drops, progress shows in TensorBoard, and it stops & saves the best model automatically.</span></div>
+    <div class="file"><span class="ic">🔵</span><span class="fname">evaluate.py</span><span class="fdesc">Tests the trained model on unseen patches and makes the result pictures (truth vs prediction) and graphs.</span></div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <h2 id="scripts">🟢 scripts/ (the "run buttons")</h2>
+  <div class="folder">
+    <div class="frole">These join everything together — usually you only run files from here.</div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">setup_env.ps1</span><span class="fdesc">One command to install everything (environment + PyTorch + libraries).</span></div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">run_week1_2_pipeline.py</span><span class="fdesc"><b>Week 1–2 in one go:</b> quality check → colour fix → cut patches → split.</span></div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">prepare_segmentation_data.py</span><span class="fdesc">Makes the patches + masks dataset for Week 3–4 (with a safe slide-level split).</span></div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">train_unet.py</span><span class="fdesc">Trains and tests ONE U-Net, and saves figures + a report.</span></div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">run_week3_4_pipeline.py</span><span class="fdesc"><b>Week 3–4 in one go:</b> prepare data → train baseline → train ResNet-34 → compare.</span></div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">make_deliverables.py</span><span class="fdesc">Makes the Week 1–2 Word report + PDF slides for the supervisor.</span></div>
+    <div class="file"><span class="ic">🟢</span><span class="fname">make_deliverables_week3_4.py</span><span class="fdesc">Makes the Week 3–4 Word report + PDF slides.</span></div>
+  </div>
+
+  <!-- DOCS -->
+  <h2 id="docs">📄 docs/</h2>
+  <div class="folder">
+    <div class="frole">All the documents, reports and presentation guides.</div>
+    <div class="file"><span class="ic">📄</span><span class="fname">Research_Proposal_*.html / .pdf / .docx</span><span class="fdesc">The original research proposal (the full plan of the whole project).</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">progress_report/</span><span class="fdesc">The fortnightly progress reports (Week 1–2 and Week 3–4) — Markdown + Word.</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">slides/</span><span class="fdesc">The supervisor presentation slide decks (PDF).</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">literature/</span><span class="fdesc">Notes on the research papers behind the project.</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">video_guide_weeks1-4.html</span><span class="fdesc">A visual walkthrough of Weeks 1–4 (English).</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">*_RomanUrdu.html</span><span class="fdesc">Roman-Urdu video scripts: project walkthrough, what-happens-when-you-run, slide explanation.</span></div>
+    <div class="file"><span class="ic">📄</span><span class="fname">PROJECT_FILES_EXPLAINED.html</span><span class="fdesc">This very page — the simple file dictionary you are reading now. 🙂</span></div>
+  </div>
+
+  <!-- MADE -->
+  <h2 id="made">📂 data/ and outputs/ (created when you run)</h2>
+  <div class="folder">
+    <div class="frole">These folders fill up automatically when you run the pipelines.</div>
+    <div class="file"><span class="ic">📂</span><span class="fname">data/raw/</span><span class="fdesc">The original slides (real CATCH slides, or fake demo ones).</span></div>
+    <div class="file"><span class="ic">📂</span><span class="fname">data/processed/</span><span class="fdesc">The cut patches, masks, and the train/val/test lists (manifests).</span></div>
+    <div class="file"><span class="ic">📂</span><span class="fname">outputs/figures/</span><span class="fdesc">The result pictures: stain before/after, sample patches, training graphs, predictions.</span></div>
+    <div class="file"><span class="ic">📂</span><span class="fname">outputs/logs/</span><span class="fdesc">The score reports and CSV/JSON summaries.</span></div>
+    <div class="file"><span class="ic">📂</span><span class="fname">outputs/checkpoints/</span><span class="fdesc">The trained model files (<code>.pt</code>) — the "saved brain".</span></div>
+    <div class="file"><span class="ic">📂</span><span class="fname">outputs/tensorboard/</span><span class="fdesc">The live training graphs data (open with the <code>tensorboard</code> command).</span></div>
+  </div>
+
+  <div class="big">
+    <b>One-line summary 🎯</b> — <code>config</code> = settings · <code>src</code> = the brain &amp; tools (small job-files) ·
+    <code>scripts</code> = the run buttons · <code>docs</code> = papers &amp; guides · <code>data</code> &amp; <code>outputs</code> = made when you run.
+    To use the project, you only ever run the 2 pipeline files in <code>scripts</code>.
+  </div>
+
+</div>
+
+<footer>
+  Project Files Explained · Canine Melanoma · Muhammad Tayyab Abbas · University of Hull · DAIM2025A_088
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Summary — Weeks 1–6</title>
+<style>
+  :root{--p:#1F3A6E;--s:#8E44AD;--a:#2980B9;--g:#27AE60;--w:#E67E22;--bg:#F7F9FC}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,sans-serif;color:#2C3E50;background:var(--bg);line-height:1.7}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px 60px}
+  header{background:linear-gradient(135deg,#1F3A6E,#8E44AD);color:#fff;padding:48px 22px;text-align:center}
+  header h1{font-size:28px;margin-bottom:8px}
+  header p{font-size:16px;opacity:.93}
+  .pill{display:inline-block;margin-top:14px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+        padding:6px 16px;border-radius:20px;font-size:13.5px}
+  h2{font-size:22px;margin:38px 0 6px;color:var(--p);border-bottom:3px solid var(--s);padding-bottom:8px}
+  h2 small{display:block;font-size:12px;letter-spacing:1px;color:var(--s);text-transform:uppercase}
+
+  .timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:20px 0}
+  .phase{background:#fff;border:1px solid #e7ebf1;border-radius:12px;padding:16px;border-top:4px solid var(--a);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .phase.done{border-top-color:var(--g)}
+  .phase h4{font-size:15px;margin-bottom:4px}
+  .phase .wk{font-size:12px;color:#888;margin-bottom:8px}
+  .phase ul{margin:0 0 0 16px;font-size:13.5px;color:#555}.phase li{margin:2px 0}
+  .tick{color:var(--g);font-weight:700}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:#fff;border-radius:10px;overflow:hidden}
+  th{background:var(--p);color:#fff;padding:10px;text-align:left;font-size:13px}
+  td{padding:10px;border-bottom:1px solid #eef1f5}tr:nth-child(even){background:#fafbfd}
+  .win{color:var(--g);font-weight:700}.muted{color:#999}
+
+  .q{background:#fff;border:1px solid #e7ebf1;border-left:5px solid var(--w);border-radius:0 12px 12px 0;padding:16px 20px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .q .ques{font-weight:700;color:var(--w);font-size:15px;margin-bottom:6px}
+  .q .ans{font-size:14.5px;color:#333}
+  .q .ans b{color:var(--p)}
+
+  .files{columns:2;column-gap:24px;font-size:13.5px;margin:12px 0}
+  .files div{break-inside:avoid;padding:3px 0}
+  .files code{background:#eef2f8;padding:1px 6px;border-radius:5px;font-size:12.5px}
+  @media(max-width:680px){.files{columns:1}}
+
+  .note{background:#FFF8E1;border-left:5px solid var(--w);padding:14px 18px;border-radius:0 10px 10px 0;margin:20px 0;font-size:14.5px}
+  .note b{color:var(--w)}
+  .ok{background:#EAF8EF;border-left:5px solid var(--g);padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;font-size:15px}
+  footer{background:var(--p);color:#cdd6e0;text-align:center;padding:24px;font-size:13px}
+  @media print{.phase,.q{break-inside:avoid}header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📊 Project Summary — Weeks 1 to 6</h1>
+  <p>Classification of Malignant Melanoma in Canines (CATCH)</p>
+  <div class="pill">Muhammad Tayyab Abbas · University of Hull · DAIM2025A_088</div>
+</header>
+
+<div class="wrap">
+
+  <div class="ok">
+    <b>Where we are:</b> Phase 1 (preprocessing) and most of Phase 2 (model development)
+    are complete. Three segmentation models (baseline, ResNet-34, <b>Attention U-Net</b>)
+    and a <b>ResNet-50 subtype classifier</b> are built, trained and evaluated. The whole
+    project now runs from a single <b>Jupyter notebook</b>. All validated on synthetic
+    data; the same code runs unchanged on the real 750-slide CATCH dataset.
+  </div>
+
+  <!-- TIMELINE -->
+  <h2><small>What was done</small>Weeks 1–6 at a glance</h2>
+  <div class="timeline">
+    <div class="phase done"><h4>① Preprocessing</h4><div class="wk">Weeks 1–2 ✓</div>
+      <ul><li>Quality check</li><li>Macenko stain norm.</li><li>5×/10×/20× patches</li><li>70/15/15 split</li></ul></div>
+    <div class="phase done"><h4>② U-Net segmentation</h4><div class="wk">Weeks 3–4 ✓</div>
+      <ul><li>Baseline U-Net</li><li>ResNet-34 encoder</li><li>BCE+Dice, cosine LR</li><li>Dice/IoU/Hausdorff</li></ul></div>
+    <div class="phase done"><h4>③ Attention U-Net</h4><div class="wk">Week 5 ✓</div>
+      <ul><li>Attention gates (Oktay)</li><li>3-way comparison</li><li>same backbone as baseline</li></ul></div>
+    <div class="phase done"><h4>④ Classification</h4><div class="wk">Week 6 ✓</div>
+      <ul><li>ResNet-50 transfer learning</li><li>progressive unfreezing</li><li>class-weighted loss</li><li>acc/F1/AUC/confusion</li></ul></div>
+    <div class="phase done"><h4>⑤ Jupyter notebook</h4><div class="wk">Week 6 ✓</div>
+      <ul><li>whole project in one notebook</li><li>classification plan</li><li>runnable + explained</li></ul></div>
+    <div class="phase"><h4>⑥ Next</h4><div class="wk">Weeks 7–8</div>
+      <ul><li>EfficientNet-B3</li><li>real CATCH data</li><li>5-fold CV, Grad-CAM</li></ul></div>
+  </div>
+
+  <!-- RESULTS -->
+  <h2><small>Results (synthetic validation)</small>Model performance</h2>
+
+  <p style="font-size:15px"><b>Segmentation — 3-way comparison</b> (same 60-patch test set):</p>
+  <table>
+    <tr><th>Model</th><th>Params</th><th>Test Dice</th><th>Test IoU</th><th>Note</th></tr>
+    <tr><td>Baseline U-Net (from scratch)</td><td>31.0 M</td><td>0.218</td><td>0.204</td><td>reference</td></tr>
+    <tr><td>U-Net + ResNet-34 (transfer)</td><td>24.4 M</td><td class="win">0.430</td><td class="win">0.405</td><td>transfer learning wins</td></tr>
+    <tr><td>Attention U-Net (Oktay 2018)</td><td>31.4 M</td><td class="muted">finalising*</td><td class="muted">finalising*</td><td>fair re-evaluation in final epochs</td></tr>
+  </table>
+  <p style="font-size:13px;color:#777">*The Attention U-Net is being re-evaluated on the
+  identical 60-patch test set used by the other two models, so the three numbers are
+  strictly comparable (an earlier quick-mode run used a smaller test set and is not
+  reported here — methodological honesty).</p>
+
+  <p style="font-size:15px;margin-top:18px"><b>Classification — ResNet-50</b>
+  (3 subtypes: melanocytic, mast cell, squamous cell):</p>
+  <table>
+    <tr><th>Metric</th><th>Accuracy</th><th>Macro-F1</th><th>Precision</th><th>Recall</th><th>AUC-ROC</th></tr>
+    <tr><td>ResNet-50 (test)</td><td class="win">1.000</td><td class="win">1.000</td><td>1.000</td><td>1.000</td><td>1.000</td></tr>
+  </table>
+  <p style="font-size:13px;color:#777">The synthetic subtypes are deliberately very
+  distinct, so accuracy is near-perfect — this validates the pipeline. On real CATCH
+  slides the task is harder; the proposal target is 85–92 % accuracy.</p>
+
+  <!-- SUPERVISOR QUESTIONS -->
+  <h2><small>Supervisor's notes — addressed</small>Answers to this week's questions</h2>
+
+  <div class="q"><div class="ques">Q. Plan the classification section — what is the segmentation output?</div>
+    <div class="ans">The segmentation outputs a <b>per-pixel binary tumour mask</b>
+    (tumour vs background) for each patch. It is used to (a) <b>locate</b> the tumour and
+    (b) <b>select the tumour patches</b> that are then fed to the classifier. Full plan in
+    <code>docs/CLASSIFICATION_PLAN.md</code> and notebook §0.</div></div>
+
+  <div class="q"><div class="ques">Q. What are you going to classify? How many classes?</div>
+    <div class="ans">The <b>tumour subtype</b>. CATCH has <b>7 subtypes</b> (melanoma, mast
+    cell, squamous cell carcinoma, peripheral nerve sheath tumour, trichoblastoma,
+    histiocytoma, plasmacytoma). The classifier supports <b>7-class</b> or
+    <b>melanoma-vs-non-melanoma</b>; the demo uses 3 representative classes.</div></div>
+
+  <div class="q"><div class="ques">Q. Are there enough of each class? What about balancing?</div>
+    <div class="ans">CATCH is <b>imbalanced</b>; the pipeline <b>measures and reports</b>
+    per-class counts every run. Balancing is handled with <b>class-weighted cross-entropy</b>,
+    augmentation, and a stratified slide-level split (implemented in
+    <code>src/training/classifier_trainer.py</code>).</div></div>
+
+  <div class="q"><div class="ques">Q. Balancing — before or after the segmentation?</div>
+    <div class="ans">Two different imbalances, two stages: tumour-vs-background (~9 %) is
+    handled <b>inside segmentation</b> (BCE <code>pos_weight</code> + Dice); subtype class
+    imbalance is handled <b>after segmentation, in classification</b> — because the subtype
+    label only matters once tumour tissue is isolated.</div></div>
+
+  <div class="q"><div class="ques">Q. Are you using the full dataset? Only 8 images?</div>
+    <div class="ans">The <b>616</b> figure is <b>extracted patches, not slides</b> (one slide →
+    many patches at 5×/10×/20×). Development is validated on synthetic slides while the
+    <b>full 750-slide CATCH</b> download from TCIA completes; <b>the same code runs unchanged
+    on the full dataset</b> via <code>--input data/raw</code> (notebook §7).</div></div>
+
+  <div class="q"><div class="ques">Q. Attention U-Net variant.</div>
+    <div class="ans"><b>Implemented</b> (Oktay 2018 attention gates on the skip connections)
+    in <code>src/models/attention_unet.py</code>, trained, and compared three-way against
+    the baseline and ResNet-34 U-Nets. ✓</div></div>
+
+  <div class="q"><div class="ques">Q. Set up your work on a Jupyter notebook.</div>
+    <div class="ans"><b>Done.</b> <code>notebooks/CATCH_Melanoma_Project.ipynb</code> runs and
+    explains the whole project (W1–6), including the classification plan, live preprocessing
+    demo, the model comparisons, and the full-dataset instructions. ✓</div></div>
+
+  <!-- DELIVERABLES -->
+  <h2><small>Produced this fortnight</small>Key files</h2>
+  <div class="files">
+    <div>📓 <code>notebooks/CATCH_Melanoma_Project.ipynb</code> — main notebook</div>
+    <div>📄 <code>docs/CLASSIFICATION_PLAN.md</code> — classification plan</div>
+    <div>🧠 <code>src/models/attention_unet.py</code> — Attention U-Net</div>
+    <div>🧠 <code>src/models/classifier.py</code> — ResNet-50 / EfficientNet-B3</div>
+    <div>🍱 <code>src/data/classification_dataset.py</code></div>
+    <div>🏋️ <code>src/training/classifier_trainer.py</code> — class-weighted</div>
+    <div>⚙️ <code>scripts/prepare_classification_data.py</code></div>
+    <div>⚙️ <code>scripts/train_classifier.py</code></div>
+    <div>⚙️ <code>scripts/run_week5_6_pipeline.py</code></div>
+    <div>📊 <code>outputs/figures/cls_resnet50_confusion.png</code></div>
+    <div>📊 <code>outputs/logs/week5_6_summary.json</code></div>
+    <div>📄 <code>docs/progress_report/Progress_Report_Week5-6.*</code></div>
+  </div>
+
+  <div class="note">
+    <b>Honesty note 📌</b> — All numbers above are from <i>synthetic</i> data used to validate
+    the full pipeline end-to-end while the real CATCH dataset finishes downloading. Absolute
+    values will change on real slides; the proposal targets are <b>Dice &gt; 0.85</b>
+    (segmentation) and <b>85–92 % accuracy</b> (classification).
+  </div>
+
+  <h2><small>Plan</small>Next fortnight (Weeks 7–8)</h2>
+  <ul style="font-size:15px;margin-left:20px">
+    <li>Train <b>EfficientNet-B3</b> and compare with ResNet-50.</li>
+    <li>Run all validated pipelines on the <b>real CATCH slides</b> once downloaded.</li>
+    <li>Begin <b>evaluation phase</b>: 5-fold cross-validation, McNemar's test, Grad-CAM.</li>
+  </ul>
+
+</div>
+
+<footer>
+  Project Summary · Weeks 1–6 · Canine Melanoma (CATCH) · Muhammad Tayyab Abbas · University of Hull · DAIM2025A_088
+</footer>
+
+</body>
+</html>

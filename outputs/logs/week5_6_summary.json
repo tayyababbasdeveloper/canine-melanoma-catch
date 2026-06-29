@@ -1,0 +1,32 @@
+{
+  "segmentation_3way": {
+    "unet_baseline": {
+      "test_dice": 0.2181983843959526,
+      "test_iou": 0.2043238693232437,
+      "params_million": 31.04
+    },
+    "unet_resnet34": {
+      "test_dice": 0.4299893849915233,
+      "test_iou": 0.40531542688349487,
+      "params_million": 24.44
+    },
+    "unet_attention": {
+      "test_dice": 0.9204226294167476,
+      "test_iou": 0.9058031632722552,
+      "params_million": 31.39
+    }
+  },
+  "classification_resnet50": {
+    "arch": "resnet50",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "auc_roc": 1.0,
+    "classes": [
+      "mast_cell",
+      "melanocytic",
+      "squamous_cell"
+    ]
+  }
+}

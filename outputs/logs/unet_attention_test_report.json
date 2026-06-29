@@ -1,0 +1,16 @@
+{
+  "run_name": "unet_attention",
+  "arch": "attention",
+  "encoder": "resnet34",
+  "device": "cpu",
+  "epochs_ran": 10,
+  "best_epoch": 1,
+  "best_val_dice": 0.9483942760625315,
+  "test_metrics": {
+    "dice": 0.9204226294167476,
+    "iou": 0.9058031632722552,
+    "pixel_acc": 0.9945714314778645,
+    "hausdorff": 19.611105727016955
+  },
+  "params_million": 31.39
+}

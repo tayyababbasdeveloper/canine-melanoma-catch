@@ -25,10 +25,11 @@ def load_config(config_path: str | Path | None = None) -> dict:
     for key, value in cfg.get("paths", {}).items():
         cfg["paths"][key] = (PROJECT_ROOT / value).resolve()
 
-    # Resolve the nested segmentation paths (Week 3-4) the same way
-    seg_paths = cfg.get("segmentation", {}).get("paths", {})
-    for key, value in seg_paths.items():
-        seg_paths[key] = (PROJECT_ROOT / value).resolve()
+    # Resolve the nested segmentation/classification paths the same way
+    for section in ("segmentation", "classification"):
+        sub = cfg.get(section, {}).get("paths", {})
+        for key, value in sub.items():
+            sub[key] = (PROJECT_ROOT / value).resolve()
 
     return cfg
 
@@ -41,7 +42,8 @@ def ensure_dirs(cfg: dict) -> None:
         if path is not None:
             Path(path).mkdir(parents=True, exist_ok=True)
 
-    # Week 3-4 segmentation directories
-    for path in cfg.get("segmentation", {}).get("paths", {}).values():
-        if path is not None:
-            Path(path).mkdir(parents=True, exist_ok=True)
+    # Week 3-6 segmentation / classification directories
+    for section in ("segmentation", "classification"):
+        for path in cfg.get(section, {}).get("paths", {}).values():
+            if path is not None:
+                Path(path).mkdir(parents=True, exist_ok=True)

@@ -41,3 +41,22 @@ def eval_transform(patch_size: int = 256) -> A.Compose:
         A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
         ToTensorV2(),
     ])
+
+
+# ---- Classification transforms (image only; no mask) ----
+def cls_train_transform(cfg: dict) -> A.Compose:
+    a = cfg.get("augmentation", {})
+    return A.Compose([
+        A.HorizontalFlip(p=a.get("horizontal_flip", 0.5)),
+        A.VerticalFlip(p=a.get("vertical_flip", 0.5)),
+        A.RandomRotate90(p=a.get("rotate90", 0.5)),
+        A.RandomBrightnessContrast(p=a.get("brightness_contrast", 0.3)),
+        A.HueSaturationValue(hue_shift_limit=10, sat_shift_limit=15,
+                             val_shift_limit=10, p=a.get("hue_saturation", 0.3)),
+        A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
+        ToTensorV2(),
+    ])
+
+
+def cls_eval_transform() -> A.Compose:
+    return A.Compose([A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD), ToTensorV2()])

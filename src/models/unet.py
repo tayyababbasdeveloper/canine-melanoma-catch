@@ -116,6 +116,10 @@ def build_model(cfg: dict, logger=None) -> nn.Module:
     if arch == "baseline":
         return BaselineUNet(in_channels=s.get("in_channels", 3),
                             classes=s.get("classes", 1))
+    if arch == "attention":
+        from src.models.attention_unet import AttentionUNet
+        return AttentionUNet(in_channels=s.get("in_channels", 3),
+                             classes=s.get("classes", 1))
     return build_smp_unet(
         encoder=s.get("encoder", "resnet34"),
         encoder_weights=s.get("encoder_weights", "imagenet"),

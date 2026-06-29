@@ -1,0 +1,18 @@
+{
+  "classes": {
+    "mast_cell": 0,
+    "melanocytic": 1,
+    "squamous_cell": 2
+  },
+  "patches": {
+    "train": 209,
+    "val": 90,
+    "test": 63,
+    "total": 362
+  },
+  "class_distribution": {
+    "melanocytic": 142,
+    "squamous_cell": 130,
+    "mast_cell": 90
+  }
+}

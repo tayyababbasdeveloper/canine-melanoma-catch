@@ -1,0 +1,36 @@
+{
+  "run_name": "cls_resnet50",
+  "arch": "resnet50",
+  "device": "cpu",
+  "classes": [
+    "mast_cell",
+    "melanocytic",
+    "squamous_cell"
+  ],
+  "epochs_ran": 10,
+  "best_epoch": 3,
+  "test_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "auc_roc": 1.0
+  },
+  "confusion_matrix": [
+    [
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      25,
+      0
+    ],
+    [
+      0,
+      0,
+      33
+    ]
+  ]
+}
