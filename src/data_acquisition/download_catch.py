@@ -27,6 +27,12 @@ ANN_EXTENSIONS = (".json", ".sqlite", ".sqlite3", ".db")
 DOI = "10.7937/TCIA.2M93-FX66"
 TCIA_URL = "https://www.cancerimagingarchive.net/collection/catch/"
 
+# Public, direct-download annotation archives (no login / Aspera needed).
+ANNOTATION_ZIPS = {
+    "CATCH-json.zip": "https://www.cancerimagingarchive.net/wp-content/uploads/CATCH-json.zip",
+    "CATCH.sqlite.zip": "https://www.cancerimagingarchive.net/wp-content/uploads/CATCH.sqlite.zip",
+}
+
 INSTRUCTIONS = f"""
 ================ CATCH dataset download (TCIA) ================
 Reference : Wilm et al. (2022) 'Pan-tumor CAnine cuTaneous Cancer Histology
@@ -47,14 +53,50 @@ Contents  : 350 .svs WSIs (50 each of 7 tumour subtypes) + 12,424 polygon
    data/raw/ (any subfolder — it is auto-discovered).
 6. Re-run this script (no args) to verify the download.
 
-Recommended on-disk layout (subtype folders make labelling unambiguous):
+Slides are named by subtype prefix (e.g. MCT_15_1.svs), so the label is detected
+automatically; you can drop them flat in data/raw/ or sort into subtype folders:
     data/raw/
-      Melanoma/*.svs   Mast cell tumor/*.svs   Squamous cell carcinoma/*.svs
-      Peripheral nerve sheath tumor/*.svs   Trichoblastoma/*.svs
-      Histiocytoma/*.svs   Plasmacytoma/*.svs
-      annotations/CATCH.json        (MS-COCO polygons)
+      Melanoma/*.svs   Mast Cell Tumor/*.svs   SCC/*.svs   PNST/*.svs
+      Trichoblastoma/*.svs   Histiocytoma/*.svs   Plasmacytoma/*.svs
+      annotations/CATCH.json + CATCH.sqlite   (auto-downloaded; polygon masks)
 ==============================================================
 """
+
+
+def download_annotations(raw_dir: Path, logger) -> bool:
+    """Download + unzip the public CATCH polygon annotations (COCO + SQLite).
+
+    These are small (~190 MB unzipped) and need no login or Aspera, unlike the
+    522 GB of whole-slide images. Returns True if the COCO file is present after.
+    """
+    import urllib.request
+    import zipfile
+
+    ann_dir = raw_dir / "annotations"
+    ann_dir.mkdir(parents=True, exist_ok=True)
+    if (ann_dir / "CATCH.json").exists():
+        logger.info("Annotations already present in %s", ann_dir)
+        return True
+    for fname, url in ANNOTATION_ZIPS.items():
+        zpath = ann_dir / fname
+        try:
+            logger.info("Downloading %s ...", fname)
+            urllib.request.urlretrieve(url, zpath)
+            with zipfile.ZipFile(zpath) as zf:
+                zf.extractall(ann_dir)
+            zpath.unlink(missing_ok=True)
+        except Exception as exc:  # pragma: no cover - network dependent
+            logger.error("Failed to download/unzip %s (%s). Get it manually from %s",
+                         fname, exc, TCIA_URL)
+    # tidy the macOS resource fork the SQLite zip ships
+    macosx = ann_dir / "__MACOSX"
+    if macosx.exists():
+        for p in sorted(macosx.rglob("*"), reverse=True):
+            p.unlink() if p.is_file() else p.rmdir()
+        macosx.rmdir()
+    ok = (ann_dir / "CATCH.json").exists()
+    logger.info("Annotations %s in %s", "ready" if ok else "MISSING", ann_dir)
+    return ok
 
 
 def try_nbia_download(manifest: Path, raw_dir: Path, logger) -> bool:
@@ -112,10 +154,20 @@ def verify_download(raw_dir: Path, logger) -> dict:
             "size_gb": round(total_gb, 2), "subtypes": subtypes}
 
 
+def create_subtype_folders(cfg, raw_dir: Path, logger) -> None:
+    """Create the 7 subtype folders so it is obvious where each WSI subtype goes."""
+    for sub in cfg["catch"]["subtypes"]:
+        (raw_dir / sub).mkdir(parents=True, exist_ok=True)
+    logger.info("Subtype folders ready under %s: %s",
+                raw_dir, cfg["catch"]["subtypes"])
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="CATCH download / verify (TCIA)")
     ap.add_argument("--manifest", default=None,
                     help="TCIA .tcia manifest for an automated nbiatoolkit pull")
+    ap.add_argument("--no-annotations", action="store_true",
+                    help="skip downloading the public annotation archives")
     args = ap.parse_args()
 
     cfg = load_config()
@@ -123,9 +175,14 @@ def main() -> None:
     raw_dir = Path(cfg["paths"]["raw_dir"])
     raw_dir.mkdir(parents=True, exist_ok=True)
 
+    create_subtype_folders(cfg, raw_dir, logger)
+    if not args.no_annotations:
+        download_annotations(raw_dir, logger)   # small, public, no Aspera
     if args.manifest:
         try_nbia_download(Path(args.manifest), raw_dir, logger)
     verify_download(raw_dir, logger)
+    logger.info("Whole-slide images (522 GB) download separately via Aspera: %s",
+                TCIA_URL)
 
 
 if __name__ == "__main__":

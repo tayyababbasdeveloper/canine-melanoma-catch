@@ -7,6 +7,22 @@
 data/raw/*
 data/interim/*
 !data/**/.gitkeep
+# Keep the real-data FOLDER STRUCTURE visible (subtype folders + where-data-goes
+# notes + the annotations README), but never the large slides/annotation blobs.
+!data/raw/Melanoma/
+!data/raw/Mast Cell Tumor/
+!data/raw/SCC/
+!data/raw/PNST/
+!data/raw/Trichoblastoma/
+!data/raw/Histiocytoma/
+!data/raw/Plasmacytoma/
+!data/raw/annotations/
+!data/raw/**/PUT_SLIDES_HERE.txt
+!data/raw/annotations/README.md
+# but DO ignore the big real annotation files (re-downloadable, >100 MB)
+data/raw/annotations/*.json
+data/raw/annotations/*.sqlite
+data/raw/annotations/*.zip
 
 # =====================================================================
 # Outputs

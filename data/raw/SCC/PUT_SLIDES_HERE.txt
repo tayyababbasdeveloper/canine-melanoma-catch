@@ -1,0 +1,5 @@
+Place the 50 real CATCH SCC whole-slide images here.
+They are named with the prefix 'SCC_', e.g. SCC_1_1.svs ... SCC_50_1.svs
+Download the .svs files from TCIA (522 GB total, IBM Aspera Connect):
+  https://www.cancerimagingarchive.net/collection/catch/
+The polygon annotations are already in data/raw/annotations/CATCH.json (+ .sqlite).

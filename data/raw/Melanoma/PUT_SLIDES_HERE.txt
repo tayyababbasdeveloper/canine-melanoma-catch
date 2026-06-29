@@ -1,0 +1,5 @@
+Place the 50 real CATCH Melanoma whole-slide images here.
+They are named with the prefix 'Melanoma_', e.g. Melanoma_1_1.svs ... Melanoma_50_1.svs
+Download the .svs files from TCIA (522 GB total, IBM Aspera Connect):
+  https://www.cancerimagingarchive.net/collection/catch/
+The polygon annotations are already in data/raw/annotations/CATCH.json (+ .sqlite).

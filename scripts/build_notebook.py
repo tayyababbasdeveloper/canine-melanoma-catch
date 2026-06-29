@@ -128,25 +128,98 @@ print("Setup done.")
 cells.append(md(r"""
 ## 2. Dataset & scale — *"are you using the full dataset?"*
 
-**Honest status.** No real CATCH slides have been processed yet — every result in
-this notebook is computed on **synthetic** slides that exercise the pipeline
-end-to-end while the TCIA download is arranged. The synthetic "tumours" and
-"subtypes" are drawn shapes/colours, **not** histology, so the numbers validate the
-*code*, not the biology.
-
-**The real dataset** (Wilm et al., 2022; TCIA DOI `10.7937/TCIA.2M93-FX66`) is:
+**The real dataset** (Wilm et al., 2022; TCIA DOI `10.7937/TCIA.2M93-FX66`, CC BY 4.0):
 
 | | |
 |---|---|
-| Slides | **350** pyramidal Aperio `.svs` (level 0 = 0.25 µm/px ≈ 40×) |
+| Slides | **350** pyramidal Aperio `.svs` (level 0 = 0.25 µm/px ≈ 40×), **522 GB** |
 | Classes | **7 tumour subtypes**, 50 slides each |
-| Subtypes | Melanoma · Mast cell tumour · Squamous cell carcinoma · Peripheral nerve sheath tumour · Trichoblastoma · Histiocytoma · Plasmacytoma |
+| Subtypes | Melanoma · Mast Cell Tumor · SCC · PNST · Trichoblastoma · Histiocytoma · Plasmacytoma |
 | Annotations | **12,424 polygons** (MS-COCO JSON + SQLite) → tumour masks |
 
-The pipeline is now **real-data-ready** (native `.svs` tiling, COCO/SQLite mask
-parsing, folder-per-subtype labels, slide-level split). Switching to real data is
-a flag, not a rewrite — see Section 7. Patch counts below are *extracted patches*
-(one slide → many 256×256 tiles at 5×/10×/20×), not slides.
+**What is actually on this machine.** The **real annotations are downloaded**
+(`data/raw/annotations/CATCH.json` + `CATCH.sqlite`, ~190 MB) — Sections 2a–2b below
+read them directly, so the **real 7-class distribution and real tumour polygons**
+are shown, not synthetic ones. The **522 GB of whole-slide images do not fit** on
+this disk (≈59 GB free) and download only via an interactive Aspera plugin, so the
+model-training cells (§3–6) still run on **synthetic** slides as a pipeline check.
+The code is identical for real slides — see §7.
+"""))
+
+cells.append(md(r"""
+### 2a. Where the data lives — the `data/raw/` folder
+
+The folder is laid out so every subtype has its own home and the annotations sit
+beside them. The cell prints the real on-disk structure.
+"""))
+
+cells.append(code(r"""
+from pathlib import Path
+raw = root / "data" / "raw"
+print("data/raw/ contents:\n")
+for sub in cfg["catch"]["subtypes"]:
+    d = raw / sub
+    svs = list(d.glob("*.svs")) if d.exists() else []
+    print(f"  {sub+'/':<22} {len(svs):>3} .svs slides   (target: 50)")
+ann = raw / "annotations"
+for f in ["CATCH.json", "CATCH.sqlite"]:
+    p = ann / f
+    sz = f"{p.stat().st_size/1e6:.0f} MB" if p.exists() else "MISSING (run download_catch)"
+    print(f"  annotations/{f:<16} {sz}")
+"""))
+
+cells.append(md(r"""
+### 2b. Real CATCH class distribution & tumour polygons (from the annotations)
+
+These come straight from the **real** `CATCH.json` — no synthetic data — so they
+are the genuine dataset statistics the supervisor asked about.
+"""))
+
+cells.append(code(r"""
+from src.preprocessing.catch_annotations import (
+    find_annotation_file, coco_dataset_stats, load_coco_annotations, rasterise_tile_mask)
+import numpy as np
+
+catch = cfg["catch"]
+ann_file = find_annotation_file(root/"data/raw", catch["coco_annotation_glob"])
+if ann_file is None:
+    print("Annotations not found. Run:  python -m src.data_acquisition.download_catch")
+else:
+    stats = coco_dataset_stats(ann_file, catch["tumour_annotation_classes"])
+    print(f"REAL CATCH: {stats['n_slides']} slides, {stats['n_annotations']} polygon annotations")
+    spp = stats["slides_per_subtype"]
+    fig, ax = plt.subplots(1, 2, figsize=(13, 4))
+    ax[0].bar(spp.keys(), spp.values(), color="#1F3A6E")
+    ax[0].set_title("Real slides per tumour subtype (350 total)"); ax[0].set_ylabel("slides")
+    ax[0].tick_params(axis="x", rotation=40)
+    apc = stats["annotations_per_class"]
+    ax[1].bar(apc.keys(), apc.values(), color="#8E44AD")
+    ax[1].set_title("Real annotations per class (13 classes)"); ax[1].set_ylabel("polygons")
+    ax[1].tick_params(axis="x", rotation=60)
+    plt.tight_layout(); plt.show()
+"""))
+
+cells.append(code(r"""
+# Render a REAL tumour mask from the real polygons (no whole-slide image needed)
+if ann_file is not None:
+    per_slide = load_coco_annotations(ann_file, catch["tumour_annotation_classes"])
+    sid = next(k for k in per_slide if k.startswith("Melanoma"))
+    polys = per_slide[sid]
+    tumour_polys = [p for is_t, p in polys if is_t]
+    centroid = tumour_polys[0].mean(axis=0).astype(int)
+    span = 4000  # level-0 pixels covered by the tile
+    mask = rasterise_tile_mask(polys, int(centroid[0]-span/2), int(centroid[1]-span/2), span, 512)
+    plt.figure(figsize=(4.5,4.5)); plt.imshow(mask, cmap="magma")
+    plt.title(f"Real tumour polygon → mask\n{sid} ({len(tumour_polys)} tumour regions)")
+    plt.axis("off"); plt.show()
+    print("This mask is rasterised from the REAL CATCH annotation polygons.")
+"""))
+
+cells.append(md(r"""
+### 2c. Demo dataset sizes (pipeline-check data)
+
+Patch counts for the synthetic demo that the training cells (§3–6) use. One slide
+→ many 256×256 tiles at 5×/10×/20×, so these are *patches*, not slides.
 """))
 
 cells.append(code(r"""
@@ -303,11 +376,12 @@ whole-slide images and the COCO/SQLite annotation file. **Recommended layout**
 
 ```text
 data/raw/
-  Melanoma/*.svs            Mast cell tumor/*.svs   Squamous cell carcinoma/*.svs
-  Peripheral nerve sheath tumor/*.svs   Trichoblastoma/*.svs
-  Histiocytoma/*.svs        Plasmacytoma/*.svs
-  annotations/CATCH.json    # MS-COCO polygons (tumour masks)
+  Melanoma/*.svs   Mast Cell Tumor/*.svs   SCC/*.svs   PNST/*.svs
+  Trichoblastoma/*.svs   Histiocytoma/*.svs   Plasmacytoma/*.svs
+  annotations/CATCH.json + CATCH.sqlite   # already downloaded (polygon masks)
 ```
+Slides are named by subtype prefix (e.g. `MCT_15_1.svs`), so labels are detected
+automatically whether you sort them into folders or drop them flat in `data/raw/`.
 
 ```bash
 python -m src.data_acquisition.download_catch              # instructions + verify
@@ -328,10 +402,60 @@ cells.append(md(r"""
 
 **Done (W1–6):** preprocessing · baseline + ResNet-34 + **Attention** U-Net
 segmentation · **ResNet-50** subtype classification with class balancing · a clear
-segmentation→classification plan.
+segmentation→classification plan · **real CATCH annotations integrated** and the
+pipeline made real-slide-ready.
 
-**Next:** EfficientNet-B3 classifier + comparison · run on the **real CATCH**
-slides · evaluation phase (5-fold cross-validation, McNemar's test, Grad-CAM).
+**Next:** EfficientNet-B3 classifier + comparison · download the 522 GB of WSIs on a
+larger disk and run end-to-end on real slides · evaluation phase (5-fold
+cross-validation, McNemar's test, Grad-CAM).
+"""))
+
+cells.append(md(r"""
+## Appendix — the project's source code, inline
+
+So everything is in one place for review, the cells below print the actual source of
+the key modules straight from `src/`. (They read the files on disk, so they always
+match the live code.)
+"""))
+
+cells.append(code(r"""
+import inspect
+from src.preprocessing import wsi, catch_annotations, stain_normalization, dataset_split
+from src.models import unet, attention_unet, classifier, losses, metrics
+from src.training import trainer, classifier_trainer
+
+def show_source(module, max_lines=400):
+    src = inspect.getsource(module)
+    print(f"# ===== {module.__name__}  ({module.__file__}) =====")
+    lines = src.splitlines()
+    print("\n".join(lines[:max_lines]))
+    if len(lines) > max_lines:
+        print(f"... ({len(lines)-max_lines} more lines — see the file)")
+
+MODULES = {
+    "WSI reader (real .svs tiling)": wsi,
+    "CATCH annotation parser (COCO/SQLite -> masks)": catch_annotations,
+    "Macenko stain normalisation": stain_normalization,
+    "Slide-level dataset split": dataset_split,
+}
+for title, mod in MODULES.items():
+    print(f"\n########## {title} ##########")
+    show_source(mod)
+"""))
+
+cells.append(code(r"""
+# Model + training code
+for title, mod in {
+    "Baseline / ResNet-34 U-Net": unet,
+    "Attention U-Net (Oktay 2018)": attention_unet,
+    "Classifier (ResNet-50 / EfficientNet-B3)": classifier,
+    "Losses (BCE + Dice)": losses,
+    "Segmentation metrics (Dice/IoU/Hausdorff)": metrics,
+    "Segmentation trainer": trainer,
+    "Classifier trainer (progressive unfreeze, frozen-BN fix)": classifier_trainer,
+}.items():
+    print(f"\n########## {title} ##########")
+    show_source(mod)
 """))
 
 notebook = {

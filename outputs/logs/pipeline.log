@@ -480,3 +480,35 @@
 2026-06-29 18:04:02 | INFO    | Best val Dice 0.9588 at epoch 2
 2026-06-29 18:04:25 | INFO    | TEST | dice 0.9646 | iou 0.9316 | pix-acc 0.9942 | hausdorff 113.32
 2026-06-29 18:04:42 | INFO    | Report written: E:\Project\canine-melanoma-catch\outputs\logs\unet_attention_test_report.json
+2026-06-29 20:10:20 | INFO    | Subtype folders ready under E:\Project\canine-melanoma-catch\data\raw: ['Melanoma', 'Mast Cell Tumor', 'SCC', 'PNST', 'Trichoblastoma', 'Histiocytoma', 'Plasmacytoma']
+2026-06-29 20:10:20 | INFO    | Annotations already present in E:\Project\canine-melanoma-catch\data\raw\annotations
+2026-06-29 20:10:20 | WARNING | No CATCH whole-slide images found in E:\Project\canine-melanoma-catch\data\raw
+2026-06-29 20:10:20 | INFO    | 
+================ CATCH dataset download (TCIA) ================
+Reference : Wilm et al. (2022) 'Pan-tumor CAnine cuTaneous Cancer Histology
+            (CATCH) dataset', Scientific Data 9, 588.
+DOI       : 10.7937/TCIA.2M93-FX66
+Collection: https://www.cancerimagingarchive.net/collection/catch/
+Contents  : 350 .svs WSIs (50 each of 7 tumour subtypes) + 12,424 polygon
+            annotations (MS-COCO JSON + SQLite3).
+
+1. Create a free TCIA account and accept the CATCH data-use agreement.
+2. On the collection page, download the '.tcia' manifest (images) and the
+   supplemental annotation archive (COCO JSON + SQLite).
+3. Get the NBIA Data Retriever (GUI) OR install the Python client:
+       pip install nbiatoolkit
+4a. GUI : open the manifest in NBIA Data Retriever, save slides into data/raw/.
+4b. CLI : python -m src.data_acquisition.download_catch --manifest <file>.tcia
+5. Unzip the annotation archive so the COCO .json (and/or .sqlite) sits under
+   data/raw/ (any subfolder — it is auto-discovered).
+6. Re-run this script (no args) to verify the download.
+
+Recommended on-disk layout (subtype folders make labelling unambiguous):
+    data/raw/
+      Melanoma/*.svs   Mast cell tumor/*.svs   Squamous cell carcinoma/*.svs
+      Peripheral nerve sheath tumor/*.svs   Trichoblastoma/*.svs
+      Histiocytoma/*.svs   Plasmacytoma/*.svs
+      annotations/CATCH.json        (MS-COCO polygons)
+==============================================================
+
+2026-06-29 20:10:20 | INFO    | Whole-slide images (522 GB) download separately via Aspera: https://www.cancerimagingarchive.net/collection/catch/
