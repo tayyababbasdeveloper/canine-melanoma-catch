@@ -294,7 +294,7 @@ logits = base(x); target = (torch.rand(2,1,256,256) > 0.5).float()
 print("Dice loss:", round(float(DiceLoss()(logits, target)), 4))
 m = SegMetrics(); m.update(logits, target)
 print("metrics:", {k: round(v,4) for k,v in m.compute().items() if k!='hausdorff'})
-print("\\nAll inlined models, losses and metrics run correctly.")
+print("All inlined models, losses and metrics run correctly.")
 """))
 
 # =========================================================================== #
