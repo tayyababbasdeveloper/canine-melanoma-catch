@@ -57,6 +57,13 @@ def inline_module(rel_path: str) -> str:
             if "(" in line and ")" not in line:
                 skip_paren = True
             continue
+        # Neutralise headless-backend switches so the notebook plots inline
+        # (savefig still works under the inline backend).
+        if s.replace(" ", "").startswith('matplotlib.use("Agg")') or \
+           s.replace(" ", "").startswith("matplotlib.use('Agg')"):
+            indent = line[:len(line) - len(s)]
+            out.append(indent + "pass  # matplotlib.use('Agg') removed for inline plots")
+            continue
         out.append(line)
     body = "\n".join(out)
     body = body.replace("Path(__file__).resolve().parents[2]", "ROOT")
