@@ -512,3 +512,24 @@ Recommended on-disk layout (subtype folders make labelling unambiguous):
 ==============================================================
 
 2026-06-29 20:10:20 | INFO    | Whole-slide images (522 GB) download separately via Aspera: https://www.cancerimagingarchive.net/collection/catch/
+2026-06-29 20:13:27 | INFO    | DEMO mode: generating 3 slides/class for ['melanocytic', 'mast_cell', 'squamous_cell']
+2026-06-29 20:13:32 | INFO    | Classes (subtype mode): {'mast_cell': 0, 'melanocytic': 1, 'squamous_cell': 2}
+2026-06-29 20:13:34 | INFO    |   melanocytic_00     [melanocytic] -> 28 patches
+2026-06-29 20:13:35 | INFO    |   melanocytic_01     [melanocytic] -> 33 patches
+2026-06-29 20:13:37 | INFO    |   melanocytic_02     [melanocytic] -> 22 patches
+2026-06-29 20:13:38 | INFO    |   mast_cell_00       [mast_cell] -> 5 patches
+2026-06-29 20:13:40 | INFO    |   mast_cell_01       [mast_cell] -> 33 patches
+2026-06-29 20:13:41 | INFO    |   mast_cell_02       [mast_cell] -> 29 patches
+2026-06-29 20:13:43 | INFO    |   squamous_cell_00   [squamous_cell] -> 20 patches
+2026-06-29 20:13:44 | INFO    |   squamous_cell_01   [squamous_cell] -> 35 patches
+2026-06-29 20:13:45 | INFO    |   squamous_cell_02   [squamous_cell] -> 19 patches
+2026-06-29 20:13:45 | INFO    | Total patches: 224
+2026-06-29 20:13:45 | INFO    | Split (patches): train=92 val=74 test=58
+2026-06-29 20:13:45 | INFO    | DONE. Manifests in E:\Project\canine-melanoma-catch\data\processed\cls_splits
+2026-06-29 20:13:50 | INFO    | DEMO mode: generating synthetic H&E slides
+2026-06-29 20:13:51 | INFO    | Processing 2 slide(s)
+2026-06-29 20:13:53 | INFO    |   demo_slide_bluish.png -> 12 patches (label=demo_bluish)
+2026-06-29 20:13:55 | INFO    |   demo_slide_pinkish.png -> 14 patches (label=demo_pinkish)
+2026-06-29 20:13:55 | INFO    | Quality report written: E:\Project\canine-melanoma-catch\outputs\logs\quality_report.csv
+2026-06-29 20:13:56 | INFO    | Split: train=18 val=4 test=4 (total=26)
+2026-06-29 20:13:56 | INFO    | DONE. Figures in E:\Project\canine-melanoma-catch\outputs\figures, reports in E:\Project\canine-melanoma-catch\outputs\logs

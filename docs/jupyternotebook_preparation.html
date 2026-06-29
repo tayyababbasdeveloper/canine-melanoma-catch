@@ -63,11 +63,13 @@
   project so far: preprocessing (W1–2), U-Net segmentation (W3–4), the Attention U-Net
   (W5) and tumour-subtype classification (W6).</p>
 
-  <div class="note"><b>Read first — honest data status.</b> No real CATCH slides have been
-  processed yet; every figure in the notebook is computed on <b>synthetic</b> slides while
-  the (license-gated, ~hundreds-of-GB) TCIA download is arranged. The synthetic "tumours"
-  and "subtypes" are drawn shapes/colours, so the numbers validate the <b>code</b>, not the
-  histology. The pipeline is now <b>real-data-ready</b> — see "Running on real CATCH" below.</div>
+  <div class="note"><b>Read first — honest data status.</b> The <b>real CATCH annotations are
+  downloaded</b> (<code>data/raw/annotations/CATCH.json</code> + <code>CATCH.sqlite</code>,
+  ~190 MB), so the notebook shows the <b>real 7-class distribution (50 slides each) and real
+  tumour polygons</b> in §2a–2b. The <b>522 GB of whole-slide images</b> do not fit on this
+  disk (≈59 GB free) and download only via an interactive Aspera plugin, so the model-training
+  cells (§3–6) still run on <b>synthetic</b> slides as a pipeline check. The code is identical
+  for real slides — see "Running on real CATCH" below.</div>
 
   <h2><small>Step by step</small>Opening the notebook</h2>
   <p class="lead">Jupyter often opens at your home folder (e.g. <code>C:\Users\Admin</code>).
@@ -99,10 +101,21 @@ jupyter lab notebooks\CATCH_Melanoma_Project.ipynb</code></pre>
     <div class="cell"><span class="tag">Code · §1</span><h4>Setup</h4>
       <p>Finds the project root, loads <code>config.yaml</code>, defines small
       <code>show_img</code>/<code>load_json</code> helpers. Run this first.</p></div>
-    <div class="cell"><span class="tag md">Markdown+Code · §2</span><h4>Dataset &amp; scale</h4>
-      <p>States the honest data status and the real CATCH spec (350 <code>.svs</code>, 7
-      subtypes, 12,424 polygon annotations). Prints current patch counts and a
-      class-distribution bar chart so the imbalance is explicit.</p></div>
+    <div class="cell"><span class="tag md">Markdown · §2</span><h4>Dataset &amp; scale</h4>
+      <p>The real CATCH spec (350 <code>.svs</code> = 522 GB, 7 subtypes, 12,424 polygon
+      annotations) and exactly what is on this machine (annotations yes, WSIs no).</p></div>
+    <div class="cell"><span class="tag">Code · §2a</span><h4>Where the data lives</h4>
+      <p>Prints the real <code>data/raw/</code> folder: the 7 subtype folders (Melanoma,
+      Mast Cell Tumor, SCC, PNST, Trichoblastoma, Histiocytoma, Plasmacytoma) and the
+      downloaded annotation files with their sizes — answers "show in the folder where the
+      data is".</p></div>
+    <div class="cell"><span class="tag">Code · §2b</span><h4>REAL class distribution &amp; polygons</h4>
+      <p>Reads the real <code>CATCH.json</code> and plots the genuine <b>50-slides-per-subtype</b>
+      distribution and annotations-per-class, then rasterises a <b>real tumour polygon</b> into
+      a mask — all from real data, no synthetic.</p></div>
+    <div class="cell"><span class="tag">Code · §2c</span><h4>Demo dataset sizes</h4>
+      <p>Patch counts for the synthetic demo that the training cells use, with the
+      class-imbalance bar chart.</p></div>
     <div class="cell"><span class="tag">Code · §3</span><h4>Weeks 1–2 — preprocessing (live)</h4>
       <p>Runs the real steps on one synthetic slide: original → <b>Macenko</b> stain
       normalisation → tissue mask → ground-truth tumour mask, plus multi-magnification
@@ -128,6 +141,11 @@ jupyter lab notebooks\CATCH_Melanoma_Project.ipynb</code></pre>
     <div class="cell"><span class="tag md">Markdown · §8</span><h4>Summary &amp; next steps</h4>
       <p>What is done (W1–6) and what is next (EfficientNet-B3, real-data run, 5-fold CV,
       McNemar's test, Grad-CAM).</p></div>
+    <div class="cell"><span class="tag">Code · Appendix</span><h4>All source code, inline</h4>
+      <p>Prints the actual source of every key module (WSI reader, annotation parser,
+      Macenko, slide-level split, U-Nets, Attention U-Net, classifier, losses, metrics,
+      both trainers) straight from <code>src/</code> — so the whole implementation is
+      reviewable inside the notebook, as the supervisor asked.</p></div>
   </div>
 
   <h2><small>Results to expect</small>What the figures will say</h2>

@@ -5,14 +5,14 @@
     "squamous_cell": 2
   },
   "patches": {
-    "train": 148,
-    "val": 80,
-    "test": 73,
-    "total": 301
+    "train": 92,
+    "val": 74,
+    "test": 58,
+    "total": 224
   },
   "class_distribution": {
-    "melanocytic": 117,
-    "squamous_cell": 107,
-    "mast_cell": 77
+    "melanocytic": 83,
+    "squamous_cell": 74,
+    "mast_cell": 67
   }
 }
