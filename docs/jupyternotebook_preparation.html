@@ -98,55 +98,42 @@ jupyter lab notebooks\CATCH_Melanoma_Project.ipynb</code></pre>
       what we classify (tumour subtype), how many classes (7 on real CATCH), and where
       balancing happens (segmentation imbalance via BCE <code>pos_weight</code>+Dice;
       subtype imbalance via class-weighted cross-entropy, <b>after</b> segmentation).</p></div>
-    <div class="cell"><span class="tag">Code · §1</span><h4>Setup</h4>
-      <p>Finds the project root, loads <code>config.yaml</code>, defines small
-      <code>show_img</code>/<code>load_json</code> helpers. Run this first.</p></div>
-    <div class="cell"><span class="tag md">Markdown · §2</span><h4>Dataset &amp; scale</h4>
-      <p>The real CATCH spec (350 <code>.svs</code> = 522 GB, 7 subtypes, 12,424 polygon
-      annotations) and exactly what is on this machine (annotations yes, WSIs no).</p></div>
-    <div class="cell"><span class="tag">Code · §2a</span><h4>Where the data lives</h4>
-      <p>Prints the real <code>data/raw/</code> folder: the 7 subtype folders (Melanoma,
-      Mast Cell Tumor, SCC, PNST, Trichoblastoma, Histiocytoma, Plasmacytoma) and the
-      downloaded annotation files with their sizes — answers "show in the folder where the
-      data is".</p></div>
-    <div class="cell"><span class="tag">Code · §2b</span><h4>REAL class distribution &amp; polygons</h4>
-      <p>Reads the real <code>CATCH.json</code> and plots the genuine <b>50-slides-per-subtype</b>
-      distribution and annotations-per-class, then rasterises a <b>real tumour polygon</b> into
-      a mask — all from real data, no synthetic.</p></div>
-    <div class="cell"><span class="tag">Code · §2c</span><h4>Demo dataset sizes</h4>
-      <p>Patch counts for the synthetic demo that the training cells use, with the
-      class-imbalance bar chart.</p></div>
-    <div class="cell"><span class="tag">Code · §3</span><h4>Weeks 1–2 — preprocessing (live)</h4>
-      <p>Runs the real steps on one synthetic slide: original → <b>Macenko</b> stain
-      normalisation → tissue mask → ground-truth tumour mask, plus multi-magnification
-      (5×/10×/20×) patch counts.</p></div>
-    <div class="cell"><span class="tag">Code · §4</span><h4>Weeks 3–4 — U-Net segmentation</h4>
-      <p>Loads the baseline vs. ResNet-34 comparison and shows test predictions
-      (image | truth | prediction) and training curves.</p></div>
-    <div class="cell"><span class="tag">Code · §5</span><h4>Week 5 — Attention U-Net (3-way)</h4>
-      <p>The full three-way table (baseline / ResNet-34 / Attention) and the attention
-      model's predictions. Built on the same backbone as the baseline, so the comparison
-      isolates the attention effect.</p></div>
-    <div class="cell"><span class="tag">Code · §5b</span><h4>Real-data ingestion (new)</h4>
-      <p>Demonstrates how real CATCH polygons become masks: a synthetic polygon is
-      rasterised to a tile mask with <code>rasterise_tile_mask</code> — the same function
-      used on the real COCO file. Shows the project is genuinely wired for <code>.svs</code>
-      + annotations, not just demo PNGs.</p></div>
-    <div class="cell"><span class="tag">Code · §6</span><h4>Week 6 — ResNet-50 classification</h4>
-      <p>Prints the classifier's test metrics and the confusion matrix. On real data this
-      is the 7 CATCH subtypes (or binary melanoma-vs-rest via <code>classification.mode</code>).</p></div>
-    <div class="cell"><span class="tag md">Markdown · §7</span><h4>Running on the REAL CATCH dataset</h4>
-      <p>The exact folder layout and commands for the real run (auto-detects <code>.svs</code>
-      + annotations; needs OpenSlide).</p></div>
-    <div class="cell"><span class="tag md">Markdown · §8</span><h4>Summary &amp; next steps</h4>
-      <p>What is done (W1–6) and what is next (EfficientNet-B3, real-data run, 5-fold CV,
-      McNemar's test, Grad-CAM).</p></div>
-    <div class="cell"><span class="tag">Code · Appendix</span><h4>All source code, inline</h4>
-      <p>Prints the actual source of every key module (WSI reader, annotation parser,
-      Macenko, slide-level split, U-Nets, Attention U-Net, classifier, losses, metrics,
-      both trainers) straight from <code>src/</code> — so the whole implementation is
-      reviewable inside the notebook, as the supervisor asked.</p></div>
+    <div class="cell"><span class="tag">Code · §1</span><h4>Setup, imports &amp; configuration</h4>
+      <p>Finds the project root, imports the libraries, and <b>embeds the full config
+      inline</b> (a verbatim copy of <code>config.yaml</code>). Run this first.</p></div>
+    <div class="cell"><span class="tag">Code · §2</span><h4>The full source code — inline (25 modules)</h4>
+      <p><b>This is the key change the supervisor asked for.</b> Every project module
+      is <b>defined as a runnable cell here</b> — preprocessing (image I/O, tissue,
+      Macenko, patch extraction, WSI reader, annotation parser, slide-level split),
+      datasets &amp; augmentation, the models (baseline/ResNet-34/Attention U-Net,
+      ResNet-50 classifier, losses, metrics), the trainers, and the demo generators.
+      <b>No <code>src/</code> imports</b> — the notebook is self-contained.</p></div>
+    <div class="cell"><span class="tag">Code · §2.8</span><h4>Sanity check — the inlined code runs</h4>
+      <p>Builds each model, runs a forward pass (prints output shapes &amp; param counts:
+      BaselineUNet 31.0M, Attention 31.4M, ResNet-50 23.5M) and computes the
+      losses/metrics — proving the inlined definitions are correct.</p></div>
+    <div class="cell"><span class="tag">Code · §3</span><h4>Real CATCH data — folder &amp; annotations</h4>
+      <p>Prints the real <code>data/raw/</code> folder (7 subtype folders + annotation
+      file sizes), then reads the real <code>CATCH.json</code> to plot the genuine
+      <b>50-slides-per-subtype</b> distribution and rasterise a <b>real tumour polygon</b>
+      into a mask — all from real data.</p></div>
+    <div class="cell"><span class="tag">Code · §4</span><h4>Weeks 1–2 — live preprocessing demo</h4>
+      <p>Uses the inlined code to run Macenko → tissue mask → tumour mask →
+      multi-magnification patches on a generated slide.</p></div>
+    <div class="cell"><span class="tag">Code · §5</span><h4>Weeks 3–6 — results</h4>
+      <p>The 3-way segmentation table (baseline / ResNet-34 / Attention) and the
+      ResNet-50 classification metrics + confusion matrix, loaded from the saved runs.</p></div>
+    <div class="cell"><span class="tag md">Markdown · §6–7</span><h4>Running on real data + summary</h4>
+      <p>The exact commands for the full real run (the same inlined code), and the
+      W1–6 summary / next steps.</p></div>
   </div>
+
+  <div class="ok"><b>What changed for this version.</b> The notebook is now
+  <b>fully self-contained</b>: all 25 source modules are defined inline as runnable
+  cells (§2), with zero hidden <code>src/</code> imports — exactly the supervisor's
+  requirement that "all the code is in the notebook". It is rebuilt from
+  <code>scripts/build_full_notebook.py</code>, which inlines the live <code>src/</code>
+  files so the notebook never drifts from the real code.</div>
 
   <h2><small>Results to expect</small>What the figures will say</h2>
   <h3>Segmentation — three-way comparison (synthetic, matched 2-epoch CPU runs)</h3>
